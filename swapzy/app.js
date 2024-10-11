@@ -2,7 +2,7 @@
 
 const express = require('express'); // Include express module
 const dotenv = require('dotenv'); // Include dotenv module (for loading environment variables)
-const sequelize = require('./config/database');
+const sequelize = require('./sequelize/config/database');
 
 
 var app = express(); // Create express application
