@@ -102,6 +102,8 @@ npm install --save-dev nodemon
 - Reduce the risk of exposing sensitive information by keeping it aout of the codebase and Git.
 - Easily switch beetween environments by changing the environment variables.
 
+![Some info](https://stackoverflow.com/questions/48605484/environment-variables-env-in-node-js-express)
+
 ## 4. Setup ``app.js``
 
 Create file ``app.js`` in the root of the project. This will be the entry point of the Node.js application.
@@ -112,13 +114,28 @@ Write basic setup code for the app.
 
 ``.env`` file will store database credentials, OAuth client IDs, server settings, etc.
 
+> The port for the database must be **5432** as it is the port PostgreSQL works with.
+
 ## 6. Connect to PostgreSQL with Sequelize
+
+### Create the database locally
+
+1. Create database: ``create database swapzy_db;``
+2. Create user: ``create user dev_username with encrypted password 'dev_passwd';``
+3. Grant permissions to user: ``grant all privileges on database swapzy_db to dev_username;``
+4. Exit psql prompt: ``\q``
 
 Create a file ``config/database.js`` to configure Sequelize.
 
 ## 7. Setup Sequelize Models
 
 Create a folder for models (What is a Sequelize Model?) ``models/``. Add a basic user model with hashed passwords, ``models/user.js``.
+
+![Info on models](https://sequelize.org/docs/v6/core-concepts/model-basics/)
+
+![Info on defining models](https://sequelize.org/api/v6/class/src/model.js~model#static-method-init)
+
+> No need to use primary key column option nor define a primary key as sequelize does it automatically
 
 ## 8. Sync the Database
 
