@@ -4,7 +4,10 @@ Ignoring for upload on github node_modules/ and .env. Make sure the dependencies
 
 Add protection such as test variables to replace the env ones in case they are not locally.
 
+## Done
+- db created
+- users table created (maybe change to lowercase and redo migration)
+
 ## To do
-- create new user model using sequelize-cli
-- check if files config and database may be in conflict and remove redundant info
-- finish watching getting started seq + postgre video
+- finish creating tables (first decide db table structure)
+- implement crud operations
