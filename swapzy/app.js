@@ -1,12 +1,11 @@
 // This file is the entry point of the application
 
 const express = require('express'); // Include express module
-const dotenv = require('dotenv'); // Include dotenv module (for loading environment variables)
+require('dotenv').config(); // Load environment variables
 const sequelize = require('./sequelize/config/database');
 
 
 var app = express(); // Create express application
-dotenv.config(); // Load environment variables
 
 
 // Hello world example - https://expressjs.com/en/starter/hello-world.html
