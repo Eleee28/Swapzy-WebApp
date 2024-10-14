@@ -43,3 +43,7 @@ npx sequelize-cli db:migrate
 # Undo migration
 npx sequelize-cli db:migrate:undo
 ~~~
+
+## Database structure
+
+![db structure](db_structure.jpg)
