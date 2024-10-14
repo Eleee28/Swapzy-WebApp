@@ -44,7 +44,7 @@ After that, a ``package.json`` file will be generated:
 ## 3. Install Dependencies
 
 ~~~ bash
-npm install express sequelize pg pg-hstore passport passport-google-oauth20 bcryptjs dotenv
+npm install express sequelize sequelize-cli pg pg-hstore passport passport-google-oauth20 bcryptjs dotenv
 
 npm install --save-dev nodemon
 ~~~
@@ -66,6 +66,8 @@ npm install --save-dev nodemon
 - Simplified Database Management, with the use of JavaScript objects instead of SQL queries, to provide a more intuitive database interaction.
 - Models map to database tables and Migrations allow the management of database schema changes easily.
 - Easy to switch between different databases without changing the code much.
+
+**Sequelize CLI** is the command line interface of sequelize and it allows running terminal commands to create models, run migrations, etc.
 
 ### Passport.js - Authentication Middleware
 **Passport.js** is an authentication middleware for Node.js. It supports various authetication strategies. For this project OAuth.
