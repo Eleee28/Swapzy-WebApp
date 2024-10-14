@@ -23,7 +23,7 @@ const config = {
 module.exports = {
     development: {
         ...config, // spread operator
-        loggin: (msg) => console.log(msg), // for development show queries on console
+        logging: (msg) => console.log(msg), // for development show queries on console
     },
     // If needed
     test: {
