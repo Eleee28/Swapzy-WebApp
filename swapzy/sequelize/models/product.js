@@ -2,7 +2,7 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class product extends Model {
+  class Product extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -10,28 +10,72 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
       //seller foreign key
+      this.belongsTo(models.Users, { foreignKey: 'seller_id' });
+
+      this.belongsTo(models.Category, { foreignKey: 'category_id' });
+
+      this.hasOne(models.Sale, { foreignKey: 'product_id' });
+
+      this.hasMany(models.Favorite, { foreignKey: 'product_id' });
     }
   }
-  product.init({
-    title: {
+  Product.init({
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    seller_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id'
+      }
+    },
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: DataTypes.STRING,
+    description: {
+      type: DataTypes.TEXT,
+    },
+    condition: {
+      type: DataTypes.ENUM('new', 'like new', 'used', 'damaged'),
+      allowNull: false,
+    },
     price: {
-      type: DataTypes.DOUBLE,
+      type: DataTypes.DECIMAL,
       allowNull: false,
     },
-    /*
+    category_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'category',
+        key: 'id'
+      }
+    },
     location: {
-      type: DataTypes.GEOMETRY, // or GEOGRAPHY
+      type: DataTypes.GEOGRAPHY('POINT', 4326),
       allowNull: false,
     },
-    */
+    image_url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    status: {
+      type: DataTypes.ENUM('available', 'sold', 'reserved'),
+      allowNull: false,
+    },
   }, {
     sequelize,
-    modelName: 'product',
+    modelName: 'Product',
+    tableName: 'product',
+    underscored: true,
   });
-  return product;
+  return Product;
 };
