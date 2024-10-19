@@ -2,43 +2,35 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('product', {
+    await queryInterface.createTable('sale', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      buyer_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       seller_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      name: {
-        type: Sequelize.STRING,
+      product_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
-      description: {
-        type: Sequelize.TEXT,
-      },
-      condition: {
-        type: Sequelize.ENUM('new', 'like new', 'used', 'damaged'),
-        allowNull: false,
-      },
-      price: {
+      amount: {
         type: Sequelize.DECIMAL,
         allowNull: false,
       },
-      location: {
-        type: Sequelize.GEOGRAPHY('POINT', 4326),
-        allowNull: false,
-      },
-      image_url: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       status: {
-        type: Sequelize.ENUM('available', 'sold', 'reserved'),
+        type: Sequelize.ENUM('pending', 'completed', 'cancelled'),
         allowNull: false,
+      },
+      sale_date: {
+        type: Sequelize.DATE
       },
       created_at: {
         allowNull: false,
@@ -51,6 +43,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('product');
+    await queryInterface.dropTable('sale');
   }
 };
