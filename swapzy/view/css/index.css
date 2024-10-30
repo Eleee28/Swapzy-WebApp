@@ -39,7 +39,7 @@ h1 {
 }
 
 .slogan {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: #232528;
     margin-bottom: 30px;
 }
@@ -50,7 +50,7 @@ h1 {
     padding: 15px 30px;
     text-decoration: none;
     border-radius: 5px;
-    font-size: 1.1rem;
+    font-size: 2rem;
     transition: background-color 0.3s ease;
 }
 
