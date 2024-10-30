@@ -12,12 +12,24 @@
         <h1>Log in here</h1>
         
         <form action="/login" method="post">
-            <input type="text" autocomplete="off" name="text" class="input" placeholder="Username">
+            <input type="text" autocomplete="off" name="username" class="input" placeholder="Username">
             <br><br>
-            <input type="password" autocomplete="off" name="text" class="input" placeholder="Password">
+            <input type="password" autocomplete="off" name="password" class="input" placeholder="Password">
             <br><br>
-            <a href="main.html" class="btn">Log in</a>
+            <button type="submit" class="btn">Log in</button>
         </form>
+
+        <p class="text">Or</p>
+
+        <!-- Google Login Button -->
+        <button class="google-btn">
+            <img src="../images/google_logo.png" alt="Google Logo" class="google-icon">
+            Continue with Google
+        </button>
+
+        <!-- Registration Prompt -->
+        <p class="text">Do not have an account?</p>
+        <a href="signup.html" class="register-link">Sign up</a>
         
     </div>
 </body>
