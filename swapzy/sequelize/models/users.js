@@ -1,0 +1,66 @@
+'use strict';
+const { Model } = require('sequelize');
+
+module.exports = (sequelize, DataTypes) => {
+  class Users extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+
+      this.hasMany(models.Product, { foreignKey: 'seller_id' });
+
+      this.hasMany(models.Sale, { foreignKey: 'buyer_id' });
+
+      this.hasMany(models.Sale, { foreignKey: 'seller_id' });
+
+      this.hasMany(models.Favorite, { foreignKey: 'user_id' });
+    }
+  }
+  Users.init({
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement:true,
+      primaryKey: true,
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+      },
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    location: {
+      type: DataTypes.GEOGRAPHY('POINT', 4326),
+      comment: 'Location (latitude, longitude)',
+    },
+    profile_img: {
+      type: DataTypes.STRING,
+    },
+    /*
+    rating: {
+      type: DataTypes.DECIMAL(3, 2),
+      defaultValue: 0.0,
+    }, */
+  }, {
+    sequelize,
+    modelName: 'Users',
+    tableName: 'users',
+    underscored: true,
+  });
+  return Users;
+};

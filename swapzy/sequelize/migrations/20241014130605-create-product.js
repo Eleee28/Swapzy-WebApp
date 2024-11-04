@@ -9,22 +9,42 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      title: {
+      seller_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT,
       },
-      price: {
-        type: Sequelize.DOUBLE,
+      condition: {
+        type: Sequelize.ENUM('new', 'like new', 'used', 'damaged'),
         allowNull: false,
       },
-      createdAt: {
+      price: {
+        type: Sequelize.DECIMAL,
+        allowNull: false,
+      },
+      location: {
+        type: Sequelize.GEOGRAPHY('POINT', 4326),
+        allowNull: false,
+      },
+      image_url: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      status: {
+        type: Sequelize.ENUM('available', 'sold', 'reserved'),
+        allowNull: false,
+      },
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
