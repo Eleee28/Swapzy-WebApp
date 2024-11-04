@@ -70,11 +70,19 @@ body {
     transition: filter 0.3s ease;
 }
 
+.nav-btn span {
+    transition: filter 0.4s ease;
+}
+
 .nav-btn:hover {
     background-color: #a44cd3;
 }
 
 .nav-btn:hover img {
+    filter: brightness(0) invert(1);
+}
+
+.nav-btn:hover span{
     filter: brightness(0) invert(1);
 }
 
@@ -206,7 +214,7 @@ body {
 
 
 /* Reecently Uploaded Styles */
-.recently-uploaded-section {
+.recently-uploaded-section, .favorites-section{
     padding: 20px;
     text-align: left;
     margin: 50px;
@@ -245,7 +253,7 @@ body {
 
 /* Product Card Styling */
 .product-card {
-    min-width: calc(100% / 5 - 20px); /* Adjusts to display 5 products at a time and spacing between them */
+    min-width: calc(100% / 5 - 15px); /* Adjusts to display 5 products at a time and spacing between them */
     margin-right: 20px;
     background-color: #ffffff;
     border: 1px solid #ddd;
@@ -278,6 +286,11 @@ body {
 .product-price {
     font-size: 2rem;
     color: #333;
+}
+
+.product-title {
+    font-size: 2rem;
+    color: #555;
 }
 
 /* Carousel Buttons */
@@ -397,11 +410,7 @@ body {
     }
   }
 
-.product-title {
-    font-size: 2rem;
-    color: #555;
-}
-
+  
 /* Footer Styles */
 .footer {
     position: relative;

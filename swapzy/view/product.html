@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swapzy - Main Page</title>
+    <link rel="stylesheet" href="../css/product.css">
+</head>
+<body>
+    <!-- Header Section-->
+    <header class="header">
+        <!-- Logo Container-->
+        <a href="main.html" class="logo-container">
+            <img src="../images/swapzy_logo.png" alt="Swapzy Logo" class="logo">
+            <span class="logo-text">SWAPZY</span> 
+        </a>
+
+        <!-- Search Input with Icon and Button -->
+        <!-- From Uiverse.io by garerim https://uiverse.io/garerim/rare-moth-56 -->
+        <div class="container-input">
+            <input type="text" name="text" class="input">
+            <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+                <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
+            </svg>
+            <button class="search-btn">Search</button>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <nav class="nav-buttons">
+            <a href="favorites.html" class="nav-btn">
+                <img src="../images/heart.png">
+                <span class="btn-text">Favorites</span>
+            </a>
+            <a href="notifications.html" class="nav-btn">
+                <img src="../images/notification.png" alt="Notifications Icon">
+                <span class="btn-text">Notifications</span>
+            </a>
+            <a href="profile.html" class="nav-btn">
+                <img src="../images/profile.png" alt="Profile Icon">
+                <span class="btn-text">Profile</span>
+            </a>
+            <a href="sell.html" class="nav-btn">
+                <img src="../images/sell.png" alt="Sell Icon">
+                <span class="btn-text">Sell</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- Categories Navbar -->
+    <nav class="navbar">
+        <div class="dropdown">
+            <button class="dropbtn">Categories</button>
+            <div class="dropdown-content" id="category-list">
+                <!-- Dynamic categories from backend will be loaded here -->
+            </div>
+        </div>
+        <!-- Static Links to Categories -->
+        <a href="#">Electronics</a>
+        <a href="#">Clothing</a>
+        <a href="#">Books</a>
+        <a href="#">Home & Garden</a>
+        <a href="#">Toys</a>
+    </nav>
+
+    <!-- Main Content -->
+
+    <!-- Product Card Example -->
+    <div class="product-card">
+
+        <!-- User info example -->
+        <div class="user-info">
+            <img src="../images/profile_picture_sample.jpg" alt="Profile Image" class="profile-image">
+            <h2 class="user-name">User name</h2>
+        </div>
+
+        <!-- Like Button -->
+        <!-- From Uiverse.io by catraco https://uiverse.io/catraco/perfect-panda-49 --> 
+        <div title="Like" class="main-heart-container">
+            <input id="Give-It-An-Id" class="checkbox" type="checkbox">
+            <div class="svg-container">
+                <svg xmlns="http://www.w3.org/2000/svg" class="svg-outline" viewBox="0 0 24 24">
+                    <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585,18.4a2.973,2.973,0,0,1-3.83,0C4.947,16.006,2,11.87,2,8.967a4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,11,8.967a1,1,0,0,0,2,0,4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,22,8.967C22,11.87,19.053,16.006,13.915,20.313Z">
+                    </path>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="svg-filled" viewBox="0 0 24 24">
+                    <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z">
+                    </path>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" height="100" width="100" class="svg-celebrate">
+                    <polygon points="10,10 20,20"></polygon>
+                    <polygon points="10,50 20,50"></polygon>
+                    <polygon points="20,80 30,70"></polygon>
+                    <polygon points="90,10 80,20"></polygon>
+                    <polygon points="90,50 80,50"></polygon>
+                    <polygon points="80,80 70,70"></polygon>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Product info example -->
+        <img src="../images/product_sample.jpeg" alt="Product Image" class="product-image">
+        <div class="product-info">
+            <p class="product-title">Product Name</p>
+            <span class="product-price">$20</span>
+            <p class="product-description">Imagina un atardecer en la playa, con el cielo pintado de tonos cálidos entre naranja y púrpura mientras el sol desciende en el horizonte. Las olas rompen suavemente en la orilla, creando una melodía relajante que se mezcla con el susurro de la brisa. La arena fresca se siente suave bajo los pies, y el aroma a sal marina inunda el aire. Algunas aves vuelan en formación, regresando a sus nidos en las rocas cercanas. Es un momento de paz, perfecto para desconectar y dejar que la naturaleza envuelva todos tus sentidos.</p>
+        </div>
+
+        <!-- Location Map -->
+        <p class="location-title">Location</p>
+
+         <div class="location-map">
+         </div>
+        
+    </div>
+
+    <!--  Related Products Carousel -->
+    <div class="related-products-section">
+        <h2 class="section-title">Related Products</h2>
+        <div class="carousel-container">
+            <button class="carousel-btn prev-btn" onclick="moveCarousel(-1)">&#10094;</button>
+
+                <div class="carousel">
+
+                    <div class="carousel-track">
+
+                        <!-- Product Card Example -->
+                        <div class="related-product-card">
+                            <img src="../images/product_sample.jpeg" alt="Product Image" class="related-product-image">
+                            <div class="related-product-info">
+                                <span class="related-product-price">$20</span>
+
+                                <!-- From Uiverse.io by catraco https://uiverse.io/catraco/perfect-panda-49 --> 
+                                <div title="Like" class="heart-container">
+                                    <input id="Give-It-An-Id" class="checkbox" type="checkbox">
+                                    <div class="svg-container">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-outline" viewBox="0 0 24 24">
+                                            <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585,18.4a2.973,2.973,0,0,1-3.83,0C4.947,16.006,2,11.87,2,8.967a4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,11,8.967a1,1,0,0,0,2,0,4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,22,8.967C22,11.87,19.053,16.006,13.915,20.313Z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-filled" viewBox="0 0 24 24">
+                                            <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="100" width="100" class="svg-celebrate">
+                                            <polygon points="10,10 20,20"></polygon>
+                                            <polygon points="10,50 20,50"></polygon>
+                                            <polygon points="20,80 30,70"></polygon>
+                                            <polygon points="90,10 80,20"></polygon>
+                                            <polygon points="90,50 80,50"></polygon>
+                                            <polygon points="80,80 70,70"></polygon>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <p class="related-product-title">Product Name</p>
+                        </div>
+                        <!-- Repeat product-card div for more products -->
+                        
+                        <div class="related-product-card">
+                            <img src="../images/product_sample.jpeg" alt="Product Image" class="related-product-image">
+                            <div class="related-product-info">
+                                <span class="related-product-price">$20</span>
+
+                                <!-- From Uiverse.io by catraco https://uiverse.io/catraco/perfect-panda-49 --> 
+                                <div title="Like" class="heart-container">
+                                    <input id="Give-It-An-Id" class="checkbox" type="checkbox">
+                                    <div class="svg-container">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-outline" viewBox="0 0 24 24">
+                                            <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585,18.4a2.973,2.973,0,0,1-3.83,0C4.947,16.006,2,11.87,2,8.967a4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,11,8.967a1,1,0,0,0,2,0,4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,22,8.967C22,11.87,19.053,16.006,13.915,20.313Z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-filled" viewBox="0 0 24 24">
+                                            <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="100" width="100" class="svg-celebrate">
+                                            <polygon points="10,10 20,20"></polygon>
+                                            <polygon points="10,50 20,50"></polygon>
+                                            <polygon points="20,80 30,70"></polygon>
+                                            <polygon points="90,10 80,20"></polygon>
+                                            <polygon points="90,50 80,50"></polygon>
+                                            <polygon points="80,80 70,70"></polygon>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <p class="related-product-title">Product Name</p>
+                        </div>
+
+                        <div class="related-product-card">
+                            <img src="../images/product_sample.jpeg" alt="Product Image" class="related-product-image">
+                            <div class="related-product-info">
+                                <span class="related-product-price">$20</span>
+
+                                <!-- From Uiverse.io by catraco https://uiverse.io/catraco/perfect-panda-49 --> 
+                                <div title="Like" class="heart-container">
+                                    <input id="Give-It-An-Id" class="checkbox" type="checkbox">
+                                    <div class="svg-container">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-outline" viewBox="0 0 24 24">
+                                            <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585,18.4a2.973,2.973,0,0,1-3.83,0C4.947,16.006,2,11.87,2,8.967a4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,11,8.967a1,1,0,0,0,2,0,4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,22,8.967C22,11.87,19.053,16.006,13.915,20.313Z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-filled" viewBox="0 0 24 24">
+                                            <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="100" width="100" class="svg-celebrate">
+                                            <polygon points="10,10 20,20"></polygon>
+                                            <polygon points="10,50 20,50"></polygon>
+                                            <polygon points="20,80 30,70"></polygon>
+                                            <polygon points="90,10 80,20"></polygon>
+                                            <polygon points="90,50 80,50"></polygon>
+                                            <polygon points="80,80 70,70"></polygon>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <p class="related-product-title">Product Name</p>
+                        </div>
+
+                        <div class="related-product-card">
+                            <img src="../images/product_sample.jpeg" alt="Product Image" class="related-product-image">
+                            <div class="related-product-info">
+                                <span class="related-product-price">$20</span>
+
+                                <!-- From Uiverse.io by catraco https://uiverse.io/catraco/perfect-panda-49 --> 
+                                <div title="Like" class="heart-container">
+                                    <input id="Give-It-An-Id" class="checkbox" type="checkbox">
+                                    <div class="svg-container">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-outline" viewBox="0 0 24 24">
+                                            <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585,18.4a2.973,2.973,0,0,1-3.83,0C4.947,16.006,2,11.87,2,8.967a4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,11,8.967a1,1,0,0,0,2,0,4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,22,8.967C22,11.87,19.053,16.006,13.915,20.313Z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-filled" viewBox="0 0 24 24">
+                                            <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="100" width="100" class="svg-celebrate">
+                                            <polygon points="10,10 20,20"></polygon>
+                                            <polygon points="10,50 20,50"></polygon>
+                                            <polygon points="20,80 30,70"></polygon>
+                                            <polygon points="90,10 80,20"></polygon>
+                                            <polygon points="90,50 80,50"></polygon>
+                                            <polygon points="80,80 70,70"></polygon>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <p class="related-product-title">Product Name</p>
+                        </div>
+
+                        <div class="related-product-card">
+                            <img src="../images/product_sample.jpeg" alt="Product Image" class="related-product-image">
+                            <div class="related-product-info">
+                                <span class="related-product-price">$20</span>
+
+                                <!-- From Uiverse.io by catraco https://uiverse.io/catraco/perfect-panda-49 --> 
+                                <div title="Like" class="heart-container">
+                                    <input id="Give-It-An-Id" class="checkbox" type="checkbox">
+                                    <div class="svg-container">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-outline" viewBox="0 0 24 24">
+                                            <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585,18.4a2.973,2.973,0,0,1-3.83,0C4.947,16.006,2,11.87,2,8.967a4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,11,8.967a1,1,0,0,0,2,0,4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,22,8.967C22,11.87,19.053,16.006,13.915,20.313Z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-filled" viewBox="0 0 24 24">
+                                            <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="100" width="100" class="svg-celebrate">
+                                            <polygon points="10,10 20,20"></polygon>
+                                            <polygon points="10,50 20,50"></polygon>
+                                            <polygon points="20,80 30,70"></polygon>
+                                            <polygon points="90,10 80,20"></polygon>
+                                            <polygon points="90,50 80,50"></polygon>
+                                            <polygon points="80,80 70,70"></polygon>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <p class="related-product-title">Product Name</p>
+                        </div>
+
+                        <div class="related-product-card">
+                            <img src="../images/product_sample.jpeg" alt="Product Image" class="related-product-image">
+                            <div class="related-product-info">
+                                <span class="related-product-price">$20</span>
+
+                                <!-- From Uiverse.io by catraco https://uiverse.io/catraco/perfect-panda-49 --> 
+                                <div title="Like" class="heart-container">
+                                    <input id="Give-It-An-Id" class="checkbox" type="checkbox">
+                                    <div class="svg-container">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-outline" viewBox="0 0 24 24">
+                                            <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585,18.4a2.973,2.973,0,0,1-3.83,0C4.947,16.006,2,11.87,2,8.967a4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,11,8.967a1,1,0,0,0,2,0,4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,22,8.967C22,11.87,19.053,16.006,13.915,20.313Z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-filled" viewBox="0 0 24 24">
+                                            <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="100" width="100" class="svg-celebrate">
+                                            <polygon points="10,10 20,20"></polygon>
+                                            <polygon points="10,50 20,50"></polygon>
+                                            <polygon points="20,80 30,70"></polygon>
+                                            <polygon points="90,10 80,20"></polygon>
+                                            <polygon points="90,50 80,50"></polygon>
+                                            <polygon points="80,80 70,70"></polygon>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <p class="related-product-title">Product Name</p>
+                        </div>
+
+                        <div class="related-product-card">
+                            <img src="../images/product_sample.jpeg" alt="Product Image" class="related-product-image">
+                            <div class="related-product-info">
+                                <span class="related-product-price">$20</span>
+
+                                <!-- From Uiverse.io by catraco https://uiverse.io/catraco/perfect-panda-49 --> 
+                                <div title="Like" class="heart-container">
+                                    <input id="Give-It-An-Id" class="checkbox" type="checkbox">
+                                    <div class="svg-container">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-outline" viewBox="0 0 24 24">
+                                            <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585,18.4a2.973,2.973,0,0,1-3.83,0C4.947,16.006,2,11.87,2,8.967a4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,11,8.967a1,1,0,0,0,2,0,4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,22,8.967C22,11.87,19.053,16.006,13.915,20.313Z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-filled" viewBox="0 0 24 24">
+                                            <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="100" width="100" class="svg-celebrate">
+                                            <polygon points="10,10 20,20"></polygon>
+                                            <polygon points="10,50 20,50"></polygon>
+                                            <polygon points="20,80 30,70"></polygon>
+                                            <polygon points="90,10 80,20"></polygon>
+                                            <polygon points="90,50 80,50"></polygon>
+                                            <polygon points="80,80 70,70"></polygon>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <p class="related-product-title">Product Name</p>
+                        </div>
+
+                    </div>
+
+                </div>
+            
+            <button class="carousel-btn next-btn" onclick="moveCarousel(1)">&#10095;</button>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo-container">
+            <img src="../images/swapzy_logo.png" alt="Swapzy Logo" class="footer-logo">
+            <span class="footer-logo-text">SWAPZY</span>
+        </div>
+
+        <!-- Footer info here -->
+
+    </footer>
+
+</body>
+</html>
