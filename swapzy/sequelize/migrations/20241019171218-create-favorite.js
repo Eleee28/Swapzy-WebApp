@@ -17,9 +17,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      fav_date: {
-        type: Sequelize.DATE
-      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

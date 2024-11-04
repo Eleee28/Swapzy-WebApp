@@ -39,9 +39,6 @@ module.exports = (sequelize, DataTypes) => {
         model: 'product',
         key: 'id'
       }
-    },
-    fav_date: {
-      type: DataTypes.DATE
     }
   }, {
     sequelize,
