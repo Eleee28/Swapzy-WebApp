@@ -4,8 +4,8 @@ const express = require('express'); // Include express module
 const http = require('http');
 require('dotenv').config(); // Load environment variables
 const sequelize = require('./sequelize/config/database');
-const { Users, Product } = require ('./sequelize/models'); // Import models
-
+//const { Users, Product } = require ('./sequelize/models'); // Import models
+const userRoutes = require('./routes/userRoutes');
 
 var app = express(); // Create express application
 
@@ -26,6 +26,9 @@ app.get('/', function (req, res) {
     res.send('Welcome to Swapzy Server!');
 });
 
+app.use('/users', userRoutes);
+
+/* NOTE - delete
 
 // Serving data from database tests
 
@@ -98,6 +101,8 @@ app.get('/products/:id', async function (req, res) {
         res.status(500).send("Internal Server Error");
     }
 });
+
+*/
 
 // Close database connection when app is terminated
 process.on('SIGINT', () => {
