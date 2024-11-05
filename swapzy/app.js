@@ -9,24 +9,45 @@ const userRoutes = require('./routes/userRoutes');
 
 var app = express(); // Create express application
 
+// Serve static files from "view" directory
 app.use(express.static(__dirname + "/view"));
 
+// Middleware to parse JSON and URL-encoded form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Set up port
 var port = process.env.PORT || 8080;
 
-// Start server
-http.createServer(app).listen(port, () => {
-    console.log(`Server is listening on port ${port}`);
-});
-
-// Serve init page (change to index.html when done)
+// Serve index.html on the root route
 app.get('/', function (req, res) {
-    res.send('Welcome to Swapzy Server!');
+    res.sendFile(__dirname + '/view/html/index.html');
 });
 
-app.use('/users', userRoutes);
+// Set up routes
+app.use('/', userRoutes);
+
+// Sync database and Start server
+sequelize.sync()
+    .then(() => {
+        console.log("Database synced successfully");
+        
+        // Start the server after successful sync
+        http.createServer(app).listen(port, () => {
+            console.log(`Server is listening on port ${port}`);
+        });
+    })
+    .catch(error => {
+        console.error("Error syncing the database: ", error);
+
+    });
+
+// Close database connection when app is terminated
+process.on('SIGINT', () => {
+    sequelize.close();
+    console.log("PostgreSQL client disconnected");
+    process.exit();
+});
 
 /* NOTE - delete
 
@@ -103,10 +124,3 @@ app.get('/products/:id', async function (req, res) {
 });
 
 */
-
-// Close database connection when app is terminated
-process.on('SIGINT', () => {
-    sequelize.close();
-    console.log("PostgreSQL client disconnected");
-    process.exit();
-});

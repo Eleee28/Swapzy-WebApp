@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swapzy - Create Account</title>
-    <link rel="stylesheet" href="..\css\signup.css">
+    <link rel="stylesheet" href="css/signup.css">
 </head>
 <body>
     <div class="signup-container">
         <!-- Create Account Text -->
         <h1>Create an Account</h1>
 
-        <form action="/register" method="post">
+        <!-- Div for error message display -->
+        <div id="error-message" class="error-message" style="display: none;"></div>
+
+        <form id="signup-form" action="/register" method="post">
             <input type="text" autocomplete="off" name="username" class="input" placeholder="Username">
             <br><br>
-            <input type="email" autocomplete="off" name="email" class="input" placeholder="Email">
+            <input type="text" autocomplete="off" name="email" class="input" placeholder="Email">
             <br><br>
             <input type="password" autocomplete="off" name="password" class="input" placeholder="Password">
             <br><br>
@@ -23,5 +26,7 @@
             <button type="submit" class="btn">Create Account</button>
         </form>
     </div>
+
+    <script src="javascript/signup.js"></script>
 </body>
 </html>

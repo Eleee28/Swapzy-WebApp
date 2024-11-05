@@ -39,15 +39,15 @@ module.exports = {
         type: Sequelize.DECIMAL(3, 2),
         defaultValue: 0.0,
       }, */
-      // created_at: {
-      //   allowNull: false,
-      //   type: Sequelize.DATE,
-      //   defaultValue: Sequelize.NOW,
-      // },
-      // updated_at: {
-      //   allowNull: false,
-      //   type: Sequelize.DATE
-      // }
+      created_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
+      },
+      updated_at: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
     });
   },
   async down(queryInterface, Sequelize) {
