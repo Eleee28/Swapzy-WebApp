@@ -9,8 +9,8 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      seller_id: {
-        type: Sequelize.INTEGER,
+      seller: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       name: {
@@ -26,6 +26,10 @@ module.exports = {
       },
       price: {
         type: Sequelize.DECIMAL,
+        allowNull: false,
+      },
+      category: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       location: {

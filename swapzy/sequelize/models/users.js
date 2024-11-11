@@ -11,13 +11,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      this.hasMany(models.Product, { foreignKey: 'seller_id' });
+      this.hasMany(models.Product, { foreignKey: 'seller' });
 
-      this.hasMany(models.Sale, { foreignKey: 'buyer_id' });
+      this.hasMany(models.Sale, { foreignKey: 'buyer' });
 
-      this.hasMany(models.Sale, { foreignKey: 'seller_id' });
+      this.hasMany(models.Sale, { foreignKey: 'seller' });
 
-      this.hasMany(models.Favorite, { foreignKey: 'user_id' });
+      this.hasMany(models.Favorite, { foreignKey: 'user' });
     }
   }
   Users.init({
@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      primaryKey: true,
     },
     email: {
       type: DataTypes.STRING,
