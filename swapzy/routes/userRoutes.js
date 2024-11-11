@@ -21,6 +21,9 @@ const userController = require('../controller/userController');
 router.post('/register', userController.createUser);
 
 // Route for user login
-router.post('/login', userController.login)
+router.post('/login', userController.login);
+
+// Route to get user by id
+router.get('/api/users/:username', userController.getById);
 
 module.exports = router;
