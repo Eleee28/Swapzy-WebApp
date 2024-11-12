@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      this.belongsTo(models.Users, { foreignKey: 'buyer_id' });
+      this.belongsTo(models.Users, { foreignKey: 'buyer' });
 
-      this.belongsTo(models.Users, { foreignKey: 'seller_id' });
+      this.belongsTo(models.Users, { foreignKey: 'seller' });
 
       this.belongsTo(models.Product, { foreignKey: 'product_id' });
     }
@@ -26,20 +26,20 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    buyer_id: {
-      type: DataTypes.INTEGER,
+    buyer: {
+      type: DataTypes.STRING,
       allowNull: false,
       references: {
         model: 'users',
-        key: 'id'
+        key: 'username'
       }
     },
-    seller_id: {
-      type: DataTypes.INTEGER,
+    seller: {
+      type: DataTypes.STRING,
       allowNull: false,
       references: {
         model: 'users',
-        key: 'id'
+        key: 'username'
       }
     },
     product_id: {

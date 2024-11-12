@@ -1,13 +1,22 @@
 // This file is the entry point of the application
 
-const express = require('express'); // Include express module
-const http = require('http');
+// Import external modules
+const express = require('express'); // Express module
+const http = require('http'); // HTTP module
+const session = require('express-session'); // Express session
+const redis = require('redis'); // Redis module
+const RedisStore = require('connect-redis').default; // Connect redis
 require('dotenv').config(); // Load environment variables
-const sequelize = require('./sequelize/config/database');
-//const { Users, Product } = require ('./sequelize/models'); // Import models
-const userRoutes = require('./routes/userRoutes');
 
-var app = express(); // Create express application
+// Import internal modules
+const sequelize = require('./sequelize/config/database'); // Database configuration
+
+// Import routes
+const userRoutes = require('./routes/userRoutes'); // User routes
+const prodRoutes = require('./routes/productRoutes'); // Product routes
+const favRoutes = require('./routes/favoriteRoutes'); // Favorite routes
+
+var app = express(); // Initialize express application
 
 // Serve static files from "view" directory
 app.use(express.static(__dirname + "/view"));
@@ -16,18 +25,40 @@ app.use(express.static(__dirname + "/view"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Set up port
+// Define application port
 var port = process.env.PORT || 8080;
 
-// Serve index.html on the root route
+// Redis Client setup
+const redisClient = redis.createClient();
+redisClient.connect().catch(console.error);
+
+// Configure session with Redis store
+app.use(
+    session({
+        store: new RedisStore({ client: redisClient }),
+        secret: process.env.SESSION_SECRET || 'keyboard cat',
+        resave: false, // Prevents session from being saved back if it wasn't modified
+        saveUninitialized: false, // Prevents saving uninitialized sessions
+        // cookies ?
+    })
+)
+
+// Serve main HTML page on the root route
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/view/html/index.html');
+    res.sendFile(__dirname + '/view/index.html');
 });
 
 // Set up routes
 app.use('/', userRoutes);
+app.use('/', prodRoutes);
+app.use('/', favRoutes);
 
-// Sync database and Start server
+// Handler for unknown routes
+app.use((req, res) => {
+    res.status(404).json({ message: 'Route not found' });
+})
+
+// Sync database and start server
 sequelize.sync()
     .then(() => {
         console.log("Database synced successfully");
@@ -39,14 +70,18 @@ sequelize.sync()
     })
     .catch(error => {
         console.error("Error syncing the database: ", error);
-
+        process.exit(1); // Exit if database connection fails
     });
 
 // Close database connection when app is terminated
 process.on('SIGINT', () => {
-    sequelize.close();
-    console.log("PostgreSQL client disconnected");
-    process.exit();
+    try {
+        sequelize.close();
+        console.log("Database connection closed");
+    } catch (error) {
+        console.error("Error closing database connection:", error.message || error);
+    }
+    process.exit(0);
 });
 
 /* NOTE - delete

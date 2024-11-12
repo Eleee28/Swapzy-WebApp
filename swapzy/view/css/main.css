@@ -315,11 +315,11 @@ body {
     transform: translateY(-50%) scale(1.1);
 }
 
-.prev-btn {
+.prev-btn1, .prev-btn2 {
     left: 0;
 }
 
-.next-btn {
+.next-btn1, .next-btn2 {
     right: 0;
 }
 
@@ -440,4 +440,10 @@ body {
     font-size: 2rem;
     color: #a44cd3;
     font-weight: bold;
+}
+
+.message-text {
+    font-size: 25px;
+    color: #555;
+    text-align: center;
 }

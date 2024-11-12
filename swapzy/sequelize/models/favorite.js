@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      this.belongsTo(models.Users, { foreignKey: 'user_id' });
+      this.belongsTo(models.Users, { foreignKey: 'user' });
 
       this.belongsTo(models.Product, { foreignKey: 'product_id' });
     }
@@ -24,12 +24,12 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    user_id: {
+    user: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'users',
-        key: 'id'
+        key: 'username'
       }
     },
     product_id: {

@@ -9,12 +9,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      buyer_id: {
-        type: Sequelize.INTEGER,
+      buyer: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      seller_id: {
-        type: Sequelize.INTEGER,
+      seller: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       product_id: {

@@ -75,6 +75,7 @@ exports.createUser = async function (req, res) {
                 profile_img: null,
                 location: null
             });
+            req.session.username = username; // Store username in session
             res.status(201).json({ message: `User registered successfully: ${newUser}` });
         } catch (err) {
             res.status(500).json({ message: "Internal2 Server Error", error: err.message });
@@ -105,6 +106,7 @@ async function emailTaken(email) {
     return existUser !== null;
 }
 
+// Controller method to perform login
 exports.login = async function (req, res) {
     const { username, password } = req.body;
 
@@ -114,15 +116,23 @@ exports.login = async function (req, res) {
         errorMessage = 'All fields are required!';
 
     if (errorMessage)
-        res.status(400).json({ errorMessage });
-    else {
+        return res.status(400).json({ errorMessage });
+    
+    
+    try {
         errorMessage = await checkUserPassword(username, password);
 
         if (errorMessage) {
-            res.status(401).json({ errorMessage });
+            return res.status(401).json({ errorMessage });
         } else {
-            res.status(200).json({ message: 'Login successful' });
+            req.session.username = username; // Store username in session
+
+            return res.status(200).json({ message: 'Login successful' });
         }
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Error processing login request' });
+
     }
 }
 
@@ -141,6 +151,24 @@ async function checkUserPassword(username, password) {
     
     return '';
 }
+
+// Controller method to get a user by id
+exports.getById = async function (req, res) {
+    const username = req.params.username;
+
+    try {
+        const user = await Users.findOne({
+            attributes: ['username', 'email', 'location', 'profile_img'],
+            where: { username: username },
+        });
+        if (!user)
+            res.status(404).send("User not found");
+        else
+            res.json(user);
+    } catch (err) {
+        res.status(500).json({ message: "Internal Server Error", error: err.message });
+    }
+};
 
 // Controller method to update a user by id
 // exports.updateUser = async function (req, res) {

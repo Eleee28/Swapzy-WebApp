@@ -1,4 +1,55 @@
-const Product = require('../sequelize/models/product');
+const { Product } = require('../sequelize/models');
+const { Favorite } = require('../sequelize/models');
+
+// Controller method to get all products
+exports.getAll = async function (req, res) {
+    try {
+        const products = await Product.findAll({
+            attributes: ['id', 'name', 'price', 'image_url']
+        });
+        res.json(products);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Error fetching products"});
+    }
+}
+
+// Controller method to get most recent products
+exports.getRecent = async function (req, res) {
+    try {
+        const products = await Product.findAll({
+            attributes: ['id', 'name', 'price', 'image_url'],
+            where: {
+                status: 'available',
+            },
+            order: [['created_at', 'DESC']],
+            limit: 10,
+        });
+        res.json(products);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Error fetching products"});
+    }
+}
+
+// Controller to get a product by ID
+exports.getByID = async function (req, res) {
+    const id = req.params.id;
+
+    try {
+        const product = await Product.findByPk(id);
+        if (!product)
+            res.status(404).json({ message: "Product not found" });
+        else
+            res.json(product);
+    } catch (err) {
+        res.status(500).json({ message: "Internal Server Error", error: err.message });
+    }
+    
+};
+
+
+
 
 // Controller method to get a number of products
 // exports.getNProducts = async function (req, res) {

@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       //seller foreign key
-      this.belongsTo(models.Users, { foreignKey: 'seller_id' });
+      this.belongsTo(models.Users, { foreignKey: 'seller' });
 
-      this.belongsTo(models.Category, { foreignKey: 'category_id' });
+      this.belongsTo(models.Category, { foreignKey: 'category' });
 
       this.hasOne(models.Sale, { foreignKey: 'product_id' });
 
@@ -28,12 +28,12 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    seller_id: {
-      type: DataTypes.INTEGER,
+    seller: {
+      type: DataTypes.STRING,
       allowNull: false,
       references: {
         model: 'users',
-        key: 'id'
+        key: 'username'
       }
     },
     name: {
@@ -51,12 +51,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
     },
-    category_id: {
-      type: DataTypes.INTEGER,
+    category: {
+      type: DataTypes.STRING,
       allowNull: false,
       references: {
         model: 'category',
-        key: 'id'
+        key: 'name'
       }
     },
     location: {
