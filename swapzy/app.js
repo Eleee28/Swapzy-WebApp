@@ -39,7 +39,11 @@ app.use(
         secret: process.env.SESSION_SECRET || 'keyboard cat',
         resave: false, // Prevents session from being saved back if it wasn't modified
         saveUninitialized: false, // Prevents saving uninitialized sessions
-        // cookies ?
+        cookie: { // Session cookie configuration
+            httpOnly: true, // Help prevent cross-site scripting (XSS) attacks -- Chat-gpt
+            maxAge: 30 * 60 * 1000, // 30 minutes of inactivity timeout (milliseconds)
+            //expires: new Date(Date.now() + 30 * 60 * 100), // exact expiration time ?
+        }
     })
 )
 
@@ -47,6 +51,13 @@ app.use(
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/view/index.html');
 });
+
+//DEBUG - session expiry
+// app.use((req, res, next) => {
+//     console.log('Session ID: ', req.sessionID);
+//     console.log('Session username: ', req.session.username);
+//     next();
+// })
 
 // Set up routes
 app.use('/', userRoutes);
