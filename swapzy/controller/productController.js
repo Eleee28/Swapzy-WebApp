@@ -33,7 +33,7 @@ exports.getRecent = async function (req, res) {
 }
 
 // Controller to get a product by ID
-exports.getByID = async function (req, res) {
+exports.getByID = async function (req, res) { //TODO - check behaviour when user is not logged in
     const id = req.params.id;
 
     try {

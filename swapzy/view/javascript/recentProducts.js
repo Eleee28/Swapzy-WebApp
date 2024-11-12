@@ -4,7 +4,7 @@ async function fetchRecentProducts() {
         const favorite = await favoriteResponse.json();
         const response = await fetch('/api/products/recent');
 
-        if (!response.ok) {
+        if (!response.ok && favoriteResponse.status !== 401) {
             throw new Error('Failed to fetch products');
         }
 
@@ -24,9 +24,12 @@ async function fetchRecentProducts() {
                 window.location.href = `product.html?id=${prod.id}`;  // from chat-gpt
             };
 
-            const isFav = favorite.some(fav => fav.id === prod.id); // Check if product is favorite 
+            var heartCheckedClass = '';
 
-            const heartCheckedClass = isFav ? 'checked' : ''; // Set checked state
+            if (favoriteResponse.ok) {
+                const isFav = favorite.some(fav => fav.id === prod.id); // Check if product is favorite 
+                heartCheckedClass = isFav ? 'checked' : ''; // Set checked state
+            }
 
             productCard.innerHTML = `
                 <img src="${prod.image_url}" alt="Product Image" class="product-image">
@@ -63,7 +66,15 @@ async function fetchRecentProducts() {
             const heartButton = productCard.querySelector('.heart-container');
             heartButton.onclick = async function(event) {
                 event.stopPropagation(); // Prevent click from bubbling to product card -- chat-gpt
-            
+                
+                //TODO - else add pop up to say you must be logged in to add a product to fav
+                if (!favoriteResponse.ok) {
+                    alert("You must be logged in to add products to favorites");
+                    productCard.querySelector('.checkbox').checked = '';
+                    return;
+                }
+
+                
                 // Add to favorite
                 const checkbox = productCard.querySelector('.checkbox');
                 const isChecked = checkbox.checked;
@@ -81,8 +92,19 @@ async function fetchRecentProducts() {
 
                     if (response.ok) {
                         console.log(`${action}ed to favorites`);
-                        
-                        location.reload(); // Reload page to apply changes
+
+                        const favSection = document.getElementById('fav-carousel-track');
+
+                        // if action is add append child, if action is delete remove child
+                        if (action === 'add') {
+                            const prodCardCpy = productCard.cloneNode(true);
+                            favSection.appendChild(prodCardCpy);
+                        } else if (action === 'delete') {
+                            const prodInFav = favSection.querySelector(`[data-product-id="${prodId}"]`);
+                            if (prodInFav)
+                                favSection.removeChild(prodInFav);
+                        }
+                        //location.reload(); // Reload page to apply changes
 
                     } else {
                         console.log(`Failed to ${action} favorite`);
