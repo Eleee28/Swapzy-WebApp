@@ -126,8 +126,11 @@ body {
     display: none;
     position: absolute;
     background-color: white;
-    min-width: 160px;
+    min-width: 100%;
     z-index: 1;
+    left: 0;
+    top: 100%;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .dropdown:hover .dropdown-content {
@@ -170,11 +173,11 @@ body {
     align-items: center;
     justify-content: center;
     margin: 25px auto; /* Centers and adds vertical margin */
-    width: 350px;
+    width: 60%;
   }
   
   .input {
-    width: 150px;
+    width: 100%;
     padding: 10px 0px 10px 40px;
     border-radius: 50px;
     border: solid 1px #333;
@@ -248,12 +251,12 @@ body {
 .carousel-track {
     display: flex;
     transition: transform 0.4s ease;
-    margin: 20px;
+    margin: 10px;
 }
 
 /* Product Card Styling */
 .product-card {
-    min-width: calc(100% / 5 - 15px); /* Adjusts to display 5 products at a time and spacing between them */
+    min-width: calc(100% / 5 - 15px);
     margin-right: 20px;
     background-color: #ffffff;
     border: 1px solid #ddd;
@@ -261,8 +264,9 @@ body {
     padding: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
-    text-align: left;
+    text-align: center;
     overflow: visible;
+    flex-shrink: 0; /* Prevents shrinking of cards */
 }
 
 .product-card:hover {
@@ -271,8 +275,9 @@ body {
 }
 
 .product-image {
-    width: 100%;
-    height: auto;
+    width: 150px;
+    height: 100px; /* Sets a fixed height */
+    object-fit: cover; /* Ensures the image covers the area without distorting */
     border-radius: 8px;
 }
 
@@ -447,3 +452,115 @@ body {
     color: #555;
     text-align: center;
 }
+
+/* General Styles for Smaller Screens */
+@media (max-width: 768px) {
+    /* Header */
+    .header {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+    
+    .logo-text {
+        font-size: 2rem; /* Adjust logo text size for small screens */
+    }
+
+    /* Navigation buttons */
+    .nav-btn span { 
+        display: none;  /* Hide text in buttons */
+    }
+
+    .nav-btn i {
+        font-size: 24px; /* Adjust icon size if needed */
+    }
+
+    /* Make sure buttons stay horizontal */
+    .nav-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    /* Navbar */
+    .navbar {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .navbar a {
+        display: none;
+    }
+
+    .dropdown-content a{
+        width: 100%; /* Make dropdown content full width */
+        display: flex;
+    }
+
+    /* Title Section */
+    .title-content {
+        padding: 30px 20px;
+    }
+
+    .main-title {
+        font-size: 2rem;
+    }
+
+    /* Search Input */
+    .container-input {
+        width: 90%; /* Make the search bar take more space */
+        margin: 20px auto;
+    }
+
+    .input {
+        width: 100%;
+        padding: 10px 0px 10px 40px;
+    }
+
+    /* Recently Uploaded & Favorites Sections */
+    .recently-uploaded-section, .favorites-section {
+        margin: 20px;
+        padding: 15px;
+    }
+
+    /* Carousel adjustments */
+    .carousel-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+    }
+
+
+
+    /* Footer */
+    .footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-logo-container {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 1200px) {
+    /* Show 4 products for screens smaller than 1200px */
+    .product-card {
+        min-width: calc(100% / 4 - 15px);
+    }
+}
+
+@media (max-width: 992px) {
+    /* Show 3 products for screens smaller than 992px */
+    .product-card {
+        min-width: calc(100% / 3 - 15px);
+    }
+}
+
+@media (max-width: 768px) {
+    /* Show 2 products for screens smaller than 768px */
+    .product-card {
+        min-width: calc(100% / 2 - 15px);
+    }
+}
+
+
