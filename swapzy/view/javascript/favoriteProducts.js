@@ -2,7 +2,16 @@ async function fetchFavoriteProducts() {
     try {
         const response = await fetch('/api/favorite');
 
-        if (!response.ok) {
+        if (response.status === 401) {
+            const text = document.querySelector('.message-text');
+            const carousel = document.querySelector('.favorites-section .carousel-container');
+
+            carousel.style.display = "none";
+            text.style.display = "block";
+            text.textContent = "You have to be logged in to see your favorites!";
+            
+            return;
+        } else if (!response.ok){
             return response.status;
         }
         
@@ -34,7 +43,7 @@ async function fetchFavoriteProducts() {
                 window.location.href = `product.html?id=${prod.id}`;  // from chat-gpt
             };
 
-            const heartCheckedClass = 'checked';
+            const heartCheckedClass = 'checked'; // Always checked for favorites
 
             productCard.innerHTML = `
                 <img src="${prod.image_url}" alt="Product Image" class="product-image">
@@ -72,14 +81,11 @@ async function fetchFavoriteProducts() {
             heartButton.onclick = async function(event) {
                 event.stopPropagation(); // Prevent click from bubbling to product card -- chat-gpt
             
-                // Add to favorite
-                const checkbox = productCard.querySelector('.checkbox');
-                const isChecked = checkbox.checked;
+                // Only allow product removal
                 const prodId = prod.id;
 
                 try {
-                    const action = isChecked ? 'add' : 'delete';
-                    const response = await fetch(`/api/favorite/${action}`, {
+                    const response = await fetch('/api/favorite/delete', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -88,15 +94,68 @@ async function fetchFavoriteProducts() {
                     });
 
                     if (response.ok) {
-                        console.log(`${action}ed to favorites`);
-                        
-                        location.reload(); // Reload page
+                        console.log('deleted from favorites');
+
+                        // Remove product card
+                        const favSection = document.getElementById('fav-carousel-track');
+                        const prodInFav = favSection.querySelector(`[data-product-id="${prodId}"]`);
+                        if (prodInFav) {
+                            favSection.removeChild(prodInFav);
+
+                            // Change heart state in recent products
+                            const recProd = carousel.querySelector(`[data-product-id="${prodId}"]`);
+                            if (recProd)
+                                recProd.querySelector('.checkbox').checked = '';
+                        }
                     } else {
-                        console.log(`Failed to ${action} favorite`);
+                        console.log('Failed to remove from favorites');
                     }
                 } catch (err) {
-                    console.error('Error updating favorites: ', err);
+                    console.log("Error removing from favorites");
                 }
+                
+                
+                
+                
+                
+                // Add to favorite
+                // const checkbox = productCard.querySelector('.checkbox');
+                // const isChecked = checkbox.checked;
+                // const prodId = prod.id;
+
+                // try {
+                //     const action = isChecked ? 'add' : 'delete';
+                //     const response = await fetch(`/api/favorite/${action}`, {
+                //         method: 'POST',
+                //         headers: {
+                //             'Content-Type': 'application/json'
+                //         },
+                //         body: JSON.stringify({ prodId })
+                //     });
+
+                //     if (response.ok) {
+                //         console.log(`${action}ed to favorites`);
+                        
+                //         const favSection = document.getElementById('fav-carousel-track');
+
+                //         // if action is add append child, if action is delete remove child
+                //         /*if (action === 'add') {
+                //             const prodCardCpy = productCard.cloneNode(true);
+                //             favSection.appendChild(prodCardCpy);
+                //         } else */
+                //         if (action === 'delete') {
+                //             const prodInFav = favSection.querySelector(`[data-product-id="${prodId}"]`);
+                //             if (prodInFav)
+                //                 favSection.removeChild(prodInFav);
+                //         }
+
+                //         //location.reload(); // Reload page
+                //     } else {
+                //         console.log(`Failed to ${action} favorite`);
+                //     }
+                // } catch (err) {
+                //     console.error('Error updating favorites: ', err);
+                // }
             }
 
             // Append products to carousel
