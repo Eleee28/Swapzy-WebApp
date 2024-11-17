@@ -49,7 +49,7 @@ app.use(
 
 // Serve main HTML page on the root route
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/view/index.html');
+    res.sendFile(__dirname + '/view/pruebamain_bootstrap.html');
 });
 
 //DEBUG - session expiry
