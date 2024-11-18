@@ -105,7 +105,7 @@ async function fetchRecentProducts() {
                         console.log(`${action}ed to favorites`);
 
                         const favSection = document.getElementById('fav-carousel-track');
-
+                        
                         // if action is add append child, if action is delete remove child
                         if (action === 'add') {
                             const prodCardCpy = productCard.cloneNode(true);

@@ -6,8 +6,6 @@ async function navButtonHandler() {
     const response = await fetch('/api/check-login');
     const data = await response.json();
 
-    console.log("Sell button: ", profileButton);
-
     favButton.addEventListener('click', () => {
         console.log('Fav button clicked');
     });
