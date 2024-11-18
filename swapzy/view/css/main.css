@@ -493,17 +493,12 @@ body {
     }
 
     /* Navbar */
-    .navbar {
-        flex-direction: column;
-        padding: 10px;
-    }
 
     .navbar a {
         display: none;
     }
 
     .dropdown-content a{
-        width: 100%; /* Make dropdown content full width */
         display: flex;
     }
 
@@ -520,11 +515,6 @@ body {
     .container-input {
         width: 90%; /* Make the search bar take more space */
         margin: 20px auto;
-    }
-
-    .input {
-        width: 100%;
-        padding: 10px 0px 10px 40px;
     }
 
     /* Recently Uploaded & Favorites Sections */
