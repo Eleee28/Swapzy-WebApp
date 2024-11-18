@@ -338,6 +338,14 @@ label {
     display: block;
 }
 
+.dropdown-item {
+    font-size: 1.5em;
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
 /* Change color on hover */
 .dropdown2-content a:hover {
     background-color: #f1f1f1;

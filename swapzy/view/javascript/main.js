@@ -1,3 +1,43 @@
+async function navButtonHandler() {
+    const favButton = document.getElementById("fav-button");
+    const profileButton = document.getElementById("profile-button");
+    const sellButton = document.getElementById("sell-button");
+
+    const response = await fetch('/api/check-login');
+    const data = await response.json();
+
+    console.log("Sell button: ", profileButton);
+
+    favButton.addEventListener('click', () => {
+        console.log('Fav button clicked');
+    });
+
+    profileButton.addEventListener('click', () => {
+        try {
+            if (data.isLoggedIn) {
+                window.location.href = 'settings.html';
+            } else {
+                window.location.href = 'login.html';
+            }
+        } catch (err) {
+            console.error('Error: ', err);
+        }
+    });
+
+    sellButton.addEventListener('click', () => {
+        try {
+            if (data.isLoggedIn) {
+                window.location.href = 'upload_product.html';
+            } else {
+                alert('You must be logged in to sell a product');
+            }
+        } catch (err) {
+            console.error('Error: ', err);
+        }
+    });
+}
+
+
 let currentIndexRecents = 0;
 let currentIndexFav = 0;
 
@@ -57,3 +97,5 @@ function updateCarouselOffsets() {
 }
 
 window.addEventListener('resize', updateCarouselOffsets);
+
+document.addEventListener('DOMContentLoaded', navButtonHandler);

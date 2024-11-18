@@ -17,15 +17,15 @@
 
         <!-- Navigation Buttons -->
         <nav class="nav-buttons">
-            <a href="favorites.html" class="nav-btn">
+            <a class="nav-btn" id="fav-button">
                 <img src="images/heart.png">
                 <span class="btn-text">Favorites</span>
             </a>
-            <a href="profile.html" class="nav-btn">
+            <a class="nav-btn" id="profile-button">
                 <img src="images/profile.png" alt="Profile Icon">
                 <span class="btn-text">Profile</span>
             </a>
-            <a href="sell.html" class="nav-btn">
+            <a class="nav-btn" id="sell-button">
                 <img src="images/sell.png" alt="Sell Icon">
                 <span class="btn-text">Sell</span>
             </a>
@@ -73,17 +73,13 @@
     <!-- Recently Uploaded -->
     <div class="recently-uploaded-section">
         <h2 class="section-title">Recently Uploaded</h2>
+        <p class="message-text" style="display: none;"></p>
         <div class="carousel-container">
             <button class="carousel-btn prev-btn1" onclick="moveCarouselRecents(-1)">&#10094;</button>
-
                 <div class="carousel">
-
                     <div class="carousel-track"></div>
-
                 </div>
-            
             <button class="carousel-btn next-btn1" onclick="moveCarouselRecents(1)">&#10095;</button>
-
         </div>
     </div>
 

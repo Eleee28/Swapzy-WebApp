@@ -10,6 +10,17 @@ async function fetchRecentProducts() {
 
         const products = await response.json();
 
+        if (products.length == 0) {
+            const text = document.querySelector('.recently-uploaded-section .message-text');
+            const carousel = document.querySelector('.recently-uploaded-section .carousel-container');
+
+            carousel.style.display = "none";
+            text.style.display = "block";
+            text.textContent = "No products uploaded!";
+            
+            return;
+        }
+
         // Get carousel track element
         const carousel = document.querySelector('.recently-uploaded-section .carousel-track');
         carousel.innerHTML = '';

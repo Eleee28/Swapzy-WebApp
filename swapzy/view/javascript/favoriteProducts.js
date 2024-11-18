@@ -3,7 +3,7 @@ async function fetchFavoriteProducts() {
         const response = await fetch('/api/favorite');
 
         if (response.status === 401) {
-            const text = document.querySelector('.message-text');
+            const text = document.querySelector('.favorites-section .message-text');
             const carousel = document.querySelector('.favorites-section .carousel-container');
 
             carousel.style.display = "none";
@@ -18,7 +18,7 @@ async function fetchFavoriteProducts() {
         const products = await response.json();
 
         if (products.length == 0) {
-            const text = document.querySelector('.message-text');
+            const text = document.querySelector('.favorites-section .message-text');
             const carousel = document.querySelector('.favorites-section .carousel-container');
 
             carousel.style.display = "none";
