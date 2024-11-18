@@ -1,5 +1,4 @@
 const { Product } = require('../sequelize/models');
-const { Favorite } = require('../sequelize/models');
 
 // Controller method to get all products
 exports.getAll = async function (req, res) {
@@ -19,9 +18,6 @@ exports.getRecent = async function (req, res) {
     try {
         const products = await Product.findAll({
             attributes: ['id', 'name', 'price', 'image_url'],
-            where: {
-                status: 'available',
-            },
             order: [['created_at', 'DESC']],
             limit: 10,
         });
@@ -33,7 +29,7 @@ exports.getRecent = async function (req, res) {
 }
 
 // Controller to get a product by ID
-exports.getByID = async function (req, res) { //TODO - check behaviour when user is not logged in
+exports.getByID = async function (req, res) {
     const id = req.params.id;
 
     try {
@@ -48,6 +44,42 @@ exports.getByID = async function (req, res) { //TODO - check behaviour when user
     
 };
 
+
+exports.saveProduct = async function (req, res) {
+    try {
+        const { name, category, price, description, state, photo, location } = req.body;
+        const user = req.session.username;
+
+        if (!name || !category || !price || !description || !state || !photo || !location) {
+            return res.status(400).json({ message: 'All fields are required!' });
+        }
+
+        const [latitude, longitude] = location.split(',').map(Number);
+        const product = await Product.create({
+            seller: user,
+            name,
+            description,
+            condition: state,
+            price,
+            category,
+            location: {
+                type: 'Point',
+                coordinates: [longitude, latitude],
+            },
+            image_url: photo
+        })
+        console.log
+        res.status(201).json({ message: 'Product saved succesfully', product });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'An error ocurred saving the product' });
+    }
+}
+
+exports.getConditionValues = function (req, res) {
+    const conditionEnumValues = Product.rawAttributes.condition.values;
+    res.json(conditionEnumValues);
+}
 
 
 

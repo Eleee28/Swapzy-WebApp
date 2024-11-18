@@ -14,21 +14,12 @@ exports.getFavorite = async function (req, res) {
             SELECT p.id as id, p.name as name, p.price as price, p.image_url as image_url
             FROM product p
             INNER JOIN favorite f ON p.id = f.product_id
-            WHERE f.user = :username AND p.status = 'available'
+            WHERE f.user = :username
             ORDER BY p.created_at DESC
             LIMIT 10;
             `, {
                 replacements: { username }
             });
-        /* await Product.findAll({
-            attributes: ['id', 'name', 'price', 'image_url'],
-            where: {
-                status: 'available',
-            },
-            include: [{ model: Favorite, required: true }],
-            order: [['created_at', 'DESC']],
-            limit: 10,
-        });*/
         res.json(products[0]);
     } catch (err) {
         console.error(err);
@@ -94,7 +85,7 @@ exports.getIds = async function (req, res) {
             SELECT p.id as id
             FROM product p
             INNER JOIN favorite f ON p.id = f.product_id
-            WHERE f.user = :username AND p.status = 'available';
+            WHERE f.user = :username;
             `, {
                 replacements: { username }
             });

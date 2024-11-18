@@ -11,5 +11,10 @@ router.get('/api/products/recent', prodController.getRecent);
 // Router to get product by ID
 router.get('/api/products/:id', prodController.getByID);
 
+// Route to save a product
+router.post('/api/products/save', prodController.saveProduct)
+
+// Route to get product condition enum values
+router.get('/api/condition-enum', prodController.getConditionValues);
 
 module.exports = router;

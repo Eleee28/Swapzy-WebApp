@@ -78,7 +78,7 @@ exports.createUser = async function (req, res) {
             req.session.username = username; // Store username in session
             res.status(201).json({ message: `User registered successfully: ${newUser}` });
         } catch (err) {
-            res.status(500).json({ message: "Internal2 Server Error", error: err.message });
+            res.status(500).json({ message: "Internal Server Error", error: err.message });
         }
     }
 };
@@ -169,6 +169,15 @@ exports.getById = async function (req, res) {
         res.status(500).json({ message: "Internal Server Error", error: err.message });
     }
 };
+
+// Controller to check if user is logged in
+exports.checkLogin = async function (req, res) {
+    if (req.session.username) {
+        res.json({ isLoggedIn: true, username: req.session.username });
+    } else {
+        res.json({ isLoggenIn: false });
+    }
+}
 
 // Controller method to update a user by id
 // exports.updateUser = async function (req, res) {

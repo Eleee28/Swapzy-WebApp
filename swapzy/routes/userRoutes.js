@@ -26,4 +26,7 @@ router.post('/login', userController.login);
 // Route to get user by id
 router.get('/api/users/:username', userController.getById);
 
+// Route to check login
+router.get('/api/check-login', userController.checkLogin);
+
 module.exports = router;
