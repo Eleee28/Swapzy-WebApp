@@ -40,10 +40,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      status: {
-        type: Sequelize.ENUM('available', 'sold', 'reserved'),
-        allowNull: false,
-      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

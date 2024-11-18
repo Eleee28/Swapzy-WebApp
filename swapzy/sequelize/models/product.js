@@ -16,18 +16,10 @@ module.exports = (sequelize, DataTypes) => {
 
       this.belongsTo(models.Category, { foreignKey: 'category' });
 
-      this.hasOne(models.Sale, { foreignKey: 'product_id' });
-
       this.hasMany(models.Favorite, { foreignKey: 'product_id' });
     }
   }
   Product.init({
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-    },
     seller: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -65,10 +57,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     image_url: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    status: {
-      type: DataTypes.ENUM('available', 'sold', 'reserved'),
       allowNull: false,
     },
   }, {

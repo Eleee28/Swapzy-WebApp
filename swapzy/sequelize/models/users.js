@@ -13,10 +13,6 @@ module.exports = (sequelize, DataTypes) => {
 
       this.hasMany(models.Product, { foreignKey: 'seller' });
 
-      this.hasMany(models.Sale, { foreignKey: 'buyer' });
-
-      this.hasMany(models.Sale, { foreignKey: 'seller' });
-
       this.hasMany(models.Favorite, { foreignKey: 'user' });
     }
   }
