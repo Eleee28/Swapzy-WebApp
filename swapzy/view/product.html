@@ -56,6 +56,11 @@
             <button class="dropbtn">Categories</button>
             <div class="dropdown-content" id="category-list">
                 <!-- Dynamic categories from backend will be loaded here -->
+                <a href="#">Electronics</a>
+                <a href="#">Clothing</a>
+                <a href="#">Books</a>
+                <a href="#">Home & Garden</a>
+                <a href="#">Toys</a>
             </div>
         </div>
         <!-- Static Links to Categories -->
@@ -104,8 +109,14 @@
         <!-- Product info example -->
         <img id="product-image" alt="Product Image" class="product-image-details">
         <div class="product-info-details">
-            <p id="product-title" class="product-title-details"></p>
             <span id="product-price" class="product-price-details"></span>
+            <p id="product-title" class="product-title-details"></p>
+
+            <div class="product-status-category-details">
+                <p id="product-category" class="product-category-details">Category</p>
+                <p id="product-status" class="product-status-details">Status</p>
+            </div>
+            
             <p id="product-description" class="product-description-details"></p>
         </div>
 
