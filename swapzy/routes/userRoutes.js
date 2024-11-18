@@ -23,10 +23,19 @@ router.post('/register', userController.createUser);
 // Route for user login
 router.post('/login', userController.login);
 
-// Route to get user by id
+// Route for user logout
+router.post('/logout', userController.logout);
+
+// Route to get user by username
 router.get('/api/users/:username', userController.getById);
+
+// Route to update a user by username
+router.put('/api/users', userController.updateUser);
 
 // Route to check login
 router.get('/api/check-login', userController.checkLogin);
+
+// Route to get user's location
+router.get('/api/location', userController.getUserLocation);
 
 module.exports = router;
