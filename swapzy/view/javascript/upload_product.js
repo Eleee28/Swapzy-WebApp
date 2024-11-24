@@ -67,7 +67,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // Create a marker (will move to user selected location)
-let marker = L.marker([0, 0], { draggable: true}).addTo(map);
+const marker = L.marker([0, 0], { draggable: true}).addTo(map);
 
 // Function to update marker position and display coordinates
 function updateMarker(lat, lng) {
@@ -100,7 +100,7 @@ document.getElementById('search-button').addEventListener('click', async () => {
         const { lat, lon } = result;
         updateMarker(lat, lon);
     } else {
-        alert('Location not found.');
+        alert('Location not found');
     }
 });
 

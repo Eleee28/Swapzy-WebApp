@@ -107,6 +107,10 @@ async function fetchFavoriteProducts() {
                             if (recProd)
                                 recProd.querySelector('.checkbox').checked = '';
                         }
+                        document.querySelector('.recently-uploaded-section .carousel-container').style.display = 'none';
+                        document.querySelector('.recently-uploaded-section .carousel-container').style.display = 'block';
+                        document.querySelector('.favorites-section .carousel-container').style.display = 'none';
+                        document.querySelector('.favorites-section .carousel-container').style.display = 'block';
                     } else {
                         console.log('Failed to remove from favorites');
                     }

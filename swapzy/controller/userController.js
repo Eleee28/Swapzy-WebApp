@@ -152,6 +152,23 @@ async function checkUserPassword(username, password) {
     return '';
 }
 
+// Controller to log out
+exports.logout = async function (req, res) {
+    if (req.session) {
+        try {
+            req.session.destroy();
+
+            res.clearCookie('connect.sid'); // clear cookie
+            res.json({ message: 'Logged out succesfully', redirect: '/' });
+        } catch (err) {
+            console.error('Error loggin out: ', err);
+            return res.status(500).json({ message: 'Could not log out' });
+        }
+    } else {
+        res.status(400).json({ message: 'No active session to log out '});
+    }
+}
+
 // Controller method to get a user by id
 exports.getById = async function (req, res) {
     const username = req.params.username;
@@ -179,34 +196,65 @@ exports.checkLogin = async function (req, res) {
     }
 }
 
+// Controller to get user location
+exports.getUserLocation = async function (req, res) {
+    try {
+        const username = req.session.username;
+        if (!username)
+            return res.status(401).json({ message: 'User not authenticatied' });
+
+        const user = await Users.findOne({
+            attributes: ['location'],
+            where: { username: username }
+        });
+
+        if (!user || !user.location)
+            return res.status(404).json({ message: 'Location not found' });
+
+        const [lng, lat] = user.location.coordinates;
+        res.json({ lat, lng });
+    } catch (err) {
+        console.error('Error fetching user location: ', err);
+        res.status(500).json({ message: "Internal Server Error", error: err.message });
+    }
+}
+
 // Controller method to update a user by id
-// exports.updateUser = async function (req, res) {
-//     const id = req.params.id;
-//     const { username, email, password, location, image_url } = req.body;
+exports.updateUser = async function (req, res) {
+    const userid = req.session.username;
 
-//     try {
-//         const user = await Users.findByPk(id);
-//         if (user) {
-//             if (username && username !== user.username)
-//                 user.username = username;
-//             if (email && email !== user.email)
-//                 user.email = email;
-//             if (password)
-//                 user.password = await bcrypt.hash(password, 8);
-//             if (location && location !== user.location)
-//                 user.location = location;
-//             if (image_url && image_url !== user.image_url)
-//                 user.image_url = image_url;
+    const { username, email, password, repeat_password, location, image_url } = req.body;
 
-//             await user.save();
-//             res.json(user);
-//         } else {
-//             res.status(404).send("User not found");
-//         }
-//     } catch (err) {
-//         res.status(500).json({ message: "Internal Server Error", error: err.message });
-//     }
-// }
+    try {
+        const user = await Users.findByPk(userid);
+        if (user) {
+            if (username && username !== user.username)
+                user.username = username;
+            if (email && email !== user.email)
+                user.email = email;
+            if (password && repeat_password && password === repeat_password)
+                user.password = await bcrypt.hash(password, 8);
+            if (location && location !== user.location) {
+                if (location.lat && location.lng) {
+                    user.location = {
+                        type: 'Point',
+                        coordinates: [location.lng, location.lat]
+                    };
+                } else
+                    return res.status(400).json({ message: 'Invalid location format' });
+            }
+            if (image_url && image_url !== user.image_url)
+                user.profile_img = image_url;
+
+            await user.save();
+            res.json(user);
+        } else {
+            res.status(404).send("User not found");
+        }
+    } catch (err) {
+        res.status(500).json({ message: "Internal Server Error", error: err.message });
+    }
+}
 
 // Controller method to delete a todo by id
 // exports.deleteUser = async function (req, res) {

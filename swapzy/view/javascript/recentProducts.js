@@ -115,6 +115,11 @@ async function fetchRecentProducts() {
                             if (prodInFav)
                                 favSection.removeChild(prodInFav);
                         }
+
+                        document.querySelector('.recently-uploaded-section .carousel-container').style.display = 'none';
+                        document.querySelector('.recently-uploaded-section .carousel-container').style.display = 'block';
+                        document.querySelector('.favorites-section .carousel-container').style.display = 'none';
+                        document.querySelector('.favorites-section .carousel-container').style.display = 'block';
                         //location.reload(); // Reload page to apply changes
 
                     } else {

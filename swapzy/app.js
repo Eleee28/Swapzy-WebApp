@@ -47,6 +47,8 @@ app.use(
     })
 )
 
+// TODO - need to catch the cookie to check if it expired or not
+
 // Serve main HTML page on the root route
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/view/main.html');
@@ -94,79 +96,3 @@ process.on('SIGINT', () => {
     }
     process.exit(0);
 });
-
-/* NOTE - delete
-
-// Serving data from database tests
-
-// Route to serve users data from database (username and email)
-app.get('/users', async function (req, res) {
-    try {
-        const users = await Users.findAll({
-            attributes: ['id', 'username', 'email']
-        });
-        res.json(users);
-    } catch (err) {
-        console.log("Error fetching users data ", err);
-        res.status(500).send("Internal Server Error");
-    }
-});
-
-// Dynamic route to specific user entry by id
-app.get('/users/:id', async function (req, res) {
-    var user_id = req.params.id;
-
-    try {
-        const user = await Users.findByPk(user_id, {
-            attributes: ['username', 'email']
-        });
-        if (!user)
-            return res.status(404).send("User not found");
-        res.json(user);
-    } catch (err) {
-        console.log("Error fetching user ", err);
-        res.status(500).send("Internal Server Error");
-    }
-});
-
-// Route to serve product data from database (name and price)
-app.get('/products', async function (req, res) {
-    try {
-        console.log('Product model: ', Product);
-
-        const products = await Product.findAll({
-            attributes: ['name', 'price'],
-            include: [{
-                model: Users,
-                attributes: ['username']
-            }]
-        });
-        res.json(products);
-    } catch (err) {
-        console.log("Error fetching products data ", err);
-        res.status(500).send("Internal Server Error");
-    }
-});
-
-// Dynamic route to specific user entry by id
-app.get('/products/:id', async function (req, res) {
-    var product_id = req.params.id;
-
-    try {
-        const product = await Product.findByPk(product_id, {
-            attributes: ['name', 'price'],
-            include: [{
-                model: Users,
-                attributes: ['username']
-            }]
-        });
-        if (!product)
-            return res.status(404).send("Product not found");
-        res.json(product);
-    } catch (err) {
-        console.log("Error fetching product ", err);
-        res.status(500).send("Internal Server Error");
-    }
-});
-
-*/
