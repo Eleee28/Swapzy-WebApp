@@ -48,21 +48,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-<<<<<<< HEAD
-    margin: 25px auto; /* Centers and adds vertical margin */
+    margin: 25px auto;
     width: 40%;
-  }
-  
-  .input {
-    width: 100%;
-=======
-    margin: auto; /* Centers and adds vertical margin */
-    width: 350px;
 }
 
 .input {
-    width: 150px;
->>>>>>> main
+    margin: auto;
+    width: 350px;
     padding: 10px 0px 10px 40px;
     border-radius: 50px;
     border: solid 1px #333;
@@ -404,6 +396,11 @@ label {
     margin-top: none;
 }
 
+.location-map .map {
+    height: 400px;
+    width: 100%;
+}
+
 .location-title {
     font-size: 1.7em;
     color: #555;
@@ -453,24 +450,24 @@ label {
 @media (max-width: 768px) {
     /* Header */
     .header {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
     }
-  
+
     .logo-text{
-      display: none;
+        display: none;
     }
-  
+
     /* Navigation buttons */
     .nav-btn span { 
       display: none;  /* Hide text in buttons */
     }
-  
+
     .nav-btn i {
       font-size: 24px; /* Adjust icon size if needed */
     }
-  
+
     /* Make sure buttons stay horizontal */
     .nav-buttons {
       display: flex;
@@ -539,7 +536,12 @@ label {
 
     /* Location Map */
     .location-map {
+        height: 202px;
+    }
+    
+    .location-map .map {
         height: 200px;
+        width: 100%;
     }
 
     /* Account Info Section */
@@ -608,5 +610,10 @@ label {
 
     .location-map {
         height: 250px;
+    }
+    
+    .location-map .map {
+        height: 246px;
+        width: 100%;
     }
   }
