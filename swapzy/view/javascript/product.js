@@ -79,36 +79,6 @@ async function loadProductInfo() {
                 }
                 
             })
-
-            // Heart event listener
-            // document.querySelector('.main-heart-container').onclick = async function (event) {
-            //     event.stopPropagation();
-
-            //     const isChecked = heartCheckBox.checked;
-            //     heartCheckBox.checked = !isChecked;
-            //     const action = isChecked ? 'add' : 'delete';
-
-            //     try {
-            //         const response = await fetch(`/api/favorite/${action}`, {
-            //             method: 'POST',
-            //             headers: {
-            //                 'Content-Type': 'application/json'
-            //             },
-            //             body: JSON.stringify({ prodId })
-            //         });
-
-            //         if (!response.ok) {
-            //             console.log(`Failed to ${action} favorite`);
-                        
-            //             heartCheckBox.checked = isChecked;
-            //         } else {
-            //             console.log(`${action}ed to favorites`);
-            //         }
-            //     } catch (err) {
-            //         console.error('Error updating favorites: ', err);
-            //         heartCheckBox.checked = isChecked;
-            //     }
-            // }
         }
     } catch (err) {
         console.error('Error loading product: ', err);
@@ -117,3 +87,25 @@ async function loadProductInfo() {
 
 // Call function on page load
 document.addEventListener('DOMContentLoaded', loadProductInfo);
+
+// Carousel logic
+let currentIndex = 0;
+
+function moveCarousel(direction) {
+    const track = document.querySelector('.carousel-track');
+    const cards = document.querySelectorAll('.carousel .product-card');
+    const cardWidth = cards[0].offsetWidth + 20; // Ajuste para el margen
+    const maxIndex = cards.length - Math.floor(track.offsetWidth / cardWidth);
+
+    // Asegúrate de que el índice está dentro de los límites
+    currentIndex += direction;
+    if (currentIndex < 0) {
+        currentIndex = 0;
+    } else if (currentIndex > maxIndex) {
+        currentIndex = maxIndex;
+    }
+
+    // Calcula el desplazamiento y muévelo
+    const offset = -currentIndex * cardWidth;
+    track.style.transform = `translateX(${offset}px)`;
+}
