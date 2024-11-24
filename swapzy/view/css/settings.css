@@ -48,12 +48,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: auto; /* Centers and adds vertical margin */
-    width: 350px;
+    margin: 25px auto; /* Centers and adds vertical margin */
+    width: 40%;
   }
   
   .input {
-    width: 150px;
+    width: 100%;
     padding: 10px 0px 10px 40px;
     border-radius: 50px;
     border: solid 1px #333;
@@ -161,9 +161,14 @@ body {
 
 .dropdown {
     position: relative;
+    display: inline-block;
+    text-align: left;
+    margin: 0;
+    width: auto;
 }
 
 .dropbtn {
+    display: inline-block;
     font-family: "Dongle", sans-serif;
     background-color: #232528;
     color: white;
@@ -171,14 +176,20 @@ body {
     padding: 10px 15px;
     border: none;
     cursor: pointer;
+    margin: 0;
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: white;
-    min-width: 160px;
+    background-color: #232528;
+    min-width: 100%;
     z-index: 1;
+    left: 0;
+    top: 100%;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    padding: 5px;    
 }
 
 .dropdown:hover .dropdown-content {
@@ -186,14 +197,17 @@ body {
 }
 
 .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
+    color: #f1f1f1;
+    font-size: 1.2rem;
+    padding: 8px 12px;
     text-decoration: none;
     display: block;
+    border-radius: 3px;
+    margin: 2px 0;
 }
 
 .dropdown-content a:hover {
-    background-color: #f1f1f1;
+    background-color: #a44cd3;
 }
 
 /*Main content*/
@@ -340,6 +354,15 @@ label {
     border-radius: 5px;
 }
 
+/* Account Info Section */
+.account-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+
 /* Location Map */
 .location-map {
     width: 100%;
@@ -360,6 +383,10 @@ label {
 }
 
 /*Save Changes Button Styles*/
+.buttons-section {
+    display: flex;
+    flex-direction: row;
+}
 .save-changes-button {
     display: block;
     margin: 30px auto;
@@ -376,3 +403,182 @@ label {
 .save-changes-button:hover {
     background-color: #45a049;
 }
+
+.delete-account-button {
+    display: block;
+    margin: 30px auto;
+    padding: 12px 30px;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-account-button:hover {
+    background-color: #c0392b;
+}
+
+/* General Styles for Smaller Screens */
+@media (max-width: 768px) {
+    /* Header */
+    .header {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  
+    .logo-text{
+      display: none;
+    }
+  
+    /* Navigation buttons */
+    .nav-btn span { 
+      display: none;  /* Hide text in buttons */
+    }
+  
+    .nav-btn i {
+      font-size: 24px; /* Adjust icon size if needed */
+    }
+  
+    /* Make sure buttons stay horizontal */
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+  
+    /* Navbar */
+  
+    .navbar a {
+      display: none;
+    }
+  
+    .dropdown-content a{
+      display: flex;
+    }
+
+    /* Settings Header Section */
+    .settings-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .logout-button {
+        margin-top: 10px;
+        align-self: center;
+    }
+
+    /* Profile Pic Section */
+    .profile-pic-section, .public-info-section, .account-section {
+        width: 90%;
+        padding: 15px;
+        margin-top: 20px;
+    }
+
+    .profile-pic-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-pic {
+        width: 80px;
+        height: 80px;
+    }
+
+    .change-image-btn {
+        margin-top: 10px;
+    }
+
+    /* Public Info Section */
+    .input-group {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    label {
+        font-size: 1.5em;
+    }
+
+    .input-group input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        font-size: 1em;
+    }
+
+    /* Location Map */
+    .location-map {
+        height: 200px;
+    }
+
+    /* Account Info Section */
+    .account-container {
+        align-items: center;
+        width: 100%;
+    }
+
+    /* Buttons Section */
+    .buttons-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .save-changes-button, .delete-account-button {
+        width: 90%;
+        padding: 10px;
+        font-size: 1em;
+    }
+  
+    /* Footer */
+    .footer {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .footer-logo-container {
+      margin-bottom: 10px;
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .search-btn{
+      display: none;
+    }
+  
+    /* Search Input */
+    .container-input {
+      width: 40%;
+      margin: 20px;
+    }
+
+    
+    .settings-header {
+        max-width: 700px;
+    }
+
+    .profile-pic-section, .public-info-section, .account-section {
+        max-width: 700px;
+        padding: 20px;
+    }
+
+    .input-group {
+        max-width: 100%;
+        flex-direction: column;
+    }
+
+    label {
+        font-size: 1.5em;
+    }
+
+    .input-group input[type="text"] {
+        font-size: 1em;
+    }
+
+    .location-map {
+        height: 250px;
+    }
+  }
