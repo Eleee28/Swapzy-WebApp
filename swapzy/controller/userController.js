@@ -189,10 +189,10 @@ exports.getById = async function (req, res) {
 
 // Controller to check if user is logged in
 exports.checkLogin = async function (req, res) {
-    if (req.session.username) {
+    if (req.session.username != null) {
         res.json({ isLoggedIn: true, username: req.session.username });
     } else {
-        res.json({ isLoggenIn: false });
+        res.json({ isLoggedIn: false });
     }
 }
 
