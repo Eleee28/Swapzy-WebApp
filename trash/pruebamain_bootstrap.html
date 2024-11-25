@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swapzy - Main Page</title>
+    <!-- Link to Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/pruebamain_bootstrap.css">
+</head>
+<body>
+    <!-- Header Section-->
+    <header class="header bg-light">
+        <div class="container d-flex justify-content-between align-items-center">
+            <!-- Logo Container-->
+            <a href="main.html" class="logo-container d-flex align-items-center">
+                <img src="images/swapzy_logo.png" alt="Swapzy Logo" class="logo">
+                <span class="logo-text">SWAPZY</span>
+            </a>
+
+            <!-- Navigation Buttons -->
+            <nav class="nav-buttons d-flex">
+                <a href="favorites.html" class="nav-btn d-flex align-items-center me-3">
+                    <img src="images/heart.png" alt="Favorites Icon">
+                    <span class="btn-text">Favorites</span>
+                </a>
+                <a href="profile.html" class="nav-btn d-flex align-items-center me-3">
+                    <img src="images/profile.png" alt="Profile Icon">
+                    <span class="btn-text">Profile</span>
+                </a>
+                <a href="sell.html" class="nav-btn d-flex align-items-center">
+                    <img src="images/sell.png" alt="Sell Icon">
+                    <span class="btn-text">Sell</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Categories Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <div class="dropdown">
+                <button class="dropbtn btn btn-outline-light">Categories</button>
+                <div class="dropdown-content" id="category-list">
+                    <!-- Dynamic categories from backend will be loaded here -->
+                    <a href="#">Electronics</a>
+                    <a href="#">Clothing</a>
+                    <a href="#">Books</a>
+                    <a href="#">Home & Garden</a>
+                    <a href="#">Toys</a>
+                </div>
+            </div>
+            <!-- Static Links to Categories -->
+            <div class="nav-static d-flex flex-wrap">
+                <a href="#" class="nav-link">Electronics</a>
+                <a href="#" class="nav-link">Clothing</a>
+                <a href="#" class="nav-link">Books</a>
+                <a href="#" class="nav-link">Home & Garden</a>
+                <a href="#" class="nav-link">Toys</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Title -->
+        <div class="title-content d-flex text-center">
+            <h1 class="main-title">BUYING AND SELLING SECOND HAND HAS NEVER BEEN EASIER</h1>
+        </div>
+
+        <!-- Search Input with Icon and Button -->
+        <div class="container-input d-flex align-items-center justify-content-center">
+            <input type="text" name="text" class="input form-control" placeholder="Search...">
+            <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+                <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
+            </svg>
+            <button class="search-btn btn btn-primary">Search</button>
+        </div>
+
+        <!-- Recently Uploaded -->
+        <div class="recently-uploaded-section">
+            <h2 class="section-title">Recently Uploaded</h2>
+            <div class="carousel-container d-flex align-items-center">
+                <button class="carousel-btn prev-btn1" onclick="moveCarouselRecents(-1)">&#10094;</button>
+                <div class="carousel flex-grow-1">
+                    <div class="carousel-track"></div>
+                </div>
+                <button class="carousel-btn next-btn1" onclick="moveCarouselRecents(1)">&#10095;</button>
+            </div>
+        </div>
+
+        <!-- Favourites -->
+        <div class="favorites-section" id="favorites-section">
+            <h2 class="section-title">Favourites</h2>
+            <p class="message-text" style="display: none;"></p>
+            <div class="carousel-container d-flex align-items-center">
+                <button class="carousel-btn prev-btn2" onclick="moveCarouselFav(-1)">&#10094;</button>
+                <div class="carousel flex-grow-1">
+                    <div class="carousel-track" id="fav-carousel-track"></div>
+                </div>
+                <button class="carousel-btn next-btn2" onclick="moveCarouselFav(1)">&#10095;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <div class="footer-logo-container d-flex justify-content-center align-items-center">
+                <img src="images/swapzy_logo.png" alt="Swapzy Logo" class="footer-logo me-2">
+                <span class="footer-logo-text">SWAPZY</span>
+            </div>
+            <!-- Footer info here -->
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="javascript/main.js"></script>
+    <script src="javascript/recentProducts.js"></script>
+    <script src="javascript/favoriteProducts.js"></script>
+</body>
+</html>
