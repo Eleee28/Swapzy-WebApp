@@ -35,15 +35,15 @@
 
         <!-- Navigation Buttons -->
         <nav class="nav-buttons">
-            <a href="favorites.html" class="nav-btn">
+            <a class="nav-btn" id="fav-button">
                 <img src="images/heart.png">
                 <span class="btn-text">Favorites</span>
             </a>
-            <a href="profile.html" class="nav-btn">
+            <a class="nav-btn" id="profile-button">
                 <img src="images/profile.png" alt="Profile Icon">
                 <span class="btn-text">Profile</span>
             </a>
-            <a href="sell.html" class="nav-btn">
+            <a class="nav-btn" id="sell-button">
                 <img src="images/sell.png" alt="Sell Icon">
                 <span class="btn-text">Sell</span>
             </a>
@@ -92,16 +92,32 @@
         <h2 class="section-title">Profile Pic</h2>
         <div class="profile-pic-container">
             <img src="images/profile_picture_sample.jpg" alt="Profile Picture" class="profile-pic" id="profile-pic">
-            <button class="change-image-btn" onclick="openPopup()">Change Image</button>
+            <button class="change-image-btn" onclick="openChangeImagePopup()">Change Image</button>
         </div>
     </section>
 
     <!-- Popup for changing image -->
-    <div class="popup" id="popup">
+    <!-- <div class="popup" id="popup">
         <div class="popup-content">
             <span class="close-btn" onclick="updateProfilePic()">×</span>
-            <h2>Enter Image URL</h2>
+            <h2 id="popup-title"></h2>
+            <p id="popup-info"></p>
             <input type="text" placeholder="Image URL" class="url-input" id="image-url">
+            <input type="password" placeholder="Introduce password" class="url-input" id="popup-passwd">
+        </div>
+    </div> -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">×</span>
+            <h2 id="popup-title"></h2>
+            <p id="popup-info" style="font-size: 20px;"></p>
+            
+            <!-- Div for error message display -->
+            <div id="error-message" class="error-message" style="display: none;"></div>
+        
+            <input type="text" placeholder="Image URL" class="url-input" id="image-url" style="display: none;">
+            <input type="password" placeholder="Introduce password" class="url-input" id="popup-passwd" style="display: none;">
+            <button class="confirm-btn" id="confirm-btn" onclick="confirmAction()">Confirm</button>
         </div>
     </div>
 
@@ -137,18 +153,18 @@
             </div>
             <div class="input-group">
                 <label for="password">New Password</label>
-                <input type="text" id="email" name="email">
+                <input type="password" id="password" name="password">
             </div>
             <div class="input-group">
                 <label for="password">Repeat Password</label>
-                <input type="text" id="email" name="email">
+                <input type="password" id="repeat-password" name="repeat-password">
             </div>
         </div>
     </section>
 
     <!-- Buttons -->
     <div class="buttons-section">
-        <button class="delete-account-button">Delete Account</button>
+        <button class="delete-account-button" onclick="openDeleteAccountPopup()">Delete Account</button>
         <button class="save-changes-button" onclick="updateUserInfo()">Save Changes</button>
     </div>
 

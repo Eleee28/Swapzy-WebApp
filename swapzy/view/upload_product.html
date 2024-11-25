@@ -35,15 +35,15 @@
 
         <!-- Navigation Buttons -->
         <nav class="nav-buttons">
-            <a href="favorites.html" class="nav-btn">
+            <a class="nav-btn" id="fav-button">
                 <img src="images/heart.png">
                 <span class="btn-text">Favorites</span>
             </a>
-            <a href="profile.html" class="nav-btn">
+            <a class="nav-btn" id="profile-button">
                 <img src="images/profile.png" alt="Profile Icon">
                 <span class="btn-text">Profile</span>
             </a>
-            <a href="sell.html" class="nav-btn">
+            <a class="nav-btn" id="sell-button">
                 <img src="images/sell.png" alt="Sell Icon">
                 <span class="btn-text">Sell</span>
             </a>
@@ -139,12 +139,17 @@
                 <label for="product-location">Location</label>
                 <input type="text" id="product-location" name="product-location" placeholder="Enter product's location">
             </div>
+
+            <p class="location-title">Map</p>
+            <div class="location-map">
+                <div class="map" id="map"></div>
+            </div>
             
-            <div id="map-container">
+            <!-- <div id="map-container">
                 <input type="text" id="location-search" placeholder="Search for a location">
                 <button id="search-button">Search</button>
                 <div id="map" style="height: 400px; width: 600px;"></div>
-            </div>
+            </div> -->
             
         </div>
     </section>

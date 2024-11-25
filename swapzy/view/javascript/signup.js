@@ -20,6 +20,6 @@ document.getElementById('signup-form').addEventListener('submit', async function
         errorDiv.textContent = errorMessage;
     } else {
         const result = await response.json();
-        window.location.href = '/main.html';
+        window.location.href = '/';
     }
 });

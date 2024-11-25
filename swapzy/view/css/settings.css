@@ -351,6 +351,31 @@ body {
     border-radius: 5px;
 }
 
+.confirm-btn {
+    background-color: #a44cd3;
+    color: #ffffff;
+    border: none;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.confirm-btn:hover {
+    background-color: #8a3cb4;
+}
+
+.error-message {
+    color: red;
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    text-align: center;
+}
+
 /*Public Info Section*/
 .input-group {
     max-width: 400px;
@@ -366,7 +391,7 @@ label {
     color: #555;
 }
 
-.input-group #username, #location, #email[type="text"] {
+.input-group #username, #location, #email[type="text"], #password, #repeat-password {
     flex: 1;
     padding: 10px;
     font-size: 0.9em;

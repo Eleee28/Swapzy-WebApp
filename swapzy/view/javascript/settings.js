@@ -1,5 +1,37 @@
-function openPopup() {
+let confirmBtnAction = null;
+
+function openChangeImagePopup() {
+    document.getElementById("popup-title").textContent = "Enter Image URL";
+    document.getElementById("popup-info").textContent = "";
+    document.getElementById("image-url").style.display = "block";
+    document.getElementById("image-url").value = "";
+    document.getElementById("popup-passwd").style.display = "none";
+    document.getElementById("confirm-btn").innerText = "Save";
+    document.getElementById('error-message').style.display= "none";
+    
+    confirmBtnAction = 'change-image';
+
     document.getElementById("popup").style.display = "flex";
+}
+
+function openDeleteAccountPopup() {
+    document.getElementById("popup-title").textContent = "Deleting Account";
+    document.getElementById("popup-info").textContent = "Introduce your password to delete account";
+    document.getElementById("image-url").style.display = "none";
+    document.getElementById("popup-passwd").style.display = "block";
+    document.getElementById("confirm-btn").innerText = "Delete";
+    document.getElementById('error-message').style.display= "none";
+    
+    confirmBtnAction = 'delete-account';
+
+    document.getElementById("popup").style.display = "flex";
+}
+
+function confirmAction() {
+    if (confirmBtnAction === 'change-image')
+        updateProfilePic();
+    else if (confirmBtnAction === 'delete-account')
+        deleteUser();
 }
 
 function closePopup() {
@@ -12,9 +44,13 @@ function updateProfilePic() {
     if (imageUrl) {
         const profilePic = document.getElementById("profile-pic");
         profilePic.src = imageUrl;
+        closePopup();
+    } else {
+        // Display error message
+        const errorDiv = document.getElementById('error-message');
+        errorDiv.style.display = 'block';
+        errorDiv.textContent = "Invalid image URL";
     }
-
-    closePopup();
 }
 
 async function logOut() {
@@ -72,6 +108,8 @@ async function updateUserInfo() {
     const imageUrl = document.getElementById("profile-pic").src;
     const username = document.getElementById("username").value;
     const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const repeatPassword = document.getElementById("repeat-password").value;
 
     // Get location using marker
     const lat = marker.getLatLng().lat;
@@ -81,6 +119,8 @@ async function updateUserInfo() {
         username: username,
         email: email,
         image_url: imageUrl,
+        password: password,
+        repeat_password: repeatPassword,
         location: {
             lat: lat,
             lng: lng
@@ -98,30 +138,70 @@ async function updateUserInfo() {
             body: JSON.stringify(updatedUserInfo)
         });
 
-        if (response.ok) {
-            const result = await response.json();
+        const result = await response.json();
+        if (response.ok)
+            showPopupMessage("User information updated", '/');
+        else if (response.status === 400)
+            showPopupMessage(result.message, 'settings.html');
 
-            showPopupMessage("User information updated");
-        }
     } catch (err) {
         console.error('Error while updating user:', err);
     }    
 }
 
-function showPopupMessage(message) {
+async function deleteUser() {
+    const password = document.getElementById("popup-passwd").value;
+    
+    try {
+        if (!password) {
+            // Display error message
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.style.display = 'block';
+            errorDiv.textContent = "Enter your password";
+        }
+
+        const response = await fetch('/api/delete-user', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ password })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            // Display error message
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.style.display = 'block';
+            errorDiv.textContent = data.message;
+        }
+
+        if (data.message === "User account deleted successfully") {
+            closePopup();
+            showPopupMessage("Account deleted successfully", '/');
+        }
+
+    } catch (err) {
+        console.error("Error:", error.message);
+        showPopupMessage(error.message || "An error occurred. Please try again.", 'settings.html');
+    }
+}
+
+function showPopupMessage(message, location) {
     const popup = document.getElementById('info-popup');
     const closePopupButton = document.getElementById('close-popup');
 
     document.getElementById("info-popup-message").textContent = message;
     popup.style.display = "flex";
     
-    // setTimeout(() => {
-    //     window.location.href = '/';
-    // }, 3000); // Redirect after 3 seconds
+    setTimeout(() => {
+        window.location.href = location;
+    }, 3000); // Redirect after 3 seconds
 
     closePopupButton.addEventListener('click', () => {
         popup.style.display = "none";
-        window.location.href = '/';
+        window.location.href = location;
     })
 }
 
@@ -238,6 +318,45 @@ async function initializeMap() {
         }
     });
 }
+
+async function navButtonHandler() {
+    const favButton = document.getElementById("fav-button");
+    const profileButton = document.getElementById("profile-button");
+    const sellButton = document.getElementById("sell-button");
+
+    const response = await fetch('/api/check-login');
+    const data = await response.json();
+
+    favButton.addEventListener('click', () => {
+        console.log('Fav button clicked');
+    });
+
+    profileButton.addEventListener('click', () => {
+        try {
+            if (data.isLoggedIn) {
+                window.location.href = 'settings.html';
+            } else {
+                window.location.href = 'login.html';
+            }
+        } catch (err) {
+            console.error('Error: ', err);
+        }
+    });
+
+    sellButton.addEventListener('click', () => {
+        try {
+            if (data.isLoggedIn) {
+                window.location.href = 'upload_product.html';
+            } else {
+                alert('You must be logged in to sell a product');
+            }
+        } catch (err) {
+            console.error('Error: ', err);
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', navButtonHandler);
 
 document.addEventListener('DOMContentLoaded', loadUserInfo);
 

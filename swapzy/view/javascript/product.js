@@ -16,6 +16,9 @@ async function loadProductInfo() {
             document.getElementById("product-price").innerText = `${product.price}€`;
             document.getElementById("product-title").innerText = product.name;
             document.getElementById("product-description").innerText = product.description;
+            document.getElementById("product-category").innerText = product.category;
+            document.getElementById("product-status").innerText = product.condition;
+
 
             // Get user details
             const userResponse = await fetch(`/api/users/${product.seller}`);
@@ -44,14 +47,18 @@ async function loadProductInfo() {
                 .bindPopup(`<b>${product.name}</b>`)
                 .openPopup();
             
-            // Get favorite products to check if this one is favorite
-            const favoriteResponse = await fetch('/api/favorite/ids');
-            const favorite = await favoriteResponse.json();
-            const isFavorite = favorite.some(fav => fav.id == prodId);
-
             // Set heart state
             const heartCheckBox = document.querySelector('.checkbox');
-            heartCheckBox.checked = isFavorite;
+            heartCheckBox.checked = '';
+
+            // Get favorite products to check if this one is favorite
+            const favoriteResponse = await fetch('/api/favorite/ids');
+            if (favoriteResponse.ok) {
+                const favorite = await favoriteResponse.json();
+                const isFavorite = favorite.some(fav => fav.id == prodId);
+                heartCheckBox.checked = isFavorite;
+            }
+            
 
             heartCheckBox.addEventListener('change', async function (event) {
                 event.stopPropagation();
@@ -109,3 +116,43 @@ function moveCarousel(direction) {
     const offset = -currentIndex * cardWidth;
     track.style.transform = `translateX(${offset}px)`;
 }
+
+async function navButtonHandler() {
+    const favButton = document.getElementById("fav-button");
+    const profileButton = document.getElementById("profile-button");
+    const sellButton = document.getElementById("sell-button");
+
+    const response = await fetch('/api/check-login');
+    const data = await response.json();
+
+    favButton.addEventListener('click', () => {
+        console.log('Fav button clicked');
+    });
+
+    profileButton.addEventListener('click', () => {
+        try {
+            if (data.isLoggedIn) {
+                window.location.href = 'settings.html';
+            } else {
+                window.location.href = 'login.html';
+            }
+        } catch (err) {
+            console.error('Error: ', err);
+        }
+    });
+
+    sellButton.addEventListener('click', () => {
+        try {
+            if (data.isLoggedIn) {
+                window.location.href = 'upload_product.html';
+            } else {
+                alert('You must be logged in to sell a product');
+            }
+        } catch (err) {
+            console.error('Error: ', err);
+        }
+    });
+}
+
+
+document.addEventListener('DOMContentLoaded', navButtonHandler);
