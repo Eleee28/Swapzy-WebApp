@@ -232,16 +232,21 @@ exports.updateUser = async function (req, res) {
                 user.username = username;
             if (email && email !== user.email)
                 user.email = email;
-            if (password && repeat_password && password === repeat_password)
-                user.password = await bcrypt.hash(password, 8);
+            if (password && repeat_password) {
+                if (password === repeat_password)
+                    user.password = await bcrypt.hash(password, 8);
+                else
+                    return res.status(400).json({ message: 'Passwords do not match' });
+            }
             if (location && location !== user.location) {
                 if (location.lat && location.lng) {
                     user.location = {
                         type: 'Point',
                         coordinates: [location.lng, location.lat]
                     };
-                } else
-                    return res.status(400).json({ message: 'Invalid location format' });
+                } 
+                // else
+                //     return res.status(400).json({ message: 'Invalid location format' });
             }
             if (image_url && image_url !== user.image_url)
                 user.profile_img = image_url;
@@ -254,6 +259,56 @@ exports.updateUser = async function (req, res) {
     } catch (err) {
         res.status(500).json({ message: "Internal Server Error", error: err.message });
     }
+}
+
+// Controller to delete a user
+exports.deleteUser = async function (req, res) {
+    const username = req.session.username;
+
+    if (!username)
+        return res.status(401).json({ message: "User not logged in" });
+
+    const { password } = req.body;
+
+    if (!password)
+        return res.status(400).json({ message: "Password is required" });
+
+    try {
+        const user = await Users.findByPk(username);
+
+        if (!user)
+            return res.status(404).json({ message: "User not found" });
+
+        const validPassword = await bcrypt.compare(password, user.password);
+
+        if (!validPassword)
+            return res.status(400).json({ message: "Invalid password" });
+
+        await user.destroy(); // Delete user
+
+        // Clear session
+        req.session.destroy();
+
+        res.status(200).json({ message: "User account deleted successfully" });
+    } catch (err) {
+        console.error("Error deleting user: ", err);
+        res.status(500).json({ message: "An error occurred while deleting user account", error: err.message });
+    }
+}
+
+// Controller for alerting the user when session is about to expire
+exports.sessionInfo = function (req, res) {
+    if (req.session) {
+        const now = Date.now();
+        const sessionExpiry = req.session.expires;
+        
+        if (sessionExpiry) {
+            const remainingTime = sessionExpiry.getTime() - now;
+            return res.json({ remainingTime });
+        } else
+            return res.json({ remainingTime: 0 });
+    }
+    res.status(401).json({ message: 'Session expired' });
 }
 
 // Controller method to delete a todo by id

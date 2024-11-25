@@ -38,4 +38,11 @@ router.get('/api/check-login', userController.checkLogin);
 // Route to get user's location
 router.get('/api/location', userController.getUserLocation);
 
+// Route for alerting user when session is about to expire
+router.get('/api/session-info', userController.sessionInfo);
+
+// Route to delete current user
+router.delete('/api/delete-user', userController.deleteUser);
+
+
 module.exports = router;
