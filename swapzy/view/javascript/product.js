@@ -49,7 +49,7 @@ async function loadProductInfo() {
             
             // Set heart state
             const heartCheckBox = document.querySelector('.checkbox');
-            heartCheckBox.checked = '';
+            heartCheckBox.checked = false;
 
             // Get favorite products to check if this one is favorite
             const favoriteResponse = await fetch('/api/favorite/ids');
@@ -79,6 +79,14 @@ async function loadProductInfo() {
                         heartCheckBox.checked = !heartCheckBox.checked;
                     } else {
                         console.log(`${action}ed to favorites`);
+
+                        // Change heart state in recent products
+                        const recProd = document.querySelector('.recently-uploaded-section .carousel-track').querySelector(`[data-product-id="${prodId}"]`);
+                        if (recProd)
+                            recProd.querySelector('.checkbox').checked = !recProd.querySelector('.checkbox').checked;
+
+                        document.querySelector('.recently-uploaded-section .carousel-container').style.display = 'none';
+                        document.querySelector('.recently-uploaded-section .carousel-container').style.display = 'block';
                     }
                 } catch (err) {
                     console.error('Error updating favorites: ', err);
@@ -116,43 +124,3 @@ function moveCarousel(direction) {
     const offset = -currentIndex * cardWidth;
     track.style.transform = `translateX(${offset}px)`;
 }
-
-async function navButtonHandler() {
-    const favButton = document.getElementById("fav-button");
-    const profileButton = document.getElementById("profile-button");
-    const sellButton = document.getElementById("sell-button");
-
-    const response = await fetch('/api/check-login');
-    const data = await response.json();
-
-    favButton.addEventListener('click', () => {
-        console.log('Fav button clicked');
-    });
-
-    profileButton.addEventListener('click', () => {
-        try {
-            if (data.isLoggedIn) {
-                window.location.href = 'settings.html';
-            } else {
-                window.location.href = 'login.html';
-            }
-        } catch (err) {
-            console.error('Error: ', err);
-        }
-    });
-
-    sellButton.addEventListener('click', () => {
-        try {
-            if (data.isLoggedIn) {
-                window.location.href = 'upload_product.html';
-            } else {
-                alert('You must be logged in to sell a product');
-            }
-        } catch (err) {
-            console.error('Error: ', err);
-        }
-    });
-}
-
-
-document.addEventListener('DOMContentLoaded', navButtonHandler);

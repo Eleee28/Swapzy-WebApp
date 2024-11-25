@@ -103,63 +103,29 @@ async function fetchFavoriteProducts() {
                             favSection.removeChild(prodInFav);
 
                             // Change heart state in recent products
-                            const recProd = carousel.querySelector(`[data-product-id="${prodId}"]`);
+                            const recProd = document.querySelector('.recently-uploaded-section .carousel-track').querySelector(`[data-product-id="${prodId}"]`);
                             if (recProd)
-                                recProd.querySelector('.checkbox').checked = '';
+                                recProd.querySelector('.checkbox').checked = false;
                         }
+
+                        if (favSection.hasChildNodes()) {
+                            document.querySelector('.favorites-section .carousel-container').style.display = "block";
+                            document.querySelector('.favorites-section .message-text').style.display = "none";
+                        } else {
+                            document.querySelector('.favorites-section .carousel-container').style.display = "none";
+                            document.querySelector('.favorites-section .message-text').style.display = "block";
+                            document.querySelector('.favorites-section .message-text').textContent = "No favorite products yet! Start adding your favorites to find them quickly.";
+                        }
+
                         document.querySelector('.recently-uploaded-section .carousel-container').style.display = 'none';
                         document.querySelector('.recently-uploaded-section .carousel-container').style.display = 'block';
-                        document.querySelector('.favorites-section .carousel-container').style.display = 'none';
-                        document.querySelector('.favorites-section .carousel-container').style.display = 'block';
                     } else {
                         console.log('Failed to remove from favorites');
                     }
                 } catch (err) {
                     console.log("Error removing from favorites");
                 }
-                
-                
-                
-                
-                
-                // Add to favorite
-                // const checkbox = productCard.querySelector('.checkbox');
-                // const isChecked = checkbox.checked;
-                // const prodId = prod.id;
-
-                // try {
-                //     const action = isChecked ? 'add' : 'delete';
-                //     const response = await fetch(`/api/favorite/${action}`, {
-                //         method: 'POST',
-                //         headers: {
-                //             'Content-Type': 'application/json'
-                //         },
-                //         body: JSON.stringify({ prodId })
-                //     });
-
-                //     if (response.ok) {
-                //         console.log(`${action}ed to favorites`);
-                        
-                //         const favSection = document.getElementById('fav-carousel-track');
-
-                //         // if action is add append child, if action is delete remove child
-                //         /*if (action === 'add') {
-                //             const prodCardCpy = productCard.cloneNode(true);
-                //             favSection.appendChild(prodCardCpy);
-                //         } else */
-                //         if (action === 'delete') {
-                //             const prodInFav = favSection.querySelector(`[data-product-id="${prodId}"]`);
-                //             if (prodInFav)
-                //                 favSection.removeChild(prodInFav);
-                //         }
-
-                //         //location.reload(); // Reload page
-                //     } else {
-                //         console.log(`Failed to ${action} favorite`);
-                //     }
-                // } catch (err) {
-                //     console.error('Error updating favorites: ', err);
-                // }
+            
             }
 
             // Append products to carousel

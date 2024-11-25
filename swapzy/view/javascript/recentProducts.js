@@ -81,7 +81,7 @@ async function fetchRecentProducts() {
                 //TODO - else add pop up to say you must be logged in to add a product to fav
                 if (!favoriteResponse.ok) {
                     alert("You must be logged in to add products to favorites");
-                    productCard.querySelector('.checkbox').checked = '';
+                    productCard.querySelector('.checkbox').checked = false;
                     return;
                 }
 
@@ -104,23 +104,38 @@ async function fetchRecentProducts() {
                     if (response.ok) {
                         console.log(`${action}ed to favorites`);
 
-                        const favSection = document.getElementById('fav-carousel-track');
+                        const productHeart = document.querySelector('.product-card-details .checkbox');
+                        const prodCardId = document.querySelector('.product-card').getAttribute('data-product-id');
                         
-                        // if action is add append child, if action is delete remove child
-                        if (action === 'add') {
-                            const prodCardCpy = productCard.cloneNode(true);
-                            favSection.appendChild(prodCardCpy);
-                        } else if (action === 'delete') {
-                            const prodInFav = favSection.querySelector(`[data-product-id="${prodId}"]`);
-                            if (prodInFav)
-                                favSection.removeChild(prodInFav);
+                        if (productHeart && prodCardId == prodId)
+                            productHeart.checked = !productHeart.checked;
+
+                        const favSection = document.getElementById('fav-carousel-track');
+
+                        if (favSection) {
+                        
+                            // if action is add append child, if action is delete remove child
+                            if (action === 'add') {
+                                const prodCardCpy = productCard.cloneNode(true);
+                                favSection.appendChild(prodCardCpy);
+                            } else if (action === 'delete') {
+                                const prodInFav = favSection.querySelector(`[data-product-id="${prodId}"]`);
+                                if (prodInFav)
+                                    favSection.removeChild(prodInFav);
+                            }
+
+                            if (favSection.hasChildNodes()) {
+                                document.querySelector('.favorites-section .carousel-container').style.display = "block";
+                                document.querySelector('.favorites-section .message-text').style.display = "none";
+                            } else {
+                                document.querySelector('.favorites-section .carousel-container').style.display = "none";
+                                document.querySelector('.favorites-section .message-text').style.display = "block";
+                                document.querySelector('.favorites-section .message-text').textContent = "No favorite products yet! Start adding your favorites to find them quickly.";
+                            }
                         }
 
                         document.querySelector('.recently-uploaded-section .carousel-container').style.display = 'none';
                         document.querySelector('.recently-uploaded-section .carousel-container').style.display = 'block';
-                        document.querySelector('.favorites-section .carousel-container').style.display = 'none';
-                        document.querySelector('.favorites-section .carousel-container').style.display = 'block';
-                        //location.reload(); // Reload page to apply changes
 
                     } else {
                         console.log(`Failed to ${action} favorite`);
