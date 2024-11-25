@@ -1,3 +1,51 @@
+function clearFields() {
+    document.getElementById("product-name").value = '';
+    document.getElementById("product-price").value = '';
+    document.getElementById("product-description").value = '';
+    document.getElementById("product-photo").value = '';
+    document.getElementById("product-location").value = '';
+}
+
+async function populateCategoryDropdown() {
+    try {
+        const response = await fetch('/api/categories');
+        const categories = await response.json();
+
+        const categoryDropdown = document.getElementById('product-category-options')
+
+        categoryDropdown.innerHTML = '';
+
+        categories.forEach((category) => {
+            const option = document.createElement('a');
+            option.classList.add('dropdown-item', 'd-flex', 'align-items-center');
+            option.style.cursor = 'pointer';
+            
+            const icon = document.createElement('img');
+            icon.src = `https://fonts.gstatic.com/s/i/materialicons/${category.image}/v6/24px.svg`; // Material Icons URL
+            icon.alt = ' ';
+            icon.style.width = '24px';
+            icon.style.height = '24px';
+            icon.style.marginRight = '10px';
+            icon.style.transform = 'translateY(35%)';
+            
+
+            const name = document.createElement('span');
+            name.textContent = category.name_id;
+
+            option.appendChild(icon);
+            option.appendChild(name);
+            
+            option.addEventListener('click', () => {
+                document.getElementById('product-category-button').textContent = category.name_id;
+                document.getElementById('product-category-button').dataset.value = category.name_id;
+            });
+            categoryDropdown.appendChild(option);
+        });
+    } catch(err) {
+        console.error('Error fetching categories: ', err);
+    }
+}
+
 async function populateStateDropdown() {
     try {
         const response = await fetch('/api/condition-enum');
@@ -7,12 +55,9 @@ async function populateStateDropdown() {
 
         stateDropdown.innerHTML = '';
 
-        // const defaultOption = document.createElement('a');
-        // defaultOption.textContent = 'Select Status';
-        // stateDropdown.appendChild(defaultOption);
-
         stateEnumValues.forEach((state) => {
             const option = document.createElement('a');
+            option.style.cursor = 'pointer';
             option.textContent = state;
             option.classList.add('dropdown-item');
             option.addEventListener('click', () => {
@@ -25,38 +70,6 @@ async function populateStateDropdown() {
         console.error('Error fetching state enum values: ', err);
     }
 }
-
-const prodCategoryButton = document.getElementById('product-category-button');
-const categoryOptions = document.getElementById('product-category-options');
-
-let selectedCategory = null;
-
-categoryOptions.addEventListener('click', (event) => {
-    event.preventDefault();
-
-    if (event.target.tagName === 'A' && event.target.dataset.value) {
-        selectedCategory = event.target.dataset.value;
-
-        prodCategoryButton.textContent = selectedCategory;
-    }
-})
-
-/*
-const stateButton = document.getElementById('state-button');
-const stateOptions = document.getElementById('state-options');
-
-let selectedState = null;
-
-stateOptions.addEventListener('click', (event) => {
-    event.preventDefault();
-
-    if (event.target.tagName === 'A' && event.target.dataset.value) {
-        selectedState = event.target.dataset.value;
-
-        stateButton.textContent = selectedState;
-    }
-})
-*/
 
 async function getUserLocation() {
     try {
@@ -158,16 +171,18 @@ const uploadButton = document.getElementById("upload-button");
 
 uploadButton.addEventListener('click', async () => {
     const name = document.getElementById("product-name").value;
-    const category = selectedCategory;
+    const category = document.getElementById("product-category-button").dataset.value;
     const price = document.getElementById("product-price").value;
     const description = document.getElementById("product-description").value;
     const state = document.getElementById("state-button").dataset.value;
     const photo = document.getElementById("product-photo").value;
-    const location = document.getElementById("product-location").value;
+    
+    // Get location using marker
+    const lat = marker.getLatLng().lat;
+    const lng = marker.getLatLng().lng;
 
     if (!name || !category || !price || !description || !state || !photo || !location) {
-        alert('Please fill in all the fields');
-        return;
+        showPopupMessage('Please fill in all the fields', 'upload_product.html');
     }
 
     try {
@@ -176,14 +191,24 @@ uploadButton.addEventListener('click', async () => {
             headers: {
                 'Content-Type' : 'application/json',
             },
-            body: JSON.stringify({ name, category, price, description, state, photo, location })
+            body: JSON.stringify({ 
+                name: name, 
+                category: category, 
+                price: price, 
+                description: description, 
+                condition: state, 
+                image_url: photo, 
+                location: {
+                    lat: lat,
+                    lng: lng
+                } 
+            })
         });
 
         const result = await response.json();
 
         if (response.ok) {
-            alert('Product uploaded successfully!');
-            console.log(result);
+            showPopupMessage('Product uploaded successfully!', '/');
         } else {
             alert(result.message || 'Failed to upload product');
         }
@@ -230,7 +255,28 @@ async function navButtonHandler() {
     });
 }
 
+function showPopupMessage(message, location) {
+    const popup = document.getElementById('info-popup');
+    const closePopupButton = document.getElementById('close-popup');
+
+    document.getElementById("info-popup-message").textContent = message;
+    popup.style.display = "flex";
+    
+    setTimeout(() => {
+        window.location.href = location;
+    }, 3000); // Redirect after 3 seconds
+
+    closePopupButton.addEventListener('click', () => {
+        popup.style.display = "none";
+        window.location.href = location;
+    })
+}
+
+document.addEventListener('DOMContentLoaded', clearFields);
+
 document.addEventListener('DOMContentLoaded', navButtonHandler);
+
+document.addEventListener('DOMContentLoaded', populateCategoryDropdown);
 
 document.addEventListener('DOMContentLoaded', populateStateDropdown);
 
