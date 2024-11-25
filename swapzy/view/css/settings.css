@@ -41,20 +41,19 @@ body {
     font-weight: bold;
 }
 
-    /* Search Input and Button Styles */
-    /* From Uiverse.io by garerim https://uiverse.io/garerim/rare-moth-56 */ 
+/* Search Input and Button Styles */
+/* From Uiverse.io by garerim https://uiverse.io/garerim/rare-moth-56 */ 
 .container-input {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 25px auto;
+    margin: 25px auto; /* Centers and adds vertical margin */
     width: 40%;
-}
-
-.input {
-    margin: auto;
-    width: 350px;
+  }
+  
+  .input {
+    width: 100%;
     padding: 10px 0px 10px 40px;
     border-radius: 50px;
     border: solid 1px #333;
@@ -62,21 +61,21 @@ body {
     outline: none;
     opacity: 0.8;
     font-size: 16px;
-}
-
-.container-input svg {
+  }
+  
+  .container-input svg {
     position: absolute;
     top: 50%;
     left: 10px;
     transform: translateY(-50%); /* Centers the icon vertically */
-}
-
-.input:focus {
+  }
+  
+  .input:focus {
     opacity: 1;
     width: 100%; /* Expands input on focus */
-}
+  }
 
-.search-btn {
+  .search-btn {
     padding: 10px 20px;
     margin-left: 5px;
     border-radius: 50px;
@@ -86,11 +85,11 @@ body {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
-}
+  }
 
-.search-btn:hover {
+  .search-btn:hover {
     background-color: #a44cd3;
-}
+  }
 
 .nav-buttons {
     display: flex;
@@ -268,6 +267,7 @@ body {
 
 .profile-pic-container, .public.info-container, .account-container {
     display: flex;
+    flex-direction: row;
     align-items: center;
     gap: 20px;
 }
@@ -386,12 +386,12 @@ body {
 }
 
 label {
-    width: 100px;
+    width: 110px;
     font-size: 1.7em;
     color: #555;
 }
 
-.input-group #username, #location, #email[type="text"], #password, #repeat-password {
+.input-group #username, #location, #email, #password, #repeat-password[type="text"], #password, #repeat-password {
     flex: 1;
     padding: 10px;
     font-size: 0.9em;
@@ -407,6 +407,9 @@ label {
     align-items: flex-start;
 }
 
+label {
+    line-height: 1em;
+}
 
 /* Location Map */
 .location-map {
@@ -568,18 +571,11 @@ label {
         height: 200px;
         width: 100%;
     }
-
-    /* Account Info Section */
-    .account-container {
-        align-items: center;
-        width: 100%;
-    }
-
+    
     /* Buttons Section */
     .buttons-section {
         flex-direction: column;
         align-items: center;
-        gap: 10px;
     }
 
     .save-changes-button, .delete-account-button {
@@ -620,13 +616,8 @@ label {
         padding: 20px;
     }
 
-    .input-group {
-        max-width: 100%;
-        flex-direction: column;
-    }
-
     label {
-        font-size: 1.5em;
+        font-size: 1.4em;
     }
 
     .input-group input[type="text"] {
