@@ -10,11 +10,13 @@ require('dotenv').config(); // Load environment variables
 
 // Import internal modules
 const sequelize = require('./sequelize/config/database'); // Database configuration
+const { Category } = require('./sequelize/models'); // Import Category model to enforce integrity
 
 // Import routes
 const userRoutes = require('./routes/userRoutes'); // User routes
 const prodRoutes = require('./routes/productRoutes'); // Product routes
 const favRoutes = require('./routes/favoriteRoutes'); // Favorite routes
+const catRoutes = require('./routes/categoryRoutes'); // Category routes
 
 var app = express(); // Initialize express application
 
@@ -46,13 +48,13 @@ app.use(
     })
 )
 
-// TODO - need to catch the cookie to check if it expired or not
+// REVIEW - need to catch the cookie to check if it expired or not
 // Middleware to check session expiration
 app.use(function (req, res, next) {
     if (!req.session)
         return res.redirect('/'); // redirect user to root route
     
-    const sessionAge = req.session.cookie.maxAge;
+    const sessionAge = req.session.cookie.expires;
     if (sessionAge <= 0) {
         try {
             req.session.destroy();
@@ -81,6 +83,7 @@ app.get('/', function (req, res) {
 app.use('/', userRoutes);
 app.use('/', prodRoutes);
 app.use('/', favRoutes);
+app.use('/', catRoutes);
 
 // Handler for unknown routes
 app.use((req, res) => {
@@ -89,9 +92,16 @@ app.use((req, res) => {
 
 // Sync database and start server
 sequelize.sync()
-    .then(() => {
+    .then(async () => {
         console.log("Database synced successfully");
         
+        // Enforce category table integrity
+        try {
+            await Category.enforceIntegrity();
+        } catch (err) {
+            console.error("Error enforcing category integrity: ", err);
+        }
+
         // Start the server after successful sync
         http.createServer(app).listen(port, () => {
             console.log(`Server is listening on port ${port}`);

@@ -78,6 +78,14 @@
         <h1 class="title">Upload Product</h1>
     </div>
 
+    <!-- Popup for information display -->
+    <div class="popup" id="info-popup">
+        <div class="popup-content">
+            <p id="info-popup-message">Message here</p>
+            <button id="close-popup">Close</button>
+        </div>
+    </div>
+
     <!-- Product Name Section -->
     <section class="product-name-section">
         <h2 class="section-title">Product Name</h2>
@@ -95,11 +103,6 @@
             <div class="dropdown2">
                 <button class="dropbtn2" id="product-category-button">Select Category</button>
                 <div class="dropdown2-content" id="product-category-options">
-                    <a href="#" data-value="Electronics">Electronics</a>
-                    <a href="#" data-value="Clothing">Clothing</a>
-                    <a href="#" data-value="Books">Books</a>
-                    <a href="#" data-value="Home & Garden">Home & Garden</a>
-                    <a href="#" data-value="Toys">Toys</a>
                 </div>
             </div>
             
@@ -113,7 +116,10 @@
 
             <div class="input-group">
                 <label for="product-price">Price</label>
-                <input type="text" id="product-price" name="product-price" placeholder="Enter product's price">
+                <div class="currency-input">
+                    <span class="currency-symbol">€</span>
+                    <input type="text" id="product-price" name="product-price" placeholder="Enter product's price">
+                </div>
             </div>
 
             <div class="input-group">
@@ -125,13 +131,7 @@
                 <div class="dropdown2">
                     <label for="dropbtn2">State</label>
                     <button class="dropbtn2" id="state-button">Select Status</button>
-                    <div class="dropdown2-content" id="state-options">
-                        <!--<a href="#" data-value="New">New</a>
-                        <a href="#" data-value="Like new">Like new</a>
-                        <a href="#" data-value="In good condition">In good condition</a>
-                        <a href="#" data-value="In acceptable condition">In acceptable condition</a>
-                        <a href="#" data-value="It has given everything">It has given everything</a> -->
-                    </div>
+                    <div class="dropdown2-content" id="state-options"></div>
                 </div> 
             </div>
 
@@ -148,14 +148,7 @@
             <p class="location-title">Map</p>
             <div class="location-map">
                 <div class="map" id="map"></div>
-            </div>
-            
-            <!-- <div id="map-container">
-                <input type="text" id="location-search" placeholder="Search for a location">
-                <button id="search-button">Search</button>
-                <div id="map" style="height: 400px; width: 600px;"></div>
-            </div> -->
-            
+            </div>            
         </div>
     </section>
 

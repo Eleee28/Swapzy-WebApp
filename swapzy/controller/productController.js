@@ -47,26 +47,25 @@ exports.getByID = async function (req, res) {
 
 exports.saveProduct = async function (req, res) {
     try {
-        const { name, category, price, description, state, photo, location } = req.body;
+        const { name, category, price, description, condition, image_url, location } = req.body;
         const user = req.session.username;
 
-        if (!name || !category || !price || !description || !state || !photo || !location) {
+        if (!name || !category || !price || !description || !condition || !image_url || !location.lat || !location.lng) {
             return res.status(400).json({ message: 'All fields are required!' });
         }
 
-        const [latitude, longitude] = location.split(',').map(Number);
         const product = await Product.create({
             seller: user,
             name,
             description,
-            condition: state,
+            condition: condition,
             price,
             category,
             location: {
                 type: 'Point',
-                coordinates: [longitude, latitude],
+                coordinates: [location.lng, location.lat],
             },
-            image_url: photo
+            image_url: image_url
         })
         console.log
         res.status(201).json({ message: 'Product saved succesfully', product });
