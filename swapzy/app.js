@@ -50,22 +50,22 @@ app.use(
 
 // REVIEW - need to catch the cookie to check if it expired or not
 // Middleware to check session expiration
-app.use(function (req, res, next) {
-    if (!req.session)
-        return res.redirect('/'); // redirect user to root route
+// app.use(function (req, res, next) {
+//     if (!req.session)
+//         return res.redirect('/'); // redirect user to root route
     
-    const sessionAge = req.session.cookie.expires;
-    if (sessionAge <= 0) {
-        try {
-            req.session.destroy();
-            return res.redirect('/');
-        } catch (err) {
-            console.error("Error destroying session: ", err);
-        }
-    } else {
-        next();
-    }
-})
+//     const sessionAge = req.session.cookie.expires;
+//     if (sessionAge <= 0) {
+//         try {
+//             req.session.destroy();
+//             return res.redirect('/');
+//         } catch (err) {
+//             console.error("Error destroying session: ", err);
+//         }
+//     } else {
+//         next();
+//     }
+// })
 
 // Serve main HTML page on the root route
 app.get('/', function (req, res) {
