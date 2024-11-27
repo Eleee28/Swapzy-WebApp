@@ -5,14 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swapzy - Main Page</title>
     <link rel="stylesheet" href="css/category.css">
-
-    <!-- Leaflet.js for maps API -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-        crossorigin="">
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-        crossorigin=""></script>
 </head>
 <body>
     <!-- Header Section-->
@@ -72,8 +64,60 @@
     </nav>
 
     <!-- Main Content -->
+    <div class="main-content">
+        <!-- Category Header Section -->
+        <div class="category-header">
+            <h1 class="title">Category Name</h1>
+            <div class="dropdown">
+                <button class="filters-dropbtn">Filter Products</button>
+                <div class="filters-dropdown-content" id="filters-list">
+                    <p>Electronics</p>
+                    <p>Clothing</p>
+                    <p>Books</p>
+                    <p>Home & Garden</p>
+                    <p>Toys</p>
+                </div>
+            </div>
+        </div>
+        <div class="product-list">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/product_sample.jpeg" alt="Product Image">
+                </div>
+                <div class="product-info">
+                    <div class="product-name-and-like">
+                        <h3 class="product-title">Product Name</h3>
+                        <!-- Like Button -->
+                        <!-- From Uiverse.io by catraco https://uiverse.io/catraco/perfect-panda-49 --> 
+                        <div title="Like" class="heart-container">
+                            <input id="Give-It-An-Id" class="checkbox" type="checkbox">
+                            <div class="svg-container">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="svg-outline" viewBox="0 0 24 24">
+                                    <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585,18.4a2.973,2.973,0,0,1-3.83,0C4.947,16.006,2,11.87,2,8.967a4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,11,8.967a1,1,0,0,0,2,0,4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,22,8.967C22,11.87,19.053,16.006,13.915,20.313Z"></path>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="svg-filled" viewBox="0 0 24 24">
+                                    <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z"></path>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="100" width="100" class="svg-celebrate">
+                                    <polygon points="10,10 20,20"></polygon>
+                                    <polygon points="10,50 20,50"></polygon>
+                                    <polygon points="20,80 30,70"></polygon>
+                                    <polygon points="90,10 80,20"></polygon>
+                                    <polygon points="90,50 80,50"></polygon>
+                                    <polygon points="80,80 70,70"></polygon>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="product-price">100€</p>
+                    <p class="product-status"> Like New</p>
+                    <p class="product-description">Short decription of the product</p>
+                </div>
 
-    
+            </div>
+
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
