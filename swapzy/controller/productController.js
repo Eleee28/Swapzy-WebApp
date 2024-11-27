@@ -1,4 +1,5 @@
 const { Product } = require('../sequelize/models');
+const { Op } = require('sequelize');
 
 // Controller method to get all products
 exports.getAll = async function (req, res) {
@@ -80,7 +81,31 @@ exports.getConditionValues = function (req, res) {
     res.json(conditionEnumValues);
 }
 
+// Controller for search functionality
+exports.search = async function (req, res) {
+    const query = req.query.query;
 
+    if (!query) {
+        return res.status(400).json({ message: 'Query parameter is required' });
+    }
+
+    try {
+        const products = await Product.findAll({
+            where: {
+                [Op.or]: [
+                    { name: { [Op.iLike]: `%${query}%` } }, // Case-insensitive match for name
+                    { description: { [Op.iLike]: `%${query}%` } } // Case-insensitive match for description
+                ]
+            },
+            attributes: ['id', 'name', 'price', 'image_url']
+        });
+
+        res.status(200).json(products);
+    } catch (err) {
+        console.error('Error fetching search results: ', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+}
 
 // Controller method to get a number of products
 // exports.getNProducts = async function (req, res) {

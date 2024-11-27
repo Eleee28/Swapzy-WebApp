@@ -17,4 +17,7 @@ router.post('/api/products/save', prodController.saveProduct)
 // Route to get product condition enum values
 router.get('/api/condition-enum', prodController.getConditionValues);
 
+// Router for search operation
+router.get('/search', prodController.search);
+
 module.exports = router;
