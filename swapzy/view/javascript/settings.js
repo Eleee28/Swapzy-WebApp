@@ -58,7 +58,7 @@ async function logOut() {
     const closePopupButton = document.getElementById('close-popup');
 
     try {
-        const response = await fetch('/logout', {
+        const response = await fetch('/api/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -94,10 +94,11 @@ exports.search = async function (req, res) {
             where: {
                 [Op.or]: [
                     { name: { [Op.iLike]: `%${query}%` } }, // Case-insensitive match for name
-                    { description: { [Op.iLike]: `%${query}%` } } // Case-insensitive match for description
+                    //{ description: { [Op.iLike]: `%${query}%` } } // Case-insensitive match for description
                 ]
             },
-            attributes: ['id', 'name', 'price', 'image_url']
+            attributes: ['id', 'name', 'price', 'image_url'],
+            limit: 6
         });
 
         res.status(200).json(products);

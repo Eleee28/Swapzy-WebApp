@@ -5,7 +5,7 @@ document.getElementById('signup-form').addEventListener('submit', async function
     const formData = new URLSearchParams(new FormData(this));
     
     // Send data to backend
-    const response = await fetch('/register', {
+    const response = await fetch('/api/register', {
         method: 'POST',
         body: formData
     });

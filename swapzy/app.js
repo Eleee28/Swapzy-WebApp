@@ -79,6 +79,18 @@ app.get('/', function (req, res) {
 //     next();
 // })
 
+// Protect internal api routes from access from browsers
+app.use('/api', (req, res, next) => {
+    const referer = req.headers['referer'];
+
+    // If the request doesn't come from an expected referer or is likely from a browser, block it
+    if (!referer || !referer.startsWith('http://localhost:8080')) {
+        return res.status(403).json({ error: 'Access Denied' });
+    }
+
+    next();
+});
+
 // Set up routes
 app.use('/', userRoutes);
 app.use('/', prodRoutes);

@@ -62,6 +62,12 @@ async function loadProductInfo() {
 
             heartCheckBox.addEventListener('change', async function (event) {
                 event.stopPropagation();
+
+                if (!favoriteResponse.ok) {
+                    alert("You must be logged in to add products to favorites");
+                    heartCheckBox.checked = false;
+                    return;
+                }
                 
                 const action = heartCheckBox.checked ? 'add' : 'delete';
 
