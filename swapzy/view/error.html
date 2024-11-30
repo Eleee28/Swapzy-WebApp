@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Denied</title>
+    <link rel="stylesheet" href="css/error.css">
+</head>
+<body>
+    <!-- Header Section-->
+    <header class="header">
+        <!-- Logo Container-->
+        <a href="/" class="logo-container">
+            <img src="images/swapzy_logo.png" alt="Swapzy Logo" class="logo">
+            <span class="logo-text">SWAPZY</span> 
+        </a>
+    </header>
+    <!-- Main Content -->
+
+    <div class="page-content">
+        <!-- Title -->
+        <div class="title-content">
+            <h1 class="main-title">Access Denied</h1>
+        </div>
+        <div class="message-content">
+            <p class="message">You can't access this page without logging in</p>
+            <button class="login-button" onClick="redirectLogin()">Go to Login</button>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo-container">
+            <img src="images/swapzy_logo.png" alt="Swapzy Logo" class="footer-logo">
+            <span class="footer-logo-text">SWAPZY</span>
+        </div>
+
+        <!-- Footer info here -->
+
+    </footer>
+    
+    <script>
+        function redirectLogin() {
+            window.location.href = 'login.html';
+        }
+    </script>
+
+</body>
+</html>
