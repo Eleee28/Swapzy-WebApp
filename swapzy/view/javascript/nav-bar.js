@@ -7,7 +7,16 @@ async function navButtonHandler() {
     const data = await response.json();
 
     favButton.addEventListener('click', () => {
-        console.log('Fav button clicked');
+        try {
+            if (data.isLoggedIn) {
+                //window.location.href = 'favorited.html';
+                console.log("Fav button clicked")
+            } else {
+                window.location.href = 'login.html';
+            }
+        } catch (err) {
+            console.error('Error: ', err);
+        }
     });
 
     profileButton.addEventListener('click', () => {
@@ -27,7 +36,7 @@ async function navButtonHandler() {
             if (data.isLoggedIn) {
                 window.location.href = 'upload_product.html';
             } else {
-                alert('You must be logged in to sell a product');
+                window.location.href = 'login.html';
             }
         } catch (err) {
             console.error('Error: ', err);

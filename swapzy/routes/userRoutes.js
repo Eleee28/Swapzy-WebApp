@@ -18,13 +18,13 @@ const userController = require('../controller/userController');
 //router.delete('/:id', userController.deleteUser);
 
 //  Route to register a user
-router.post('/register', userController.createUser);
+router.post('/api/register', userController.createUser);
 
 // Route for user login
-router.post('/login', userController.login);
+router.post('/api/login', userController.login);
 
 // Route for user logout
-router.post('/logout', userController.logout);
+router.post('/api/logout', userController.logout);
 
 // Route to get user by username
 router.get('/api/users/:username', userController.getById);

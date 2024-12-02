@@ -18,6 +18,6 @@ router.post('/api/products/save', prodController.saveProduct)
 router.get('/api/condition-enum', prodController.getConditionValues);
 
 // Router for search operation
-router.get('/search', prodController.search);
+router.get('/api/search', prodController.search);
 
 module.exports = router;

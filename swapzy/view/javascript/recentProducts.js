@@ -78,7 +78,6 @@ async function fetchRecentProducts() {
             heartButton.onclick = async function(event) {
                 event.stopPropagation(); // Prevent click from bubbling to product card -- chat-gpt
                 
-                //TODO - else add pop up to say you must be logged in to add a product to fav
                 if (!favoriteResponse.ok) {
                     alert("You must be logged in to add products to favorites");
                     productCard.querySelector('.checkbox').checked = false;

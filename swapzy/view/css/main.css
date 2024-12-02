@@ -226,9 +226,15 @@ body {
     background-color: #a44cd3;
 }
 
+.results-track {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 16px;
+}
 
 /* Reecently Uploaded Styles */
-.recently-uploaded-section, .favorites-section{
+.recently-uploaded-section, .favorites-section, .search-results-section{
     padding: 20px;
     text-align: left;
     margin: 50px;
@@ -241,7 +247,6 @@ body {
     font-size: 2.5rem;
     color: #232528;
     margin-bottom: 20px;
-    
 }
 
 /* Carousel Container */

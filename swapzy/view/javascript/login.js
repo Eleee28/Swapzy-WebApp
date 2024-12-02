@@ -5,7 +5,7 @@ document.getElementById('login-form').addEventListener('submit', async function 
     const formData = new URLSearchParams(new FormData(this));
     
     // Send data to backend
-    const response = await fetch('/login', {
+    const response = await fetch('/api/login', {
         method: 'POST',
         body: formData
     });

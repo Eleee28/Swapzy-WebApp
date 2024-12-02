@@ -10,11 +10,13 @@ document.querySelector('.container-input .input').addEventListener('keypress', f
 async function handleSearch() {
     const searchInput = document.querySelector('.container-input .input').value.trim();
 
-    if (!searchInput)
+    if (!searchInput) {
+        document.querySelector('.search-results-section').style.display = "none";
         return;
+    }
 
     try {
-        const response = await fetch(`/search?query=${encodeURIComponent(searchInput)}`);
+        const response = await fetch(`/api/search?query=${encodeURIComponent(searchInput)}`);
 
         if (response.ok) {
             const searchResults = await response.json();

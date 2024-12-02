@@ -189,7 +189,7 @@ uploadButton.addEventListener('click', async () => {
         const response = await fetch('/api/products/save', {
             method: 'POST',
             headers: {
-                'Content-Type' : 'application/json',
+                'Content-Type' : 'application/json'
             },
             body: JSON.stringify({ 
                 name: name, 
