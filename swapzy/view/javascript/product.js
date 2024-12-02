@@ -4,7 +4,7 @@ async function loadProductInfo() {
 
     if (!prodId) {
         console.error("Product ID not found");
-        return;
+        window.location.href = "error.html"
     }
 
     try {

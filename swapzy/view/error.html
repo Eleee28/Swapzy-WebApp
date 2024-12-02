@@ -23,8 +23,8 @@
             <h1 class="main-title">Access Denied</h1>
         </div>
         <div class="message-content">
-            <p class="message">You can't access this page without logging in</p>
-            <button class="login-button" onClick="redirectLogin()">Go to Login</button>
+            <p class="message">You can't access this page</p>
+            <button class="login-button" onClick="redirect()">Go to Main Page</button>
         </div>
     </div>
     
@@ -40,8 +40,8 @@
     </footer>
     
     <script>
-        function redirectLogin() {
-            window.location.href = 'login.html';
+        function redirect() {
+            window.location.href = '/';
         }
     </script>
 
