@@ -192,7 +192,7 @@ body {
 }
 
 .dropdown:hover .dropdown-content {
-    display: block;
+  display: block;
 }
 
 .dropdown-content a {
@@ -209,74 +209,130 @@ body {
   background-color: #a44cd3;
 }
 
+/* Filters Bar Styles */
+
+.filters-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+  margin-left: auto;
+}
+
+.filter-dropdown {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.filter-icon img {
+  width: 30px;
+  height: 30px;
+}
+
+.dropdown1 {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn1 {
+  background-color: #f0f0f0;
+  color: #434343;
+  padding: 1px 20px;
+  border: 1px solid #a44cd3;
+  cursor: pointer;
+  font-family: "Dongle", sans-serif;
+  font-size: 1.5rem;
+  border-radius: 50px;
+}
+
+.dropdown1-content {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  min-width: 300px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  z-index: 1;
+  border-radius: 5px;
+}
+
+.dropdown1:hover .dropdown1-content {
+  display: block;
+}
+
+.cleanbtn {
+  background-color: #a44cd3;
+  color: #f0f0f0;
+  padding: 1px 20px;
+  border: none;
+  cursor: pointer;
+  font-family: "Dongle", sans-serif;
+  font-size: 1.5rem;
+  border-radius: 50px;
+}
+    
+/* Location Dropdown Styles */
+.location-search-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+#map-container {
+  width: 100%;
+  height: 200px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+/* Price Dropdown Styles */
+.price-dropdown p {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+/* accent-color from https://www.geeksforgeeks.org/how-to-change-the-color-of-range-slider-in-css/ */
+.price-slider {
+  width: 100%;
+  margin-bottom: 10px;
+  accent-color: #a44cd3;
+}
+
+.price-label {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+/* Product Status Dropdown Styles */
+.product-status-dropdown label {
+  display: block;
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
 
 /* Main Content Styles */
-.main-content {
-  width: 100%;
-  padding: 20px;
-  margin-top: 20px;
-}
-
-/* Title and Filters Dropdown Styles */
-.title {
-  font-size: 2em;
-  font-weight: bold;
-  color: #333;
-}
 
 .category-header {
   width: 100%;
   max-width: 900px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 20px;
   margin: 20px auto;
 }
 
-.filters-dropbtn {
-  display: inline-block;
-  font-family: "Dongle", sans-serif;
-  background-color: #232528;
-  color: white;
-  font-size: 1.5rem;
-  padding: 10px 15px;
-  border: none;
-  cursor: pointer;
-  margin: 0;
+.title {
+  font-size: 2em;
+  font-weight: bold;
+  color: #333;
 }
-
-.filters-dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #232528;
-  min-width: 100%;
-  z-index: 1;
-  left: 0;
-  top: 100%;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  padding: 5px;
-}
-
-.dropdown:hover .filters-dropdown-content {
-  display: block;
-}
-
-.flters-dropdown-content p {
-  color: #f1f1f1;
-  font-size: 1.5rem;
-  padding: 8px 12px;
-  text-decoration: none;
-  display: block;
-  border-radius: 3px;
-  margin: 2px 0;
-}
-
-.filters-dropdown-content p:hover {
-  background-color: #a44cd3;
-}
-
 
 /* Product List Styles */
 .product-list {
@@ -514,6 +570,23 @@ body {
     display: flex;
   }
 
+  /* Filters Bar */
+  .filters-bar {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .filter-dropdown {
+    gap: 15px;
+    width: 100%;
+  }
+
+  .dropbtn1, .cleanbtn {
+    font-size: 1.3rem;
+    padding: 1px 10px;
+  }
+
+  /* Product Card */
   .product-card {
     flex-direction: column;
     max-width: 100%;

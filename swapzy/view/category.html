@@ -63,21 +63,50 @@
         <a href="#">Toys</a>
     </nav>
 
+    <!-- Filters Bar -->
+    <nav class="filters-bar">
+        <div class="filter-dropdown">
+            <div class="filter-icon">
+                <img src="images/filter_icon.png" alt="Filter Icon">
+            </div>
+            <!-- Location Dropdown -->
+            <div class="dropdown1">
+                <button class="dropbtn1">Location</button>
+                <div class="dropdown1-content location-dropdown">
+                    <input type="text" placeholder="Search Location" class="location-search-input">
+                    <div id="map-container">
+                        <!-- Here will be a map (e.g., Google Maps or Leaflet map) -->
+                    </div>
+                </div>
+            </div>
+            <!-- Price Dropdown -->
+            <div class="dropdown1">
+                <button class="dropbtn1">Price</button>
+                <div class="dropdown1-content price-dropdown">
+                    <p>How much do you want to pay?</p>
+                    <input type="range" min="0" max="20000" value="10000" class="price-slider" id="price-slider">
+                    <div class="price-label" id="price-label">1000</div>
+                </div>
+            </div>
+            <!-- Product Status Dropdown -->
+            <div class="dropdown1">
+                <button class="dropbtn1">Product Status</button>
+                <div class="dropdown1-content product-status-dropdown">
+                    <label><input type="checkbox" value="New"> New</label>
+                    <label><input type="checkbox" value="Like New"> Like New</label>
+                    <label><input type="checkbox" value="Used"> Used</label>
+                    <label><input type="checkbox" value="Damaged"> Damaged</label>
+                </div>
+            </div>
+            <!-- Clean Filters Button -->
+            <button class="cleanbtn">Clean Filters</button>
+        </div>
+    </nav>
     <!-- Main Content -->
     <div class="main-content">
         <!-- Category Header Section -->
         <div class="category-header">
             <h1 class="title">Category Name</h1>
-            <div class="dropdown">
-                <button class="filters-dropbtn">Filter Products</button>
-                <div class="filters-dropdown-content" id="filters-list">
-                    <p>Electronics</p>
-                    <p>Clothing</p>
-                    <p>Books</p>
-                    <p>Home & Garden</p>
-                    <p>Toys</p>
-                </div>
-            </div>
         </div>
         <div class="product-list">
             <div class="product-card">
@@ -131,6 +160,7 @@
     </footer>
 
     <script src="javascript/nav-bar.js"></script>
+    <script src="javascript/category.js"></script>
 
 </body>
 </html>
