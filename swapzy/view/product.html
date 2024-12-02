@@ -39,10 +39,12 @@
                 <img src="images/heart.png">
                 <span class="btn-text">Favorites</span>
             </a>
-            <a class="nav-btn" id="profile-button">
-                <img src="images/profile.png" alt="Profile Icon">
-                <span class="btn-text">Profile</span>
-            </a>
+            <div class="profile-dropdown-container" id="profile-dropdown-container">
+                <a class="nav-btn" id="profile-button">
+                    <img src="images/profile.png" alt="Profile Icon">
+                    <span class="btn-text">Profile</span>
+                </a>
+            </div>
             <a class="nav-btn" id="sell-button">
                 <img src="images/sell.png" alt="Sell Icon">
                 <span class="btn-text">Sell</span>
@@ -56,19 +58,10 @@
             <button class="dropbtn">Categories</button>
             <div class="dropdown-content" id="category-list">
                 <!-- Dynamic categories from backend will be loaded here -->
-                <a href="#">Electronics</a>
-                <a href="#">Clothing</a>
-                <a href="#">Books</a>
-                <a href="#">Home & Garden</a>
-                <a href="#">Toys</a>
             </div>
         </div>
         <!-- Static Links to Categories -->
-        <a href="#">Electronics</a>
-        <a href="#">Clothing</a>
-        <a href="#">Books</a>
-        <a href="#">Home & Garden</a>
-        <a href="#">Toys</a>
+        <div class="static-links"></div>
     </nav>
 
     <!-- Main Content -->
