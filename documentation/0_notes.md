@@ -11,3 +11,9 @@ Add protection such as test variables to replace the env ones in case they are n
 ## To do
 - finish creating tables (first decide db table structure)
 - implement crud operations
+
+- sanitize all text input express sanitize --> test everything works --> dindt work, commented out
+- sort for filters as well
+- prevent code injection by preparing statements before binding: https://www.postgresql.org/docs/current/sql-prepare.html  -> no need as sequelize automatically handñes sql parametrization, if sql query is used use replacements for parametrization.
+
+- <iframe src="hello.html"></iframe> --> to load html inside html
