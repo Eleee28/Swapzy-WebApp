@@ -4,6 +4,7 @@
 const express = require('express'); // Express module
 const http = require('http'); // HTTP module
 const session = require('express-session'); // Express session
+//const expressSanitizer = require('express-sanitize'); // Express sanitize
 const redis = require('redis'); // Redis module
 const RedisStore = require('connect-redis').default; // Connect redis
 require('dotenv').config(); // Load environment variables
@@ -27,6 +28,14 @@ app.use(express.static(__dirname + "/view"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Apply sanitizer middleware
+// app.use((req, res, next) => {
+//     if (req.body)
+//         expressSanitizer()(req, res, next);
+//     else
+//         next();
+// });
+
 // Define application port
 var port = process.env.PORT || 8080;
 
@@ -48,36 +57,10 @@ app.use(
     })
 )
 
-// REVIEW - need to catch the cookie to check if it expired or not
-// Middleware to check session expiration
-// app.use(function (req, res, next) {
-//     if (!req.session)
-//         return res.redirect('/'); // redirect user to root route
-    
-//     const sessionAge = req.session.cookie.expires;
-//     if (sessionAge <= 0) {
-//         try {
-//             req.session.destroy();
-//             return res.redirect('/');
-//         } catch (err) {
-//             console.error("Error destroying session: ", err);
-//         }
-//     } else {
-//         next();
-//     }
-// })
-
 // Serve main HTML page on the root route
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/view/main.html');
 });
-
-//DEBUG - session expiry
-// app.use((req, res, next) => {
-//     console.log('Session ID: ', req.sessionID);
-//     console.log('Session username: ', req.session.username);
-//     next();
-// })
 
 // Protect internal api routes from access from browsers
 app.use('/api', (req, res, next) => {

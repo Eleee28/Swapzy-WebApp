@@ -1,4 +1,5 @@
 async function loadProductInfo() {
+    // Get id from url paremeters
     const urlParams = new URLSearchParams(window.location.search);
     const prodId = urlParams.get("id");
 
@@ -12,6 +13,7 @@ async function loadProductInfo() {
         if (response.ok) {
             const product = await response.json();
 
+            // Load product information on UI elements
             document.getElementById("product-image").src = product.image_url;
             document.getElementById("product-price").innerText = `${product.price}€`;
             document.getElementById("product-title").innerText = product.name;
@@ -19,21 +21,22 @@ async function loadProductInfo() {
             document.getElementById("product-category").innerText = product.category;
             document.getElementById("product-status").innerText = product.condition;
 
-
             // Get user details
             const userResponse = await fetch(`/api/users/${product.seller}`);
             if (userResponse.ok) {
                 const user = await userResponse.json();
 
+                // Load user information on UI elements
                 document.getElementById("profile-image").src = user.profile_img || "../images/profile_picture_sample.jpg";
-                document.getElementById("user-name").innerText = user.username || "Username here";
+                document.getElementById("user-name").innerText = user.username;
             }
 
-            // Initialize Leaflet map for product location
+            // Get location values
             const location = product.location.coordinates;
             const latitude = location[1];
             const longitude = location[0];
 
+            // Initialize Leaflet map for product location
             const map = L.map('map').setView([latitude, longitude], 13);
 
             // Add OpenStreetMap tiles
@@ -58,17 +61,17 @@ async function loadProductInfo() {
                 const isFavorite = favorite.some(fav => fav.id == prodId);
                 heartCheckBox.checked = isFavorite;
             }
-            
 
+            // Heart event listener
             heartCheckBox.addEventListener('change', async function (event) {
-                event.stopPropagation();
+                event.stopPropagation(); // Avoid event from propagating to parent
 
                 if (!favoriteResponse.ok) {
                     alert("You must be logged in to add products to favorites");
                     heartCheckBox.checked = false;
                     return;
                 }
-                
+
                 const action = heartCheckBox.checked ? 'add' : 'delete';
 
                 try {
@@ -91,6 +94,7 @@ async function loadProductInfo() {
                         if (recProd)
                             recProd.querySelector('.checkbox').checked = !recProd.querySelector('.checkbox').checked;
 
+                        // Hide and show carousel to update view
                         document.querySelector('.recently-uploaded-section .carousel-container').style.display = 'none';
                         document.querySelector('.recently-uploaded-section .carousel-container').style.display = 'block';
                     }
@@ -106,19 +110,17 @@ async function loadProductInfo() {
     }
 }
 
-// Call function on page load
-document.addEventListener('DOMContentLoaded', loadProductInfo);
-
+// TODO - move to general file
 // Carousel logic
 let currentIndex = 0;
 
 function moveCarousel(direction) {
     const track = document.querySelector('.carousel-track');
     const cards = document.querySelectorAll('.carousel .product-card');
-    const cardWidth = cards[0].offsetWidth + 20; // Ajuste para el margen
+    const cardWidth = cards[0].offsetWidth + 20; // Adjust for margin
     const maxIndex = cards.length - Math.floor(track.offsetWidth / cardWidth);
 
-    // Asegúrate de que el índice está dentro de los límites
+    // Make sure index is within limits
     currentIndex += direction;
     if (currentIndex < 0) {
         currentIndex = 0;
@@ -126,7 +128,7 @@ function moveCarousel(direction) {
         currentIndex = maxIndex;
     }
 
-    // Calcula el desplazamiento y muévelo
+    // Calculate movement and move
     const offset = -currentIndex * cardWidth;
     track.style.transform = `translateX(${offset}px)`;
 }
@@ -134,3 +136,6 @@ function moveCarousel(direction) {
 function goToUserPage() {
     window.location.href = `user.html?id=${document.getElementById("user-name").innerText}`
 }
+
+// On page load event listeners
+document.addEventListener('DOMContentLoaded', loadProductInfo);

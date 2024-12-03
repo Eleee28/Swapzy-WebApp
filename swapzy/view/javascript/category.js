@@ -12,25 +12,24 @@ async function populateStateDropdown() {
         stateDropdown.innerHTML = '';
 
         stateEnumValues.forEach((state) => {
-            // Create a label element to wrap the checkbox
+            // Label element for states
             const label = document.createElement('label');
-            label.style.cursor = 'pointer'; // Make the label clickable
-            label.classList.add('dropdown-item'); // Optional: Add a class for styling
+            label.style.cursor = 'pointer';
+            label.classList.add('dropdown-item');
 
-            // Create the checkbox input
+            // Checkbox input
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
-            checkbox.value = state; // Set the value of the checkbox to the product status
-            checkbox.id = `state-${state.replace(/\s+/g, '-')}`; // Set a unique id for the checkbox
+            checkbox.value = state;
+            checkbox.id = `state-${state.replace(/\s+/g, '-')}`;
 
-            // Create the text node for the label (e.g., "New", "Used")
             const textNode = document.createTextNode(` ${state}`);
 
-            // Append the checkbox and text to the label
+            // Append checkbox and text to label
             label.appendChild(checkbox);
             label.appendChild(textNode);
 
-            // Add the label to the dropdown
+            // Add label to dropdown
             stateDropdown.appendChild(label);
 
             // Event listener for checkbox change
@@ -41,9 +40,11 @@ async function populateStateDropdown() {
     }
 }
 
+// Price slider elements
 const priceSlider = document.getElementById('price-slider');
 const priceLabel = document.getElementById('price-label');
 
+// Price slider event listener
 priceSlider.addEventListener('input', function() {
     if (priceSlider.value == priceSlider.max) {
         priceLabel.textContent = 'No limit';
@@ -53,16 +54,19 @@ priceSlider.addEventListener('input', function() {
     filterProducts();
 });
 
+// Status checkbox element
 const checkStatus = document.querySelectorAll('.product-status-dropdown input[type="checkbox"]');
 
-checkStatus.forEach(checkbox => {
-    checkbox.addEventListener('change', filterProducts);
-});
 
+// TODO - remove if it works
+// checkStatus.forEach(checkbox => {
+//     checkbox.addEventListener('change', filterProducts);
+// });
+
+// Clean button event listener
 document.querySelector('.cleanbtn').addEventListener('click', function() {
-    // Clear all filters
-    document.querySelector('.location-search-input').value = '';
-    priceSlider.value = 10000;
+    document.querySelector('.location-search-input').value = ''; // Clear all filters
+    priceSlider.value = priceSlider.max;
     document.querySelectorAll('.product-status-dropdown input[type="checkbox"]').forEach(checkbox => {
         checkbox.checked = false;
     });
@@ -72,6 +76,7 @@ document.querySelector('.cleanbtn').addEventListener('click', function() {
 
 
 async function fetchProducts() {
+    // Get category from url paremeters
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get("category");
 
@@ -80,13 +85,14 @@ async function fetchProducts() {
         window.location.href = "error.html";
     }
 
+    // Set category title
     const title = document.getElementById('category-title');
-
     title.textContent = capitalizeFirstLetter(category);
 
+    // Categories page
     if (category !== "favorite") {
         try {
-            const response = await fetch(`/api/products?category=${encodeURIComponent(category.trim())}`);
+            const response = await fetch(`/api/products?category=${encodeURIComponent(category.trim())}`); // Encode for correct handling of characters
             if (response.ok) {
                 const products = await response.json();
                 allProducts = products;
@@ -97,14 +103,21 @@ async function fetchProducts() {
             document.querySelector('.product-list').innerHTML = '<p>Error loading products.</p>';
         }
 
-    } else {
+    } else { // Favorites page
         try {
-            const response = await fetch('/api/favorite');
-            if (response.ok) {
-                const products = await response.json();
-                allProducts = products;
-                displayProducts(products);
-        }
+                const loginResponse = await fetch('/api/check-login');
+                const data = await loginResponse.json();
+
+                if (data.isLoggedIn) {
+                    const response = await fetch('/api/favorite');
+                    if (response.ok) {
+                        const products = await response.json();
+                        allProducts = products;
+                        displayProducts(products); 
+                    }
+                } else {
+                    window.location.href = 'error.html';
+                }
         } catch (error) {
             console.error('Error fetching products by category:', error);
             document.querySelector('.product-list').innerHTML = '<p>Error loading products.</p>';
@@ -121,12 +134,13 @@ function filterProducts() {
         statusFilters.push(checkbox.value);
     });
 
-    let filteredProducts = [];
+    let filteredProducts = []; // Array for filtered products
 
     allProducts.forEach(product => {
         // Location filter
         let matchesLocation = true;
         if (selectedLat !== 0 && selectedLng !== 0) {
+            // Parse location values
             const prodLocation = product.location.coordinates;
             const prodLat = parseFloat(prodLocation[1]);
             const prodLng = parseFloat(prodLocation[0]);
@@ -135,8 +149,7 @@ function filterProducts() {
 
             if (prodLat && prodLng) {
                 const distance = calculateDistance(selLat, selLng, prodLat, prodLng);
-                console.log("distance: ", distance);
-                matchesLocation = (parseFloat(distance) <= 50);
+                matchesLocation = (parseFloat(distance) <= 50); // Match products in 50km radius
             } else {
                 matchesLocation = false;
             }
@@ -147,9 +160,10 @@ function filterProducts() {
         // Price filter
         let matchesPrice = false;
         if (price) {
-
+            // Parse price values
             const productPrice = parseFloat(product.price);
             const sliderPrice = parseFloat(price);
+
             if (price === priceSlider.max)
                 matchesPrice = true;
             else {
@@ -165,7 +179,6 @@ function filterProducts() {
             matchesStatus = true;
         }
 
-        //if (matchesLocation && matchesPrice && matchesStatus)
         if (matchesLocation && matchesPrice && matchesStatus)
             filteredProducts.push(product);
 
@@ -174,15 +187,20 @@ function filterProducts() {
     displayProducts(filteredProducts);
 }
 
+// Reference from: https://www.sisense.com/blog/latitude-longitude-distance-calculation-explained/
 // Haversine formula to calculate the distance between two lat/lng points (in kilometers)
 function calculateDistance(lat1, lng1, lat2, lng2) {
-    const R = 6371; // Radius of the Earth in km
+    const R = 6371; // Radius of Earth in km
+
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLng = (lng2 - lng1) * Math.PI / 180;
+
     const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
               Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
               Math.sin(dLng / 2) * Math.sin(dLng / 2);
+
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
     const distance = R * c; // Distance in kilometers
     return distance;
 }
@@ -223,30 +241,27 @@ function displayProducts(products) {
     });
 }
 
-async function getUserLocation() {
-    try {
-        const response = await fetch('/api/location');
-        if (response.ok) {
-            const { lat, lng } = await response.json();
-            return { lat, lng };
-        }
-        if (response.status === 404 || response.status === 401)
-            return { lat: 0, lng: 0 };
-    } catch (err) {
-        console.error(err);
-        return { lat: 0, lng: 0 };
-    }
-}
+let map;
 
-async function initializeMap() {
-    const { lat, lng } = await getUserLocation();
+async function initializeMap(lat, lng) {
+    const mapContainer = document.querySelector('.location-map');
+
+    const mapElement = document.getElementById('map');
+
+    // Clear any exixting map
+    if (map) {
+        map.remove(); // Remove map instance and event listeners
+        mapElement.innerHTML = ''; // Clear content
+    }
+
+    mapContainer.style.display = 'flex';
 
     selectedLat = lat;
     selectedLng = lng;
 
     // Initialize Leaflet map
     var zoom = ((lat === 0 && lng === 0) ? 2 : 13);
-    const map = L.map('map').setView([lat,lng], zoom);
+    map = L.map('map').setView([lat,lng], zoom);
 
     // Add tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -279,38 +294,39 @@ async function initializeMap() {
         document.getElementById('location-search-input').value = '';
         filterProducts();
     });
-
-    // Geocoding function (example using OpenStreetMap's Nominatim API)
-    async function geocodeLocation(query) {
-        const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
-        const response = await fetch(url);
-        const results = await response.json();
-        return results.length > 0 ? results[0] : null;
-    }
-
-    // Location search
-    const locationInput = document.getElementById('location-search-input');
-    locationInput.addEventListener('keypress', async function (e) {
-        if (e.key == 'Enter') {
-            e.preventDefault();
-
-            const query = locationInput.value;
-            if (query) {
-                const result = await geocodeLocation(query);
-                if (result) {
-                    const { lat, lon } = result;
-                    selectedLat = lat;
-                    selectedLng = lng;
-                    updateMarker(lat, lon);
-                    filterProducts();
-                } else {
-                    alert('Location not found');
-                }
-            }
-        }
-    });
 }
 
+// Geocoding function
+async function geocodeLocation(query) {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
+    const response = await fetch(url);
+    const results = await response.json();
+    return results.length > 0 ? results[0] : null;
+}
+
+// Location search
+const locationInput = document.getElementById('location-search-input');
+locationInput.addEventListener('keypress', async function (e) {
+    if (e.key == 'Enter') {
+        e.preventDefault();
+
+        const query = locationInput.value;
+        if (query) {
+            const result = await geocodeLocation(query);
+            if (result) {
+                const { lat, lon } = result;
+                selectedLat = lat;
+                selectedLng = lon;
+                //updateMarker(lat, lon);
+                initializeMap(lat, lon);
+                filterProducts();
+            } else {
+                alert('Location not found');
+            }
+        }
+    }
+});
+
+// On page load event listeners
 document.addEventListener('DOMContentLoaded', fetchProducts);
-document.addEventListener('DOMContentLoaded', initializeMap);
 document.addEventListener('DOMContentLoaded', populateStateDropdown);

@@ -3,7 +3,7 @@ const { Product } = require('../sequelize/models');
 
 // Controller method to get favorite products
 exports.getFavorite = async function (req, res) {
-    const username = req.session.username;
+    const username = req.session.username; //req.sanitize(req.session.username);
 
     if (!username) {
         return res.status(401).json({ message: 'User not authenticated' });
@@ -29,7 +29,9 @@ exports.getFavorite = async function (req, res) {
 
 // Controller to add a product to favorite
 exports.addFavorite = async function (req, res) {
-    const { prodId } = req.body;
+    // const { prodId } = req.sanitize(req.body);
+    // const username = req.sanitize(req.session.username);
+    const prodId = req.body.prodId;
     const username = req.session.username;
 
     try {
@@ -52,7 +54,9 @@ exports.addFavorite = async function (req, res) {
 
 // Controller to delete a product from favorite
 exports.deleteFavorite = async function (req, res) {
-    const { prodId } = req.body;
+    // const { prodId } = req.sanitize(req.body);
+    // const username = req.sanitize(req.session.username);
+    const prodId = req.body.prodId;
     const username = req.session.username;
 
     try {
@@ -74,6 +78,7 @@ exports.deleteFavorite = async function (req, res) {
 
 // Controller method to get favorite product ids
 exports.getIds = async function (req, res) {
+    //const username = req.sanitize(req.session.username);
     const username = req.session.username;
 
     if (!username) {

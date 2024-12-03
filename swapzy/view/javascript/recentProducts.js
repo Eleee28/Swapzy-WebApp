@@ -23,7 +23,7 @@ async function fetchRecentProducts() {
 
         // Get carousel track element
         const carousel = document.querySelector('.recently-uploaded-section .carousel-track');
-        carousel.innerHTML = '';
+        carousel.innerHTML = ''; // Clear existing products
 
         products.forEach(prod => {
             const productCard = document.createElement('div');
@@ -77,14 +77,13 @@ async function fetchRecentProducts() {
             const heartButton = productCard.querySelector('.heart-container');
             heartButton.onclick = async function(event) {
                 event.stopPropagation(); // Prevent click from bubbling to product card -- chat-gpt
-                
+
                 if (!favoriteResponse.ok) {
                     alert("You must be logged in to add products to favorites");
                     productCard.querySelector('.checkbox').checked = false;
                     return;
                 }
 
-                
                 // Add to favorite
                 const checkbox = productCard.querySelector('.checkbox');
                 const isChecked = checkbox.checked;
@@ -123,6 +122,7 @@ async function fetchRecentProducts() {
                                     favSection.removeChild(prodInFav);
                             }
 
+                            // Hide and show carousel accordingly to update view
                             if (favSection.hasChildNodes()) {
                                 document.querySelector('.favorites-section .carousel-container').style.display = "block";
                                 document.querySelector('.favorites-section .message-text').style.display = "none";
@@ -133,6 +133,7 @@ async function fetchRecentProducts() {
                             }
                         }
 
+                        // Hide and show carousel to update view
                         document.querySelector('.recently-uploaded-section .carousel-container').style.display = 'none';
                         document.querySelector('.recently-uploaded-section .carousel-container').style.display = 'block';
 
@@ -153,4 +154,5 @@ async function fetchRecentProducts() {
     }
 }
 
+// On page load event listeners
 document.addEventListener('DOMContentLoaded', fetchRecentProducts);

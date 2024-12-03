@@ -3,7 +3,7 @@ async function loadUserProducts() {
     const data = await response.json();
 
     try {
-        const response = await fetch(`/api/products?seller=${encodeURIComponent(data.username)}`);
+        const response = await fetch(`/api/products?seller=${encodeURIComponent(data.username)}`); // Encode for correct handling of characters
         if (response.ok) {
             const products = await response.json();
             
@@ -13,7 +13,7 @@ async function loadUserProducts() {
             }
             
             const list = document.querySelector('.product-list');
-            list.innerHTML = '';
+            list.innerHTML = ''; // Clear product list
 
             products.forEach(product => {
                 const productCard = document.createElement('div');
@@ -49,7 +49,7 @@ async function loadUserProducts() {
                 const deleteButton = productCard.querySelector('.bin-btn');
                 deleteButton.addEventListener('click', function(event) {
                     event.stopPropagation();  // Stop the click from propagating to the productCard
-                    deleteProduct(product.id);  // Call delete function
+                    deleteProduct(product.id);
                 });
 
                 list.appendChild(productCard);
@@ -64,7 +64,6 @@ async function loadUserProducts() {
 async function deleteProduct(prodId) {
 
     try {
-        console.log("before", prodId);
         const response = await fetch('/api/delete-product', {
             method: 'DELETE',
             headers: {
@@ -72,8 +71,6 @@ async function deleteProduct(prodId) {
             },
             body: JSON.stringify({ prodId })
         });
-        console.log("after");
-
 
         const data = await response.json();
 
@@ -89,4 +86,5 @@ async function deleteProduct(prodId) {
     }
 }
 
+// On page load event listeners
 document.addEventListener('DOMContentLoaded', loadUserProducts);

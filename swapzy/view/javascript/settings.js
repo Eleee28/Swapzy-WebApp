@@ -1,5 +1,6 @@
 let confirmBtnAction = null;
 
+// Change image popup
 function openChangeImagePopup() {
     document.getElementById("popup-title").textContent = "Enter Image URL";
     document.getElementById("popup-info").textContent = "";
@@ -14,6 +15,7 @@ function openChangeImagePopup() {
     document.getElementById("popup").style.display = "flex";
 }
 
+// Delete account popup
 function openDeleteAccountPopup() {
     document.getElementById("popup-title").textContent = "Deleting Account";
     document.getElementById("popup-info").textContent = "Introduce your password to delete account";
@@ -27,6 +29,7 @@ function openDeleteAccountPopup() {
     document.getElementById("popup").style.display = "flex";
 }
 
+// Call function depending on button
 function confirmAction() {
     if (confirmBtnAction === 'change-image')
         updateProfilePic();
@@ -105,6 +108,7 @@ async function getUserLocation() {
 }
 
 async function updateUserInfo() {
+    // UI elements
     const imageUrl = document.getElementById("profile-pic").src;
     const username = document.getElementById("username").value;
     const email = document.getElementById("email").value;
@@ -115,6 +119,7 @@ async function updateUserInfo() {
     const lat = marker.getLatLng().lat;
     const lng = marker.getLatLng().lng;
 
+    // User to send to backend
     const updatedUserInfo = {
         username: username,
         email: email,
@@ -126,8 +131,6 @@ async function updateUserInfo() {
             lng: lng
         }
     };
-
-    console.log(updatedUserInfo);
 
     try {
         const response = await fetch('/api/users', {
@@ -151,7 +154,7 @@ async function updateUserInfo() {
 
 async function deleteUser() {
     const password = document.getElementById("popup-passwd").value;
-    
+
     try {
         if (!password) {
             // Display error message
@@ -188,6 +191,7 @@ async function deleteUser() {
     }
 }
 
+// Function to show popup message
 function showPopupMessage(message, location) {
     const popup = document.getElementById('info-popup');
     const closePopupButton = document.getElementById('close-popup');
@@ -206,6 +210,7 @@ function showPopupMessage(message, location) {
 }
 
 async function loadUserInfo() {
+    // UI elements
     const profilePic = document.getElementById("profile-pic");
     const usernameInput = document.getElementById("username");
     const locationInput = document.getElementById("location");
@@ -225,6 +230,7 @@ async function loadUserInfo() {
                 usernameInput.value = result.username;
                 emailInput.value = result.email;
 
+                // Load user location
                 if (result.location && result.location.coordinates) {
                     const [lng, lat] = result.location.coordinates;
 
@@ -238,6 +244,7 @@ async function loadUserInfo() {
     } 
 }
 
+// Reverse geocoding to get a city name from coordinates
 async function getCityFromCoordinates(lat, lng) {
     try {
         const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
@@ -291,7 +298,7 @@ async function initializeMap() {
         document.getElementById('location').value = '';
     });
 
-    // Geocoding function (example using OpenStreetMap's Nominatim API)
+    // Geocoding function
     async function geocodeLocation(query) {
         const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
         const response = await fetch(url);
@@ -319,6 +326,6 @@ async function initializeMap() {
     });
 }
 
+// On page load event listeners
 document.addEventListener('DOMContentLoaded', loadUserInfo);
-
 document.addEventListener('DOMContentLoaded', initializeMap);

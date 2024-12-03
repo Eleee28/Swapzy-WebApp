@@ -1,50 +1,15 @@
 const bcrypt = require('bcryptjs')
 const { Users } = require('../sequelize/models');
-
-// Controller method to get all users
-// exports.getAllUsers = async function (req, res) {
-//     try {
-//         const users = await Users.findAll();
-//         res.json(users);
-//     } catch (err) {
-//         res.status(500).json({ message: "Internal Server Error", error: err.message });
-//     }
-// };
-
-// Controller method to get a user by id
-// exports.getUserById = async function (req, res) {
-//     const id = req.params.id;
-
-//     try {
-//         const user = await Users.findByPk(id);
-//         if (!user)
-//             res.status(404).send("User not found");
-//         else
-//             res.json(user);
-//     } catch (err) {
-//         res.status(500).json({ message: "Internal Server Error", error: err.message });
-//     }
-// };
-
-// Controller method to get a user by username
-// exports.getUserByUserName = async function (req, res) {
-//     const username = req.params.username;
-
-//     try {
-//         const user = await Users.findOne({ where: { username: username } });
-//         if (!user)
-//             res.status(404).send("User not found");
-//         else
-//             res.json(user);
-//     } catch (err) {
-//         console.error('Error fetching user by username: ', err);
-//         res.status(500).json({ message: "Internal Server Error", error: err.message });
-//     }
-// };
+const { use } = require('passport');
 
 // Controller method to create a new user
 exports.createUser = async function (req, res) {
     const { username, email, password, repeat_password } = req.body;
+
+    // const sanitizedUsername = req.sanitize(username);
+    // const sanitizedEmail = req.sanitize(email);
+    // const sanitizedPassword = req.sanitize(password);
+    // const sanitizedRepeat_password = req.sanitize(repeat_password);
 
     let errorMessage = '';
 
@@ -69,8 +34,8 @@ exports.createUser = async function (req, res) {
             // Hash password
             hashedPassword = await bcrypt.hash(password, 8);
             const newUser = await Users.create({
-                username,
-                email,
+                username: username,
+                email: email,
                 password: hashedPassword,
                 profile_img: null,
                 location: null
@@ -110,6 +75,9 @@ async function emailTaken(email) {
 exports.login = async function (req, res) {
     const { username, password } = req.body;
 
+    // const sanitizedUsername = req.sanitize(username);
+    // const sanitizedPassword = req.sanitize(password);
+
     let errorMessage = '';
 
     if (!username || !password)
@@ -117,7 +85,6 @@ exports.login = async function (req, res) {
 
     if (errorMessage)
         return res.status(400).json({ errorMessage });
-    
     
     try {
         errorMessage = await checkUserPassword(username, password);
@@ -171,6 +138,7 @@ exports.logout = async function (req, res) {
 
 // Controller method to get a user by id
 exports.getById = async function (req, res) {
+    //const username = req.sanitize(req.params.username);
     const username = req.params.username;
 
     try {
@@ -221,17 +189,24 @@ exports.getUserLocation = async function (req, res) {
 
 // Controller method to update a user by id
 exports.updateUser = async function (req, res) {
-    const userid = req.session.username;
+    //const userid = req.sanitize(req.session.username)
+    const userid = req.session.username
 
     const { username, email, password, repeat_password, location, image_url } = req.body;
+
+    // const sanitizedUsername = req.sanitize(username);
+    // const sanitizedEmail = req.sanitize(email);
+    // const sanitizedPassword = req.sanitize(password);
+    // const sanitizedRepeat_password = req.sanitize(repeat_password);
+    // const sanitizedImage = req.sanitize(image_url);
 
     try {
         const user = await Users.findByPk(userid);
         if (user) {
             if (username && username !== user.username)
-                user.username = username;
+                user.username = sanitizedUsername;
             if (email && email !== user.email)
-                user.email = email;
+                user.email = sanitizedEmail;
             if (password && repeat_password) {
                 if (password === repeat_password)
                     user.password = await bcrypt.hash(password, 8);
@@ -245,8 +220,6 @@ exports.updateUser = async function (req, res) {
                         coordinates: [location.lng, location.lat]
                     };
                 } 
-                // else
-                //     return res.status(400).json({ message: 'Invalid location format' });
             }
             if (image_url && image_url !== user.image_url)
                 user.profile_img = image_url;
@@ -263,12 +236,13 @@ exports.updateUser = async function (req, res) {
 
 // Controller to delete a user
 exports.deleteUser = async function (req, res) {
+    //const username = req.sanitize(req.session.username);
     const username = req.session.username;
 
     if (!username)
         return res.status(401).json({ message: "User not logged in" });
 
-    const { password } = req.body;
+    const password = req.sanitize(req.body.password);
 
     if (!password)
         return res.status(400).json({ message: "Password is required" });
@@ -310,20 +284,3 @@ exports.sessionInfo = function (req, res) {
     }
     res.status(401).json({ message: 'Session expired' });
 }
-
-// Controller method to delete a todo by id
-// exports.deleteUser = async function (req, res) {
-//     const id = req.params.id;
-
-//     try {
-//         const user = await Users.findByPk(id);
-//         if (user) {
-//             await user.destroy();
-//             res.json(user);
-//         } else {
-//             res.status(404).send("User not found");
-//         }
-//     } catch (err) {
-//         res.status(500).json({ message: "Internal Server Error", error: err.message });
-//     }
-// };

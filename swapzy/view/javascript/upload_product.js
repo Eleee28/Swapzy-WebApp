@@ -1,3 +1,4 @@
+// TODO - copy in category to clear filters on page load
 function clearFields() {
     document.getElementById("product-name").value = '';
     document.getElementById("product-price").value = '';
@@ -13,7 +14,7 @@ async function populateCategoryDropdown() {
 
         const categoryDropdown = document.getElementById('product-category-options')
 
-        categoryDropdown.innerHTML = '';
+        categoryDropdown.innerHTML = ''; // Clear dropdown
 
         categories.forEach((category) => {
             const option = document.createElement('a');
@@ -26,15 +27,16 @@ async function populateCategoryDropdown() {
             icon.style.width = '24px';
             icon.style.height = '24px';
             icon.style.marginRight = '10px';
-            icon.style.transform = 'translateY(35%)';
-            
+            icon.style.transform = 'translateY(35%)';            
 
             const name = document.createElement('span');
             name.textContent = category.name_id;
 
+            // Add icon and name
             option.appendChild(icon);
             option.appendChild(name);
             
+            // On click listener
             option.addEventListener('click', () => {
                 document.getElementById('product-category-button').textContent = category.name_id;
                 document.getElementById('product-category-button').dataset.value = category.name_id;
@@ -53,13 +55,16 @@ async function populateStateDropdown() {
 
         const stateDropdown = document.getElementById('state-options')
 
-        stateDropdown.innerHTML = '';
+        stateDropdown.innerHTML = ''; // Clear dropdown
 
         stateEnumValues.forEach((state) => {
             const option = document.createElement('a');
             option.style.cursor = 'pointer';
-            option.textContent = state;
             option.classList.add('dropdown-item');
+
+            option.textContent = state;
+
+            // On click listener
             option.addEventListener('click', () => {
                 document.getElementById('state-button').textContent = state;
                 document.getElementById('state-button').dataset.value = state;
@@ -86,6 +91,7 @@ async function getUserLocation() {
     }
 }
 
+// Reverse geocoding to get a city name from coordinates
 async function getCityFromCoordinates(lat, lng) {
     try {
         const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
@@ -139,7 +145,7 @@ async function initializeMap() {
         document.getElementById('product-location').value = '';
     });
 
-    // Geocoding function (example using OpenStreetMap's Nominatim API)
+    // Geocoding function
     async function geocodeLocation(query) {
         const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
         const response = await fetch(url);
@@ -167,9 +173,12 @@ async function initializeMap() {
     });
 }
 
+// Upload button UI element
 const uploadButton = document.getElementById("upload-button");
 
+// On click event listener
 uploadButton.addEventListener('click', async () => {
+    // UI element's values
     const name = document.getElementById("product-name").value;
     const category = document.getElementById("product-category-button").dataset.value;
     const price = document.getElementById("product-price").value;
@@ -235,10 +244,8 @@ function showPopupMessage(message, location) {
     })
 }
 
+// On page load event listeners
 document.addEventListener('DOMContentLoaded', clearFields);
-
 document.addEventListener('DOMContentLoaded', populateCategoryDropdown);
-
 document.addEventListener('DOMContentLoaded', populateStateDropdown);
-
 document.addEventListener('DOMContentLoaded', initializeMap);

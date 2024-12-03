@@ -20,6 +20,6 @@ document.getElementById('login-form').addEventListener('submit', async function 
         errorDiv.textContent = errorMessage;
     } else {
         const result = await response.json();
-        window.location.href = '/';
+        window.location.href = '/'; // Redirect to root
     }
 });

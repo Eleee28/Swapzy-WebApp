@@ -10,16 +10,6 @@ const config = {
     define: { freezeTableName: true, }, // name of model same as table (no pluralize)
 };
 
-// if finally needed or used (SSL)
-// const sslConf = {
-//     dialectOptions: {
-//         ssl: {
-//             require: true,
-//             rejectUnauthorised: false,
-//         },
-//     },
-// };
-
 module.exports = {
     development: {
         ...config, // spread operator
@@ -35,7 +25,6 @@ module.exports = {
     },
     production: {
         ...config,
-        //...sslConf,
         logging: false, // disable logging in production
     },
 };

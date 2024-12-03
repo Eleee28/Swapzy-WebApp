@@ -6,6 +6,8 @@ exports.getAll = async function (req, res) {
     try {
         var category = req.query.category;
 
+        //var category = req.sanitize(req.query.category);
+
         const filter = {};
         
         if (category) {
@@ -43,6 +45,7 @@ exports.getRecent = async function (req, res) {
 
 // Controller to get a product by ID
 exports.getByID = async function (req, res) {
+    //const id = req.sanitize(req.params.id);
     const id = req.params.id;
 
     try {
@@ -60,7 +63,20 @@ exports.getByID = async function (req, res) {
 // Controller to save a product
 exports.saveProduct = async function (req, res) {
     try {
-        const { name, category, price, description, condition, image_url, location } = req.body;
+        // const name = req.sanitize(req.body.name);
+        // const category = req.sanitize(req.body.category);
+        // const price = parseFloat(req.sanitize(req.body.price));
+        // const description = req.sanitize(req.body.description);
+        // const condition = req.sanitize(req.body.condition);
+        // const image_url = req.sanitize(req.body.image_url);
+        // const location = {
+        //     lat: parseFloat(req.sanitize(req.body.lat)),
+        //     lng: parseFloat(req.sanitize(req.body.lng))
+        // }
+
+        // const user = req.sanitize(req.session.username);
+
+        const { name, category, price, description, image_url, location } = req.body;
         const user = req.session.username;
 
         if (!name || !category || !price || !description || !condition || !image_url || !location.lat || !location.lng) {
@@ -80,10 +96,9 @@ exports.saveProduct = async function (req, res) {
             },
             image_url: image_url
         })
-        console.log
         res.status(201).json({ message: 'Product saved succesfully', product });
     } catch (err) {
-        console.log(err);
+        console.error(err);
         res.status(500).json({ message: 'An error ocurred saving the product' });
     }
 }
@@ -95,7 +110,9 @@ exports.getConditionValues = function (req, res) {
 
 // Controller for search functionality
 exports.search = async function (req, res) {
+    //const query = req.sanitize(req.query.query);
     const query = req.query.query;
+
 
     if (!query) {
         return res.status(400).json({ message: 'Query parameter is required' });
@@ -106,7 +123,6 @@ exports.search = async function (req, res) {
             where: {
                 [Op.or]: [
                     { name: { [Op.iLike]: `%${query}%` } }, // Case-insensitive match for name
-                    //{ description: { [Op.iLike]: `%${query}%` } } // Case-insensitive match for description
                 ]
             },
             attributes: ['id', 'name', 'price', 'image_url'],
@@ -122,6 +138,7 @@ exports.search = async function (req, res) {
 
 // Controller method to delete a product by id
 exports.deleteProduct = async function (req, res) {
+    //const id = req.sanitize(req.body.prodId);
     const id = req.body.prodId;
 
     try {
@@ -136,112 +153,3 @@ exports.deleteProduct = async function (req, res) {
         res.status(500).json({ message: "Internal Server Error", error: err.message });
     }
 };
-
-// Controller method to get a number of products
-// exports.getNProducts = async function (req, res) {
-//     const n = req.params.n;
-//     try {
-//         const products = await Product.findAll({ limit: n });
-//     }
-// }
-
-// Controller methods to get all products of a certain category
-
-// Controller methods to get a product by id
-
-
-
-
-
-
-
-
-// // Controller method to get all users
-// exports.getAllProducts = async function (req, res) {
-//     try {
-//         const users = await User.findAll();
-//         res.json(users);
-//     } catch (err) {
-//         res.status(500).json({ message: "Internal Server Error", error: err.message });
-//     }
-// };
-
-// // Controller method to get a user by id
-// exports.getUserById = async function (req, res) {
-//     const id = req.params.id;
-
-//     try {
-//         const user = await User.findByPk(id);
-//         if (!user)
-//             res.status(404).send("User not found");
-//         else
-//             res.json(user);
-//     } catch (err) {
-//         res.status(500).json({ message: "Internal Server Error", error: err.message });
-//     }
-// };
-
-// // Controller method to create a new user
-// exports.createUser = async function (req, res) {
-//     const { username, email, password, location, image_url } = req.body;
-//     hashedPassword = await bcrypt.hash(password, 8);
-
-//     try {
-//         const newUser = await User.create({
-//             username,
-//             email,
-//             hashedPassword,
-//             location,
-//             image_url,
-//         });
-//         res.status(201).json(newUser);
-//     } catch (err) {
-//         res.status(500).json({ message: "Internal Server Error", error: err.message });
-//     }
-// };
-
-// // Controller method to update a user by id
-// exports.updateUser = async function (req, res) {
-//     const id = req.params.id;
-//     const { username, email, password, location, image_url } = req.body;
-
-//     try {
-//         const user = await User.findByPk(id);
-//         if (user) {
-//             if (username && username !== user.username)
-//                 user.username = username;
-//             if (email && email !== user.email)
-//                 user.email = email;
-//             if (password)
-//                 user.password = await bcrypt.hash(password, 8);
-//             if (location && location !== user.location)
-//                 user.location = location;
-//             if (image_url && image_url !== user.image_url)
-//                 user.image_url = image_url;
-
-//             await user.save();
-//             res.json(user);
-//         } else {
-//             res.status(404).send("User not found");
-//         }
-//     } catch (err) {
-//         res.status(500).json({ message: "Internal Server Error", error: err.message });
-//     }
-// }
-
-// // Controller method to delete a todo by id
-// exports.deleteUser = async function (req, res) {
-//     const id = req.params.id;
-
-//     try {
-//         const user = await User.findByPk(id);
-//         if (user) {
-//             await user.destroy();
-//             res.json(user);
-//         } else {
-//             res.status(404).send("User not found");
-//         }
-//     } catch (err) {
-//         res.status(500).json({ message: "Internal Server Error", error: err.message });
-//     }
-// };

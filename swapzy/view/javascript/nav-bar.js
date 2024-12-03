@@ -1,4 +1,5 @@
 async function navButtonHandler() {
+    // Navigation buttons
     const favButton = document.getElementById("fav-button");
     const profileButton = document.getElementById("profile-button");
     const sellButton = document.getElementById("sell-button");
@@ -6,6 +7,7 @@ async function navButtonHandler() {
     const response = await fetch('/api/check-login');
     const data = await response.json();
 
+    // Favorite button event listener
     favButton.addEventListener('click', () => {
         try {
             if (data.isLoggedIn) {
@@ -18,6 +20,7 @@ async function navButtonHandler() {
         }
     });
 
+    // Profile button event listener
     profileButton.addEventListener('click', () => {
         try {
             if (!data.isLoggedIn) {
@@ -28,6 +31,7 @@ async function navButtonHandler() {
         }
     });
 
+    // Sell button event listener
     sellButton.addEventListener('click', () => {
         try {
             if (data.isLoggedIn) {
@@ -42,7 +46,9 @@ async function navButtonHandler() {
 }
 
 async function setupProfileDropdown() {
+    // Profile dropdown
     const profileDropdownContainer = document.getElementById("profile-dropdown-container");
+
     const response = await fetch('/api/check-login');
     const data = await response.json();
 
@@ -57,10 +63,10 @@ async function setupProfileDropdown() {
         `;
 
         profileDropdownContainer.appendChild(dropdownMenu);
-
     }
 }
 
+// Function on click on logout button
 async function logOut() {
     try {
         const response = await fetch('/api/logout', {
@@ -73,7 +79,6 @@ async function logOut() {
         const result = await response.json();
 
         if (response.ok) {
-            
             window.location.href = '/';
         } else {
             alert(result.message || 'Failed to log out');
@@ -107,7 +112,7 @@ async function loadCategories() {
                 dropdownItem.textContent = capitalizeFirstLetter(category.name_id);
                 categoryList.appendChild(dropdownItem);
 
-                if (i < 4) { // Static links
+                if (i < 4) { // Static links (not all are to be shown)
                     const staticLink = document.createElement('a');
                     staticLink.href = `category.html?category=${encodeURIComponent(category.name_id)}`;
                     staticLink.textContent = capitalizeFirstLetter(category.name_id);
@@ -126,6 +131,7 @@ function capitalizeFirstLetter(val) {
     return String(val).charAt(0).toUpperCase() + String(val).slice(1);
 }
 
+// On page load event listeners
 document.addEventListener('DOMContentLoaded', navButtonHandler);
 document.addEventListener('DOMContentLoaded', loadCategories);
 document.addEventListener('DOMContentLoaded', setupProfileDropdown);

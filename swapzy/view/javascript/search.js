@@ -28,6 +28,7 @@ async function handleSearch() {
 }
 
 function displaySearchResults(products) {
+    // UI elements to display searched products
     const searchResultsSection = document.querySelector('.search-results-section');
     const messageText = searchResultsSection.querySelector('.message-text');
     const resultsTrack = searchResultsSection.querySelector('.results-track');

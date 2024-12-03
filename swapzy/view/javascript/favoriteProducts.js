@@ -9,7 +9,7 @@ async function fetchFavoriteProducts() {
             carousel.style.display = "none";
             text.style.display = "block";
             text.textContent = "You have to be logged in to see your favorites!";
-            
+
             return;
         } else if (!response.ok){
             return response.status;
@@ -30,8 +30,7 @@ async function fetchFavoriteProducts() {
 
         // Get carousel track element
         const carousel = document.querySelector('.favorites-section .carousel-track');
-
-        carousel.innerHTML = '';
+        carousel.innerHTML = ''; // Clear existing products
 
         products.forEach(prod => {
             const productCard = document.createElement('div');
@@ -80,11 +79,11 @@ async function fetchFavoriteProducts() {
             const heartButton = productCard.querySelector('.heart-container');
             heartButton.onclick = async function(event) {
                 event.stopPropagation(); // Prevent click from bubbling to product card -- chat-gpt
-            
-                // Only allow product removal
+
                 const prodId = prod.id;
 
                 try {
+                    // Only allow product removal
                     const response = await fetch('/api/favorite/delete', {
                         method: 'POST',
                         headers: {
@@ -117,6 +116,7 @@ async function fetchFavoriteProducts() {
                             document.querySelector('.favorites-section .message-text').textContent = "No favorite products yet! Start adding your favorites to find them quickly.";
                         }
 
+                        // Hide and show carousel to update view
                         document.querySelector('.recently-uploaded-section .carousel-container').style.display = 'none';
                         document.querySelector('.recently-uploaded-section .carousel-container').style.display = 'block';
                     } else {
@@ -130,12 +130,11 @@ async function fetchFavoriteProducts() {
 
             // Append products to carousel
             carousel.appendChild(productCard);
-            
         });
-        
     } catch (errOk) {
         console.error('Error loading favorite products: ', errOk);
     }
 }
 
+// On page load event listeners
 document.addEventListener('DOMContentLoaded', fetchFavoriteProducts);

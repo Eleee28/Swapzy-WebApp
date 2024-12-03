@@ -42,11 +42,6 @@ module.exports = (sequelize, DataTypes) => {
     profile_img: {
       type: DataTypes.STRING,
     },
-    /*
-    rating: {
-      type: DataTypes.DECIMAL(3, 2),
-      defaultValue: 0.0,
-    }, */
   }, {
     sequelize,
     modelName: 'Users',

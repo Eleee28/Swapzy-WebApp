@@ -17,8 +17,6 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
-//const sequelize = new Sequelize(`${config.host}?sslmode=no-verify`, config);
-
 fs
   .readdirSync(__dirname)
   .filter(file => {
@@ -33,8 +31,6 @@ fs
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
   });
-
-  //console.log("Loaded models: ", db); // DEBUG - delete
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

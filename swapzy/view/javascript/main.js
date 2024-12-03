@@ -1,10 +1,14 @@
+// TODO - maybe move to separate file and reuse for all carousels in app
+// Carousel functionality
 let currentIndexRecents = 0;
 let currentIndexFav = 0;
 
+// TODO - add reference
 function moveCarouselRecents(direction) {
     const track = document.querySelector('.recently-uploaded-section .carousel-track');
     const cards = document.querySelectorAll('.recently-uploaded-section .product-card');
-    const cardWidth = cards[0].offsetWidth + 20; // Ajusta por el margen
+
+    const cardWidth = cards[0].offsetWidth + 20; // Adjust by margin
     const visibleCards = Math.floor(track.offsetWidth / cardWidth);
     const maxIndex = cards.length - visibleCards;
 
@@ -19,10 +23,12 @@ function moveCarouselRecents(direction) {
     track.style.transform = `translateX(${offset}px)`;
 }
 
+// TODO - add reference
 function moveCarouselFav(direction) {
     const track = document.querySelector('.favorites-section .carousel-track');
     const cards = document.querySelectorAll('.favorites-section .product-card');
-    const cardWidth = cards[0].offsetWidth + 20; // Ajusta por el margen
+
+    const cardWidth = cards[0].offsetWidth + 20; // Adjust by margin
     const visibleCards = Math.floor(track.offsetWidth / cardWidth);
     const maxIndex = cards.length - visibleCards;
 
@@ -37,10 +43,11 @@ function moveCarouselFav(direction) {
     track.style.transform = `translateX(${offset}px)`;
 }
 
-// Ajustar el carrusel al redimensionar la ventana
+// Adjust carousel on window resizing
 function updateCarouselOffsets() {
     const recentsTrack = document.querySelector('.recently-uploaded-section .carousel-track');
     const recentsCards = document.querySelectorAll('.recently-uploaded-section .product-card');
+
     if (recentsCards.length > 0) {
         const recentsCardWidth = recentsCards[0].offsetWidth + 20;
         const recentsOffset = -currentIndexRecents * recentsCardWidth;
@@ -56,4 +63,5 @@ function updateCarouselOffsets() {
     }
 }
 
+// On page load event listeners
 window.addEventListener('resize', updateCarouselOffsets);

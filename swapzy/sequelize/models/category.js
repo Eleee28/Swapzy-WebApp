@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Product, { foreignKey: 'category' });
     }
 
-    // Mehtod to enforce table has always predefined info (predefined-categories.js) - Chat-GPT
+    // Method to enforce table has always predefined info (predefined-categories.js) - Chat-GPT
     static async enforceIntegrity() {
       const existingCategories = await Category.findAll();
       const existingIds = existingCategories.map(cat => cat.name_id);

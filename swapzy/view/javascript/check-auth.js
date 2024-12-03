@@ -10,4 +10,5 @@ async function isAuthenticated() {
     }
 }
 
+// On page load event listeners
 document.addEventListener('DOMContentLoaded', isAuthenticated);
