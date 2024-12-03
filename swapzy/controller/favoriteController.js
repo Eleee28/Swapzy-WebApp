@@ -11,7 +11,7 @@ exports.getFavorite = async function (req, res) {
 
     try {
         const products = await Product.sequelize.query(`
-            SELECT p.id as id, p.name as name, p.price as price, p.image_url as image_url
+            SELECT p.id as id, p.name as name, p.price as price, p.condition as condition, p.description as description, p.image_url as image_url
             FROM product p
             INNER JOIN favorite f ON p.id = f.product_id
             WHERE f.user = :username

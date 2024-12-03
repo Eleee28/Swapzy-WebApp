@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swapzy - Main Page</title>
     <link rel="stylesheet" href="css/user.css">
+
+    <!-- Leaflet.js for maps API -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
 </head>
 <body>
     <!-- Header Section-->
@@ -31,10 +39,12 @@
                 <img src="images/heart.png">
                 <span class="btn-text">Favorites</span>
             </a>
-            <a class="nav-btn" id="profile-button">
-                <img src="images/profile.png" alt="Profile Icon">
-                <span class="btn-text">Profile</span>
-            </a>
+            <div class="profile-dropdown-container" id="profile-dropdown-container">
+                <a class="nav-btn" id="profile-button">
+                    <img src="images/profile.png" alt="Profile Icon">
+                    <span class="btn-text">Profile</span>
+                </a>
+            </div>
             <a class="nav-btn" id="sell-button">
                 <img src="images/sell.png" alt="Sell Icon">
                 <span class="btn-text">Sell</span>
@@ -48,19 +58,10 @@
             <button class="dropbtn">Categories</button>
             <div class="dropdown-content" id="category-list">
                 <!-- Dynamic categories from backend will be loaded here -->
-                <a href="#">Electronics</a>
-                <a href="#">Clothing</a>
-                <a href="#">Books</a>
-                <a href="#">Home & Garden</a>
-                <a href="#">Toys</a>
             </div>
         </div>
         <!-- Static Links to Categories -->
-        <a href="#">Electronics</a>
-        <a href="#">Clothing</a>
-        <a href="#">Books</a>
-        <a href="#">Home & Garden</a>
-        <a href="#">Toys</a>
+        <div class="static-links"></div>
     </nav>
 
     <!-- Main Content -->
@@ -68,22 +69,22 @@
         <div class="profile-card">
             <!-- Profile Picture and Name -->
             <div class="profile-header">
-                <img src="images/profile_picture_sample.jpg" alt="Profile Picture" class="profile-picture">
-                <h2 class="profile-name">User Name</h2>
+                <img src="images/profile_picture_sample.jpg" alt="Profile Picture" class="profile-picture" id="profile-pic">
+                <h2 class="profile-name" id="profile-name">User Name</h2>
             </div>
     
             <!-- Contact Details -->
             <div class="contact-details">
                 <h3>Contact Details</h3>
-                <p>user@example.com</p>
+                <p id="profile-email">user@example.com</p>
             </div>
     
             <!-- Location -->
             <div class="location-details">
                 <h3>Location</h3>
                 <p>Location information here...</p>
-                <div id="map-placeholder">
-                    <!-- Here will be a map (e.g., Google Maps or Leaflet map) -->
+                <div class="location-map">
+                    <div id="map" style="height: 400px; width: 100%;"></div>
                 </div>
             </div>
         </div>
@@ -119,6 +120,7 @@
 
     <script src="javascript/nav-bar.js"></script>
     <script src="javascript/user.js"></script>
+    <script src="javascript/session-expiry.js"></script>
 
 </body>
 </html>

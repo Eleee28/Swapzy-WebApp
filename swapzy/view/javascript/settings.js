@@ -183,8 +183,8 @@ async function deleteUser() {
         }
 
     } catch (err) {
-        console.error("Error:", error.message);
-        showPopupMessage(error.message || "An error occurred. Please try again.", 'settings.html');
+        console.error("Error:", err.message);
+        showPopupMessage(err.message || "An error occurred. Please try again.", 'settings.html');
     }
 }
 

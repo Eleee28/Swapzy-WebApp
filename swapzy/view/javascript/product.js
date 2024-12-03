@@ -130,3 +130,7 @@ function moveCarousel(direction) {
     const offset = -currentIndex * cardWidth;
     track.style.transform = `translateX(${offset}px)`;
 }
+
+function goToUserPage() {
+    window.location.href = `user.html?id=${document.getElementById("user-name").innerText}`
+}

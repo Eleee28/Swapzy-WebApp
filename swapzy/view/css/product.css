@@ -154,6 +154,10 @@ body {
   margin: 0 5px;
 }
 
+.navbar a:hover {
+  background-color: #a44cd3;
+}
+
 /* Profile dropdown container */
 .profile-dropdown-container {
   position: relative;
@@ -190,9 +194,6 @@ body {
   background-color: #f1f1f1;
 }
 
-.navbar a:hover {
-  background-color: #a44cd3;
-}
 
 .dropdown {
   position: relative;
@@ -280,6 +281,10 @@ body {
 .user-name {
   font-size: 1.6rem;
   font-weight: bold;
+}
+
+.profile-image:hover, .user-name:hover {
+  cursor: pointer;
 }
 
 /* Main Product Heart */
@@ -722,6 +727,7 @@ body {
 
   .dropdown-content a{
     display: flex;
+    font-size: 1.2rem;
   }
 
   /* Recently Uploaded Section */

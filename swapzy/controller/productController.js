@@ -4,8 +4,20 @@ const { Op } = require('sequelize');
 // Controller method to get all products
 exports.getAll = async function (req, res) {
     try {
+        var category = req.query.category;
+
+        const filter = {};
+        
+        if (category) {
+            category = decodeURIComponent(category);
+            if (category !== "favorite")
+                filter.category = category;
+        }
+
         const products = await Product.findAll({
-            attributes: ['id', 'name', 'price', 'image_url']
+            attributes: ['id', 'name', 'description', 'price', 'condition', 'location', 'image_url'],
+            where: filter,
+            order: [['created_at', 'DESC']]
         });
         res.json(products);
     } catch (err) {
@@ -45,7 +57,7 @@ exports.getByID = async function (req, res) {
     
 };
 
-
+// Controller to save a product
 exports.saveProduct = async function (req, res) {
     try {
         const { name, category, price, description, condition, image_url, location } = req.body;
@@ -107,6 +119,23 @@ exports.search = async function (req, res) {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 }
+
+// Controller method to delete a product by id
+exports.deleteProduct = async function (req, res) {
+    const id = req.body.prodId;
+
+    try {
+        const product = await Product.findByPk(id);
+        if (product) {
+            await product.destroy();
+            res.json(product);
+        } else {
+            res.status(404).send("Product not found");
+        }
+    } catch (err) {
+        res.status(500).json({ message: "Internal Server Error", error: err.message });
+    }
+};
 
 // Controller method to get a number of products
 // exports.getNProducts = async function (req, res) {

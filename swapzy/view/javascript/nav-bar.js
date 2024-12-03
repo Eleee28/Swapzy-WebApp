@@ -9,8 +9,7 @@ async function navButtonHandler() {
     favButton.addEventListener('click', () => {
         try {
             if (data.isLoggedIn) {
-                //window.location.href = 'favorited.html';
-                console.log("Fav button clicked")
+                window.location.href = 'category.html?category=favorite';
             } else {
                 window.location.href = 'login.html';
             }
@@ -104,13 +103,13 @@ async function loadCategories() {
             categories.forEach(category => {
                 // Dropdown links
                 const dropdownItem = document.createElement('a');
-                dropdownItem.href = '/'; // TODO - change for actual location
+                dropdownItem.href = `category.html?category=${encodeURIComponent(category.name_id)}`;
                 dropdownItem.textContent = capitalizeFirstLetter(category.name_id);
                 categoryList.appendChild(dropdownItem);
 
                 if (i < 4) { // Static links
                     const staticLink = document.createElement('a');
-                    staticLink.href = '/'; // TODO - change for actual location
+                    staticLink.href = `category.html?category=${encodeURIComponent(category.name_id)}`;
                     staticLink.textContent = capitalizeFirstLetter(category.name_id);
                     staticLinksContainer.appendChild(staticLink);
                 }
