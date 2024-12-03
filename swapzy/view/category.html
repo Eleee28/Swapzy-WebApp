@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swapzy - Main Page</title>
     <link rel="stylesheet" href="css/category.css">
+
+    <!-- Leaflet.js for maps API -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
 </head>
 <body>
     <!-- Header Section-->
@@ -31,10 +39,12 @@
                 <img src="images/heart.png">
                 <span class="btn-text">Favorites</span>
             </a>
-            <a class="nav-btn" id="profile-button">
-                <img src="images/profile.png" alt="Profile Icon">
-                <span class="btn-text">Profile</span>
-            </a>
+            <div class="profile-dropdown-container" id="profile-dropdown-container">
+                <a class="nav-btn" id="profile-button">
+                    <img src="images/profile.png" alt="Profile Icon">
+                    <span class="btn-text">Profile</span>
+                </a>
+            </div>
             <a class="nav-btn" id="sell-button">
                 <img src="images/sell.png" alt="Sell Icon">
                 <span class="btn-text">Sell</span>
@@ -48,19 +58,10 @@
             <button class="dropbtn">Categories</button>
             <div class="dropdown-content" id="category-list">
                 <!-- Dynamic categories from backend will be loaded here -->
-                <a href="#">Electronics</a>
-                <a href="#">Clothing</a>
-                <a href="#">Books</a>
-                <a href="#">Home & Garden</a>
-                <a href="#">Toys</a>
             </div>
         </div>
         <!-- Static Links to Categories -->
-        <a href="#">Electronics</a>
-        <a href="#">Clothing</a>
-        <a href="#">Books</a>
-        <a href="#">Home & Garden</a>
-        <a href="#">Toys</a>
+        <div class="static-links"></div>
     </nav>
 
     <!-- Filters Bar -->
@@ -73,9 +74,9 @@
             <div class="dropdown1">
                 <button class="dropbtn1">Location</button>
                 <div class="dropdown1-content location-dropdown">
-                    <input type="text" placeholder="Search Location" class="location-search-input">
+                    <input type="text" placeholder="Search Location" class="location-search-input" id="location-search-input">
                     <div id="map-container">
-                        <!-- Here will be a map (e.g., Google Maps or Leaflet map) -->
+                        <div class="map" id="map"></div>
                     </div>
                 </div>
             </div>
@@ -84,18 +85,18 @@
                 <button class="dropbtn1">Price</button>
                 <div class="dropdown1-content price-dropdown">
                     <p>How much do you want to pay?</p>
-                    <input type="range" min="0" max="20000" value="10000" class="price-slider" id="price-slider">
-                    <div class="price-label" id="price-label">1000</div>
+                    <input type="range" min="0" max="20000" value="20000" class="price-slider" id="price-slider">
+                    <div class="price-label" id="price-label">20000</div>
                 </div>
             </div>
             <!-- Product Status Dropdown -->
             <div class="dropdown1">
                 <button class="dropbtn1">Product Status</button>
-                <div class="dropdown1-content product-status-dropdown">
-                    <label><input type="checkbox" value="New"> New</label>
+                <div class="dropdown1-content product-status-dropdown" id="state-options">
+                    <!-- <label><input type="checkbox" value="New"> New</label>
                     <label><input type="checkbox" value="Like New"> Like New</label>
                     <label><input type="checkbox" value="Used"> Used</label>
-                    <label><input type="checkbox" value="Damaged"> Damaged</label>
+                    <label><input type="checkbox" value="Damaged"> Damaged</label> -->
                 </div>
             </div>
             <!-- Clean Filters Button -->
@@ -106,7 +107,7 @@
     <div class="main-content">
         <!-- Category Header Section -->
         <div class="category-header">
-            <h1 class="title">Category Name</h1>
+            <h1 class="title" id="category-title">Category Name</h1>
         </div>
         <div class="product-list">
             <div class="product-card">
@@ -161,6 +162,7 @@
 
     <script src="javascript/nav-bar.js"></script>
     <script src="javascript/category.js"></script>
+    <script src="javascript/session-expiry.js"></script>
 
 </body>
 </html>
