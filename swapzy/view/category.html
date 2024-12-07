@@ -93,29 +93,30 @@
             <div class="dropdown1">
                 <button class="dropbtn1">Product Status</button>
                 <div class="dropdown1-content product-status-dropdown" id="state-options">
-                    <!-- <label><input type="checkbox" value="New"> New</label>
-                    <label><input type="checkbox" value="Like New"> Like New</label>
-                    <label><input type="checkbox" value="Used"> Used</label>
-                    <label><input type="checkbox" value="Damaged"> Damaged</label> -->
                 </div>
             </div>
             <!-- Clean Filters Button -->
             <button class="cleanbtn">Clean Filters</button>
         </div>
         <div class="sort-dropdown">
-            <div class="sort-icon">
+            <!-- <div class="sort-icon">
                 <img src="images/sort_icon.png" alt="Sort Icon">
-            </div>
+            </div> -->
             <!-- Price Sorting Dropdown -->
             <div class="dropdown1">
-                <button class="dropbtn1">Sort by Price</button>
+                <span id="sort-text">Sort by: Price </span>
                 <div class="dropdown1-content price-sorting-dropdown">
-                    <label><input type="checkbox" value="Highest Price First"> Highest Price First</label>
-                    <label><input type="checkbox" value="Lowest Price First"> Lowest Price First</label>
+                    <a href="#" class="sort-option" data-sort="low-to-high">Low to High</a>
+                    <a href="#" class="sort-option" data-sort="high-to-low">High to Low</a>
                 </div>
+                <!-- <button class="dropbtn1">Sort by Price</button>
+                <div class="dropdown1-content price-sorting-dropdown">
+                    <a href="#" class="sort-option dropdown-item d-flex align-items-center" data-sort="price-asc">Low to High</a>
+                    <a href="#" class="sort-option dropdown-item d-flex align-items-center" data-sort="price-desc">High to Low</a>
+                </div> -->
             </div>
             <!-- Clean Sorting Button -->
-            <button class="clean-sorting-btn">Clean Sorting</button>
+            <!-- <button class="clean-sorting-btn">Clean Sorting</button> -->
         </div>
         
     </nav>
