@@ -267,7 +267,7 @@ body {
   margin-top: 15px;
 }
 
-.filter-icon img, .sort-icon img {
+.filter-icon img {
   width: 30px;
   height: 30px;
 }
@@ -303,13 +303,44 @@ body {
   display: block;
 }
 
-.price-sorting-dropdown label {
+/* .price-sorting-dropdown label {
   display: block;
   font-size: 1.5rem;
   margin-bottom: 8px;
+} */
+
+#sort-text {
+  font-weight: bold;
+  font-size: 20px;
 }
 
-.cleanbtn, .clean-sorting-btn {
+.price-sorting-dropdown {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  min-width: 150px;
+  z-index: 1;
+}
+
+.dropdown1:hover .price-sorting-dropdown {
+  display: block;
+}
+
+.price-sorting-dropdown a {
+  display: block;
+  padding: 8px;
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.price-sorting-dropdown a:hover {
+  background-color: #f1f1f1;
+}
+
+.cleanbtn {
   background-color: #a44cd3;
   color: #f0f0f0;
   padding: 1px 20px;
@@ -341,27 +372,12 @@ body {
   justify-content: center;
   font-weight: bold;
   font-size: 1em;
-  margin-top: none;
+  /*margin-top: none;*/
 }
 .location-map .map {
   height: 300px;
   width: 100%;
 }
-
-/* #map {
-  /* width: 300px;
-  height: 200px; 
-  height: 400px;
-  width: 100%;
-  background-color: #f0f0f0;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-} 
-/* 
-#map-container #map {
-  height: 200px;
-  width: 300px;
-} */
 
 /* Price Dropdown Styles */
 .price-dropdown p {
@@ -653,7 +669,7 @@ body {
     width: 100%;
   }
 
-  .dropbtn1, .cleanbtn, .clean-sorting-btn {
+  .dropbtn1, .cleanbtn{
     font-size: 1.3rem;
     padding: 1px 10px;
   }

@@ -1,6 +1,23 @@
 let allProducts = [];
 let selectedLat = 0;
 let selectedLng = 0;
+let currentSort = "low-to-high";
+
+Array.from(document.querySelectorAll('.price-sorting-dropdown .sort-option')).forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent navigation
+        
+        // Get sort value
+        const sortValue = this.getAttribute('data-sort');
+        currentSort = sortValue;
+
+        // Update displayed sort text
+        const sortText = (sortValue === "low-to-high" ? "Low to High" : "High to Low");
+        document.getElementById('sort-text').textContent = `Sort by price: ${sortText}`;
+        
+        filterProducts();
+    });
+});
 
 async function populateStateDropdown() {
     try {
@@ -56,12 +73,6 @@ priceSlider.addEventListener('input', function() {
 
 // Status checkbox element
 const checkStatus = document.querySelectorAll('.product-status-dropdown input[type="checkbox"]');
-
-
-// TODO - remove if it works
-// checkStatus.forEach(checkbox => {
-//     checkbox.addEventListener('change', filterProducts);
-// });
 
 // Clean button event listener
 document.querySelector('.cleanbtn').addEventListener('click', function() {
@@ -153,8 +164,6 @@ function filterProducts() {
             } else {
                 matchesLocation = false;
             }
-        } else {
-            matchesLocation = false;
         }
 
         // Price filter
@@ -181,8 +190,14 @@ function filterProducts() {
 
         if (matchesLocation && matchesPrice && matchesStatus)
             filteredProducts.push(product);
-
     })
+
+    // Sort products
+    if (currentSort === "low-to-high") {
+        filteredProducts.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+    } else if (currentSort === "high-to-low") {
+        filteredProducts.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+    }
 
     displayProducts(filteredProducts);
 }
