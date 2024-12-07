@@ -34,7 +34,7 @@ async function loadUserInfo() {
 
             // Add marker at the product location
             L.marker([latitude, longitude]).addTo(map)
-                .bindPopup(`<b>${product.name}</b>`)
+                .bindPopup(`<b>${user.username}</b>`)
                 .openPopup();
         }
     } catch (err) {
@@ -51,15 +51,16 @@ async function loadUserProducts() {
         const response = await fetch(`/api/products?seller=${encodeURIComponent(userId)}`);
         if (response.ok) {
             const products = await response.json();
+            console.log(products);
             
             if (products.length === 0) {
-                document.querySelector('.carousel-container').innerHTML = '<p>This user has not uploaded any product yet.</p>';
+                document.querySelector('.results-container').innerHTML = '<p>This user has not uploaded any product yet.</p>';
                 return;
             }
             
-            const carousel = document.querySelector('.carousel-container .carousel-track');
+            const carousel = document.querySelector('.results-track');
             carousel.innerHTML = '';
-
+        
             products.forEach(product => {
                 const productCard = document.createElement('div');
                 productCard.className = 'product-card';
@@ -85,28 +86,6 @@ async function loadUserProducts() {
         console.error('Error fetching user products:', error);
         document.querySelector('.carousel-container').innerHTML = '<p>Error loading products.</p>';
     }
-}
-
-// Carousel logic
-let currentIndex = 0;
-
-function moveCarousel(direction) {
-    const track = document.querySelector('.carousel-track');
-    const cards = document.querySelectorAll('.carousel .product-card');
-    const cardWidth = cards[0].offsetWidth + 20; // Ajuste para el margen
-    const maxIndex = cards.length - Math.floor(track.offsetWidth / cardWidth);
-
-    // Asegúrate de que el índice está dentro de los límites
-    currentIndex += direction;
-    if (currentIndex < 0) {
-        currentIndex = 0;
-    } else if (currentIndex > maxIndex) {
-        currentIndex = maxIndex;
-    }
-
-    // Calcula el desplazamiento y muévelo
-    const offset = -currentIndex * cardWidth;
-    track.style.transform = `translateX(${offset}px)`;
 }
 
 // On page load event listeners
