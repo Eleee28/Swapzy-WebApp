@@ -248,21 +248,26 @@ body {
 
 .filters-bar {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  align-items: start;
   background-color: #ffffff;
   padding: 10px 20px;
   border-bottom: 1px solid #ddd;
   margin-left: auto;
 }
 
-.filter-dropdown {
+.filter-dropdown, .sort-dropdown {
   display: flex;
+  flex-direction: row;
   gap: 20px;
   align-items: center;
 }
 
-.filter-icon img {
+.sort-dropdown {
+  margin-top: 15px;
+}
+
+.filter-icon img, .sort-icon img {
   width: 30px;
   height: 30px;
 }
@@ -298,7 +303,13 @@ body {
   display: block;
 }
 
-.cleanbtn {
+.price-sorting-dropdown label {
+  display: block;
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.cleanbtn, .clean-sorting-btn {
   background-color: #a44cd3;
   color: #f0f0f0;
   padding: 1px 20px;
@@ -642,7 +653,7 @@ body {
     width: 100%;
   }
 
-  .dropbtn1, .cleanbtn {
+  .dropbtn1, .cleanbtn, .clean-sorting-btn {
     font-size: 1.3rem;
     padding: 1px 10px;
   }
