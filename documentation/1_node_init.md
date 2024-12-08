@@ -6,7 +6,7 @@ mkdir swapzy
 cd swapzy
 ~~~
 
-## 2. Initialize Node Porject
+## 2. Initialize Node Project
 ~~~ bash
 npm init
 ~~~
@@ -44,7 +44,7 @@ After that, a ``package.json`` file will be generated:
 ## 3. Install Dependencies
 
 ~~~ bash
-npm install express sequelize sequelize-cli pg pg-hstore passport passport-google-oauth20 bcryptjs dotenv
+npm install express sequelize sequelize-cli pg pg-hstore  bcryptjs dotenv
 
 npm install --save-dev nodemon
 ~~~
@@ -68,27 +68,6 @@ npm install --save-dev nodemon
 - Easy to switch between different databases without changing the code much.
 
 **Sequelize CLI** is the command line interface of sequelize and it allows running terminal commands to create models, run migrations, etc.
-
-### Passport.js - Authentication Middleware
-**Passport.js** is an authentication middleware for Node.js. It supports various authetication strategies. For this project OAuth.
-
-
-### OAuth (Open Authorization) - Authentication Mechanism
-**OAuth** is an authentication protocol that allows users to grant third-party applications access to their resources without sharing their passwords. In this case, OAuth enables users to log in user their existing accounts from services like Google, Facebook or Twitter.
-
-**Benefits of OAuth**
-- Users can log in using their existing accounts from trusted providers, reducing the need to create and remember new passwords.
-- Mitigate risks associated with password storage and management, as we are not handling the passwords directly.
-
-**How OAuth works**
-1. User requests login by clicking on "Log in with Google button"
-2. The app redirects the user to the Google authentication page, where they can log in.
-3. Google asks the user to grant permission to the app to access their information.
-4. Google redirects back to the app at a predefined callback (``/auth/google/callback``) with an authorization code.
-5. The app uses this code to request and access token from Google, which can be used to fetch user information (email, profile data, ...).
-6. Request user's profile information (name, email, ...) from Google.
-7. Check if the user exists in database and log in, if not creates new user.
-8. Manage sessions using server-side sessions or client-side storage. --> CHOOSE
 
 ### bcryptjs - Password Hashing
 **Bcrypt** is an encryption algorithm designed for password hashing. It addes a salt (random bit of data) to the password before running the algorithm.
@@ -156,5 +135,5 @@ npm start
 ~~~ bash
 npm run dev
 
-# AUto restarts the server when making changes
+# Auto restarts the server when making changes
 ~~~
