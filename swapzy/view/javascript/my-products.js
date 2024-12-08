@@ -3,12 +3,14 @@ async function loadUserProducts() {
     const data = await response.json();
 
     try {
+        console.log(data.username);
         const response = await fetch(`/api/products?seller=${encodeURIComponent(data.username)}`); // Encode for correct handling of characters
         if (response.ok) {
             const products = await response.json();
+            console.log(products);
             
             if (products.length === 0) {
-                document.querySelector('.product-list').innerHTML = '<p>This user has not uploaded any product yet.</p>';
+                document.querySelector('.product-list').innerHTML = '<p>You have not uploaded any products yet.</p>';
                 return;
             }
             
@@ -39,7 +41,7 @@ async function loadUserProducts() {
                                 </button>
                             </div>
                         </div>
-                        <p class="product-price">${product.price}</p>
+                        <p class="product-price">${product.price} €</p>
                         <p class="product-status">${product.condition}</p>
                         <p class="product-description">${product.description}</p>
                     </div>

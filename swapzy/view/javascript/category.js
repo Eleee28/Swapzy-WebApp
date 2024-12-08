@@ -81,6 +81,10 @@ document.querySelector('.cleanbtn').addEventListener('click', function() {
     document.querySelectorAll('.product-status-dropdown input[type="checkbox"]').forEach(checkbox => {
         checkbox.checked = false;
     });
+    selectedLat = 0;
+    selectedLng = 0;
+    currentSort = 'low-to-high';
+    document.getElementById('sort-text').textContent = `Sort by price: Low to High`;
 
     displayProducts(allProducts);
 });
@@ -241,7 +245,7 @@ function displayProducts(products) {
             </div>
             <div class="product-info">
                 <h3 class="product-title">${product.name}</h3>
-                <p class="product-price">${product.price}€</p>
+                <p class="product-price">${product.price} €</p>
                 <p class="product-status">${capitalizeFirstLetter(product.condition)}</p>
                 <p class="product-description">${product.description || 'No description available.'}</p>
             </div>

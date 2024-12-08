@@ -5,6 +5,7 @@ const { Op } = require('sequelize');
 exports.getAll = async function (req, res) {
     try {
         var category = req.query.category;
+        var seller = req.query.seller;
 
         //var category = req.sanitize(req.query.category);
 
@@ -14,6 +15,11 @@ exports.getAll = async function (req, res) {
             category = decodeURIComponent(category);
             if (category !== "favorite")
                 filter.category = category;
+        }
+
+        if (seller) {
+            seller = decodeURIComponent(seller);
+            filter.seller = seller;
         }
 
         const products = await Product.findAll({
@@ -76,7 +82,7 @@ exports.saveProduct = async function (req, res) {
 
         // const user = req.sanitize(req.session.username);
 
-        const { name, category, price, description, image_url, location } = req.body;
+        const { name, category, price, description, condition, image_url, location } = req.body;
         const user = req.session.username;
 
         if (!name || !category || !price || !description || !condition || !image_url || !location.lat || !location.lng) {

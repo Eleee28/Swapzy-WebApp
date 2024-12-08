@@ -10,7 +10,7 @@ function moveCarouselRecents(direction) {
 
     const cardWidth = cards[0].offsetWidth + 20; // Adjust by margin
     const visibleCards = Math.floor(track.offsetWidth / cardWidth);
-    const maxIndex = cards.length - visibleCards;
+    const maxIndex = cards.length - visibleCards - 1;
 
     currentIndexRecents += direction;
     if (currentIndexRecents < 0) {
@@ -30,7 +30,7 @@ function moveCarouselFav(direction) {
 
     const cardWidth = cards[0].offsetWidth + 20; // Adjust by margin
     const visibleCards = Math.floor(track.offsetWidth / cardWidth);
-    const maxIndex = cards.length - visibleCards;
+    const maxIndex = cards.length - visibleCards  - 1;
 
     currentIndexFav += direction;
     if (currentIndexFav < 0) {

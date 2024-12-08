@@ -204,9 +204,9 @@ exports.updateUser = async function (req, res) {
         const user = await Users.findByPk(userid);
         if (user) {
             if (username && username !== user.username)
-                user.username = sanitizedUsername;
+                user.username = username;
             if (email && email !== user.email)
-                user.email = sanitizedEmail;
+                user.email = email;
             if (password && repeat_password) {
                 if (password === repeat_password)
                     user.password = await bcrypt.hash(password, 8);
@@ -242,7 +242,8 @@ exports.deleteUser = async function (req, res) {
     if (!username)
         return res.status(401).json({ message: "User not logged in" });
 
-    const password = req.sanitize(req.body.password);
+    //const password = req.sanitize(req.body.password);
+    const password = req.body.password;
 
     if (!password)
         return res.status(400).json({ message: "Password is required" });

@@ -118,7 +118,7 @@ function moveCarousel(direction) {
     const track = document.querySelector('.carousel-track');
     const cards = document.querySelectorAll('.carousel .product-card');
     const cardWidth = cards[0].offsetWidth + 20; // Adjust for margin
-    const maxIndex = cards.length - Math.floor(track.offsetWidth / cardWidth);
+    const maxIndex = cards.length - Math.floor(track.offsetWidth / cardWidth)  - 1;
 
     // Make sure index is within limits
     currentIndex += direction;
