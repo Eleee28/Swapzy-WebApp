@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swapzy - Main Page</title>
     <link rel="stylesheet" href="css/product.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/carousel.css">
+    <link rel="stylesheet" href="css/footer.css">
 
     <!-- Leaflet.js for maps API -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -56,17 +59,8 @@
 
     <!-- Main Content -->
 
-    <!-- Search Results Section -->
-    <div class="search-results-section" style="display: none;">
-        <h2 class="section-title">Search Results</h2>
-        <p class="message-text" style="display: none;"></p>
-        <div class="results-container">
-            <div class="results-track"></div>
-        </div>
-    </div>
-
     <!-- Product Card Example -->
-    <div class="product-card-details"">
+    <div class="product-card-details">
 
         <!-- User info example -->
         <div class="user-info">
@@ -125,7 +119,7 @@
     <div class="recently-uploaded-section">
         <h2 class="section-title">Recently Uploaded</h2>
         <div class="carousel-container">
-            <button class="carousel-btn prev-btn" onclick="moveCarousel(-1)">&#10094;</button>
+            <button class="carousel-btn prev-btn1" onclick="moveCarousel(-1)">&#10094;</button>
 
                 <div class="carousel">
 
@@ -133,7 +127,7 @@
 
                 </div>
             
-            <button class="carousel-btn next-btn" onclick="moveCarousel(1)">&#10095;</button>
+            <button class="carousel-btn next-btn1" onclick="moveCarousel(1)">&#10095;</button>
 
         </div>
     </div>

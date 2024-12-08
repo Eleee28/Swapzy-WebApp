@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle&display=swap');
+
+/* Reecently Uploaded Styles */
+.recently-uploaded-section, .favorites-section, .search-results-section{
+    padding: 20px;
+    text-align: left;
+    margin: 50px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fffffff1;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: #232528;
+    margin-bottom: 20px;
+}
+
+/* Carousel Container */
+.carousel-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: visible;
+}
+
+.carousel {
+    overflow: hidden; /* Limits visible content */
+    width: 100%; /* Occupies the full width */
+    max-width: 1000px; /* Adjusts to the width of the carousel */
+    margin: auto; /* Centres the carousel on the page */
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.4s ease;
+    margin: 10px;
+}
+
+/* Product Card Styling */
+.product-card {
+    min-width: calc(100% / 5 - 15px);
+    margin-right: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    text-align: center;
+    overflow: visible;
+    flex-shrink: 0; /* Prevents shrinking of cards */
+}
+
+.product-card:hover {
+    transform: translateY(-5px); /* Slightly raises the card */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increases shadow for depth effect */
+}
+
+.product-image {
+    width: 150px;
+    height: 100px; /* Sets a fixed height */
+    object-fit: cover; /* Ensures the image covers the area without distorting */
+    border-radius: 8px;
+}
+
+.product-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.product-price {
+    font-size: 2rem;
+    color: #333;
+}
+
+.product-title {
+    font-size: 2rem;
+    color: #555;
+}
+
+/* Carousel Buttons */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #ccc;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 1;
+}
+
+.carousel-btn:hover {
+    background-color: #000;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn1, .prev-btn2 {
+    left: 0;
+}
+
+.next-btn1, .next-btn2 {
+    right: 0;
+}
+
+/* From Uiverse.io by catraco https://uiverse.io/catraco/perfect-panda-49 */ 
+    .heart-container {
+        --heart-color: rgb(228, 84, 84);
+        position: relative;
+        width: 30px;
+        height: 30px;
+        transition: .3s;
+    }
+
+    .heart-container .checkbox {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: 20;
+        cursor: pointer;
+    }
+
+    .heart-container .svg-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .heart-container .svg-outline, .heart-container .svg-filled {
+        fill: var(--heart-color);
+        position: absolute;
+    }
+
+    .heart-container .svg-filled {
+        animation: keyframes-svg-filled 1s;
+        display: none;
+    }
+
+    .heart-container .svg-celebrate {
+        position: absolute;
+        animation: keyframes-svg-celebrate .5s;
+        animation-fill-mode: forwards;
+        display: none;
+        stroke: var(--heart-color);
+        fill: var(--heart-color);
+        stroke-width: 2px;
+    }
+
+    .heart-container .checkbox:checked~.svg-container .svg-filled {
+        display: block
+    }
+
+    .heart-container .checkbox:checked~.svg-container .svg-celebrate {
+        display: block
+    }
+
+    @keyframes keyframes-svg-filled {
+        0% {
+            transform: scale(0);
+        }
+
+        25% {
+            transform: scale(1.2);
+        }
+
+        50% {
+            transform: scale(1);
+            filter: brightness(1.5);
+        }
+    }
+
+    @keyframes keyframes-svg-celebrate {
+        0% {
+            transform: scale(0);
+        }
+
+        50% {
+            opacity: 1;
+            filter: brightness(1.5);
+        }
+
+        100% {
+            transform: scale(1.4);
+            opacity: 0;
+            display: none;
+        }
+    }
+
+    
+/* General Styles for Smaller Screens */
+@media (max-width: 768px) {
+    /* Recently Uploaded & Favorites Sections */
+    .recently-uploaded-section, .favorites-section {
+        margin: 20px;
+        padding: 15px;
+    }
+
+    /* Carousel adjustments */
+    .carousel-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 1200px) {
+    /* Show 4 products for screens smaller than 1200px */
+    .product-card {
+        min-width: calc(100% / 4 - 15px);
+    }
+}
+
+@media (max-width: 992px) {
+    /* Show 3 products for screens smaller than 992px */
+    .product-card {
+        min-width: calc(100% / 3 - 15px);
+    }
+}
+
+@media (max-width: 768px) {
+    /* Show 2 products for screens smaller than 768px */
+    .product-card {
+        min-width: calc(100% / 2 - 15px);
+    }
+}

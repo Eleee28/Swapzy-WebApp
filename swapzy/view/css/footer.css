@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle&display=swap');
+
+/* Footer Styles */
+.footer {
+    position: relative;
+    background-color: #232528;
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+  
+.footer-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+  
+.footer-logo {
+    width: 40px;
+    height: auto;
+    border-radius: 10%;
+}
+  
+.footer-logo-text {
+    font-size: 2rem;
+    color: #a44cd3;
+    font-weight: bold;
+}
+
+/* General Styles for Smaller Screens */
+@media (max-width: 768px) {
+
+    /* Footer */
+    .footer {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .footer-logo-container {
+      margin-bottom: 10px;
+    }
+  }
