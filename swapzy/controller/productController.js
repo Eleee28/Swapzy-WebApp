@@ -7,8 +7,6 @@ exports.getAll = async function (req, res) {
         var category = req.query.category;
         var seller = req.query.seller;
 
-        //var category = req.sanitize(req.query.category);
-
         const filter = {};
         
         if (category) {
@@ -51,7 +49,6 @@ exports.getRecent = async function (req, res) {
 
 // Controller to get a product by ID
 exports.getByID = async function (req, res) {
-    //const id = req.sanitize(req.params.id);
     const id = req.params.id;
 
     try {
@@ -69,19 +66,6 @@ exports.getByID = async function (req, res) {
 // Controller to save a product
 exports.saveProduct = async function (req, res) {
     try {
-        // const name = req.sanitize(req.body.name);
-        // const category = req.sanitize(req.body.category);
-        // const price = parseFloat(req.sanitize(req.body.price));
-        // const description = req.sanitize(req.body.description);
-        // const condition = req.sanitize(req.body.condition);
-        // const image_url = req.sanitize(req.body.image_url);
-        // const location = {
-        //     lat: parseFloat(req.sanitize(req.body.lat)),
-        //     lng: parseFloat(req.sanitize(req.body.lng))
-        // }
-
-        // const user = req.sanitize(req.session.username);
-
         const { name, category, price, description, condition, image_url, location } = req.body;
         const user = req.session.username;
 
@@ -116,9 +100,7 @@ exports.getConditionValues = function (req, res) {
 
 // Controller for search functionality
 exports.search = async function (req, res) {
-    //const query = req.sanitize(req.query.query);
     const query = req.query.query;
-
 
     if (!query) {
         return res.status(400).json({ message: 'Query parameter is required' });
@@ -144,7 +126,6 @@ exports.search = async function (req, res) {
 
 // Controller method to delete a product by id
 exports.deleteProduct = async function (req, res) {
-    //const id = req.sanitize(req.body.prodId);
     const id = req.body.prodId;
 
     try {

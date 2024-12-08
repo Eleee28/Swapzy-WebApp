@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const prodController = require('../controller/productController');
 
+const sanitizeMiddleware = require('../middleware/sanitizeMiddleware');
+
+// Apply sanitize middleware
+router.use(sanitizeMiddleware);
+
 // Route to get all products
 router.get('/api/products', prodController.getAll);
 

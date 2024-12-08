@@ -6,11 +6,6 @@ const { use } = require('passport');
 exports.createUser = async function (req, res) {
     const { username, email, password, repeat_password } = req.body;
 
-    // const sanitizedUsername = req.sanitize(username);
-    // const sanitizedEmail = req.sanitize(email);
-    // const sanitizedPassword = req.sanitize(password);
-    // const sanitizedRepeat_password = req.sanitize(repeat_password);
-
     let errorMessage = '';
 
     // Input validation
@@ -75,9 +70,6 @@ async function emailTaken(email) {
 exports.login = async function (req, res) {
     const { username, password } = req.body;
 
-    // const sanitizedUsername = req.sanitize(username);
-    // const sanitizedPassword = req.sanitize(password);
-
     let errorMessage = '';
 
     if (!username || !password)
@@ -99,7 +91,6 @@ exports.login = async function (req, res) {
     } catch (err) {
         console.error(err);
         return res.status(500).json({ message: 'Error processing login request' });
-
     }
 }
 
@@ -138,7 +129,6 @@ exports.logout = async function (req, res) {
 
 // Controller method to get a user by id
 exports.getById = async function (req, res) {
-    //const username = req.sanitize(req.params.username);
     const username = req.params.username;
 
     try {
@@ -189,16 +179,9 @@ exports.getUserLocation = async function (req, res) {
 
 // Controller method to update a user by id
 exports.updateUser = async function (req, res) {
-    //const userid = req.sanitize(req.session.username)
     const userid = req.session.username
 
     const { username, email, password, repeat_password, location, image_url } = req.body;
-
-    // const sanitizedUsername = req.sanitize(username);
-    // const sanitizedEmail = req.sanitize(email);
-    // const sanitizedPassword = req.sanitize(password);
-    // const sanitizedRepeat_password = req.sanitize(repeat_password);
-    // const sanitizedImage = req.sanitize(image_url);
 
     try {
         const user = await Users.findByPk(userid);
@@ -236,13 +219,11 @@ exports.updateUser = async function (req, res) {
 
 // Controller to delete a user
 exports.deleteUser = async function (req, res) {
-    //const username = req.sanitize(req.session.username);
     const username = req.session.username;
 
     if (!username)
         return res.status(401).json({ message: "User not logged in" });
 
-    //const password = req.sanitize(req.body.password);
     const password = req.body.password;
 
     if (!password)
