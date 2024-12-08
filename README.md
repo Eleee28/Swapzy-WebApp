@@ -101,10 +101,10 @@ swapzy/
 
 5. Open the app in your browser at ``http://localhost:8080``
 
-<!-- ## Credits
+## Credits
 
 This was developed by two students at TUD:
 
 **[![Name](https://github.com/Eleee28.png?size=20)](https://github.com/Eleee28)** **&nbsp;&nbsp;Elena Juarros González**
 
-**[![Name](https://github.com/isaalfageme.png?size=20)](https://github.com/isaalfageme)** **&nbsp;&nbsp;Isabel Alfageme Rey** -->
+**[![Name](https://github.com/isaalfageme.png?size=20)](https://github.com/isaalfageme)** **&nbsp;&nbsp;Isabel Alfageme Rey**
