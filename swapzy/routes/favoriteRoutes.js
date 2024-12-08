@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const favController = require('../controller/favoriteController');
 
+const sanitizeMiddleware = require('../middleware/sanitizeMiddleware');
+
+// Apply sanitize middleware
+router.use(sanitizeMiddleware);
+
 // Router to get favorite products
 router.get('/api/favorite', favController.getFavorite);
 
