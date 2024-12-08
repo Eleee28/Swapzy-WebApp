@@ -85,99 +85,44 @@ npx sequelize-cli db:migrate:undo
 
 ## Database structure
 
-![db structure](db_structure_v2.png)
+![db structure](db_structure.png)
 
 ~~~ DBML
 Table user {
-  id integer [primary key]
-  username string
+  username string [primary key]
   email string
   password string
   location geography
   profile_img string // image url
-  rating double // optional feature
-  created_at timestamp
-  updated_at timestamp
 }
 
 Table product {
   id integer [primary key]
-  seller_id integer // foreign key
+  seller string // foreign key
   name string
   description string // maybe more chars (text)
   condition enum // 'new', 'like new', ...
   price double
-  category_id int // foreign key
+  category string // foreign key
   location geography
   image_url string
-  created_at timestamp
-  updated_at timestamp
-  status enum // 'available', 'sold', 'reserved'
 }
 
 Table category {
-  id integer [primary key]
-  name string
-}
-
-Table sale {
-  id integer [primary key]
-  buyer_id integer // fk
-  seller_id integer // fk
-  product_id integer // fk
-  amount double
-  status enum // 'pending', 'completed', 'cancelled'
-  sale_date date
-}
-
-// optional
-Table review {
-  id integer [primary key]
-  reviewer_id integer // fk
-  reviewed_user integer // fk
-  rating double
-  text string // maybe longer
-  review_date timestamp
-}
-
-Table message {
-  id integer [primary key]
-  sender_id integer // fk
-  receiver_id integer // fk
-  product_id integer // fk
-  text string
-  sent_date timestamp
+  name string [primary key]
 }
 
 Table favorites {
   id integer [primary key]
-  user_id integer // fk
+  user integer // fk
   product_id integer // fk
-  fav_date timestamp // maybe delete
 }
 
-Ref: product.seller_id < user.id
+Ref: product.seller < user.username
 
-Ref: product.category_id < category.id
+Ref: product.category < category.name
 
-Ref: sale.buyer_id < user.id
-
-Ref: sale.seller_id < user.id
-
-Ref: sale.product_id - product.id
-
-Ref: review.reviewer_id < user.id
-
-Ref: review.reviewed_user < user.id
-
-Ref: message.sender_id < user.id
-
-Ref: message.receiver_id < user.id
-
-Ref: message.product_id < product.id
-
-Ref: favorites.user_id < user.id
+Ref: favorites.user < user.username
 
 Ref: favorites.product_id < product.id
-
 ~~~
