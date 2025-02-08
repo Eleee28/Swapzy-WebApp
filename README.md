@@ -69,6 +69,8 @@ swapzy/
 
 - PostgreSQL installed and running
 
+- Database initialized with [dump file](swapzy_db_dump.sql)
+
 - ``.env`` file configured with database credentials
 
 ### Steps
